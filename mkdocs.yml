@@ -1,0 +1,53 @@
+site_name: SeaSearch Manual
+site_author: seafile
+docs_dir: ./manual
+site_url: https://haiwen.github.io/seasearch-docs/
+
+repo_name: haiwen/seasearch-docs
+repo_url: https://github.com/haiwen/seasearch-docs/
+edit_uri: blob/master/manual
+
+copyright: Copyright &copy; 2023 Seafile Ltd.
+
+theme:
+  name: material
+  logo: media/seafile-transparent-1024.png
+  favicon: media/favicon.ico
+  palette:
+    primary: white
+    accent:
+
+plugins:
+  - search
+  - awesome-pages
+
+# Customization
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/haiwen/seasearch-docs/
+
+extra_css:
+  - stylesheets/extra.css
+
+# Extensions
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.attr_list
+  - markdown.extensions.codehilite:
+      guess_lang: true
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+      toc_depth: "1-4"
+
+# Page tree
+nav:
+  - Setup:
+    - Installation of SeaSearch: setup/README.md
+  - Deploy:
+      - Deploy SeaSearch: deploy/README.md
+  - Configuration: config/README.md
+  - SeaSearch API: api/seasearch_api.md
