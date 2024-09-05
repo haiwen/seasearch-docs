@@ -1,6 +1,6 @@
 # 启动 SeaSearch
 
-## 启动单机 SeaSearch
+## 启动单机
 
 对于开发环境而言，只需要按照官方说明，配置 启动帐号和启动密码两个 环境变量即可。
 
@@ -18,8 +18,6 @@ ZINC_FIRST_ADMIN_USER=admin ZINC_FIRST_ADMIN_PASSWORD=Complexpass#123 GIN_MODE=r
 如果需要重置数据，删除整个 data 目录再重启即可，这会清理所有元数据以及索引数据。
 
 ## 启动集群
-
-# 集群部署
 
 1. 启动 etcd
 
