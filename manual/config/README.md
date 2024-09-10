@@ -1,21 +1,21 @@
-# SeaSearch 配置项目
+# SeaSearch Configuration
 
-官方配置可以参考：[https://zincsearch-docs.zinc.dev/environment-variables/](https://zincsearch-docs.zinc.dev/environment-variables/)
+The official configuration can be referenced：[https://zincsearch-docs.zinc.dev/environment-variables/](https://zincsearch-docs.zinc.dev/environment-variables/)
 
-以下配置说明，为我们扩展的配置项，所有配置，都是以环境变量的方式设置的。
+The following configuration instructions are for our extended configuration items. All configurations are set in the form of environment variables.
 
-## 扩展配置
+## Extended configuration
 
 ```
-GIN_MODE gin框架的日志模式，默认为 release
-ZINC_WAL_ENABLE 是否启用 WAL，默认启用
+GIN_MODE, log mode of gin framework，default release
+ZINC_WAL_ENABLE, whether to enable WAL，defaule enabled
 ZINC_STORAGE_TYPE
-ZINC_MAX_OBJ_CACHE_SIZE 启用 s3，oss时，本地最大缓存文件大小
-ZINC_SHARD_LOAD_OBJS_GOROUTINE_NUM 索引加载并行度，在启用s3和Oss时，能提升索引载速度
+ZINC_MAX_OBJ_CACHE_SIZE, when s3 and oss are enabled, the maximum local cache file size
+ZINC_SHARD_LOAD_OBJS_GOROUTINE_NUM, index loading parallelism, when S3 and oss are enabled, can improve the index loading speed
 
-ZINC_SHARD_NUM zincsearch 原有默认为 3，由于 seaseach 都是每个资料库一个索引，为了提升加载效率，改为默认为 1
+ZINC_SHARD_NUM zincsearch the original default value is 3. Since seaseach has one index per database, in order to improve loading efficiency, the default value is changed to 1
 
-s3相关，仅在 ZINC_STORAGE_TYPE=s3 时生效
+S3 related, only valid when ZINC_STORAGE_TYPE=s3
 ZINC_S3_ACCESS_ID
 ZINC_S3_USE_V4_SIGNATURE
 ZINC_S3_ACCESS_SECRET
@@ -24,41 +24,41 @@ ZINC_S3_USE_HTTPS
 ZINC_S3_PATH_STYLE_REQUEST
 ZINC_S3_AWS_REGION
 
-oss相关，仅在 ZINC_STORAGE_TYPE=oss 时生效
+OSS related, only valid when ZINC_STORAGE_TYPE=oss
 ZINC_OSS_ACCESS_ID
 ZINC_OSS_ACCESS_SECRET
 ZINC_OSS_BUCKET
 ZINC_OSS_ENDPOINT
 
-集群相关
-ZINC_SERVER_MODE 默认 none 为单机部署，可选 cluster,集群时必须为 cluster
-ZINC_CLUSTER_ID 集群id，需要全局唯一
-ZINC_ETCD_ENDPOINTS etcd 地址
-ZINC_ETCD_ENDPOINTS etcd key前缀 默认 /zinc
-ZINC_ETCD_USERNAME  etcd 用户名
-ZINC_ETCD_PASSWORD  etcd 密码
+cluster related
+ZINC_SERVER_MODE, default none for standalone deployment, optional to cluster, must be cluster for cluster deployment
+ZINC_CLUSTER_ID, cluster id，need to be globally unique
+ZINC_ETCD_ENDPOINTS, etcd address
+ZINC_ETCD_ENDPOINTS, etcd key prefix, default /zinc
+ZINC_ETCD_USERNAME,  etcd username
+ZINC_ETCD_PASSWORD,  etcd password
 
-日志相关
-ZINC_LOG_OUTPUT 是否将日志输出到文件，默认 是
-ZINC_LOG_DIR 日志目录，建议配置，默认为当前目录下的 log 子目录
-ZINC_LOG_LEVEL 日志级别，默认 debug
+log related
+ZINC_LOG_OUTPUT, whether to output logs to files, default yes
+ZINC_LOG_DIR, log directory, recommended configuration, default is the log subdirectory under the current directory
+ZINC_LOG_LEVEL, log level，default debug
 
 ```
 
-## proxy 配置
+## proxy configuration
 
 ```
 ZINC_CLUSTER_PROXY_LOG_DIR=./log 
 ZINC_CLUSTER_PROXY_HOST=0.0.0.0
 ZINC_CLUSTER_PROXY_PORT=4082
-ZINC_SERVER_MODE=proxy #必须为proxy
+ZINC_SERVER_MODE=proxy # must be proxy
 ZINC_ETCD_ENDPOINTS=127.0.0.1:2379
 ZINC_ETCD_PREFIX=/zinc
-ZINC_MAX_DOCUMENT_SIZE=1m #bulk和multisearch 对单个最大document的限制，默认1m
-ZINC_CLUSTER_MANAGER_ADDR=127.0.0.1:4081 #manager 地址
+ZINC_MAX_DOCUMENT_SIZE=1m # Bulk and multisearch limit on the maximum single document，default 1m 
+ZINC_CLUSTER_MANAGER_ADDR=127.0.0.1:4081 # manager address
 ```
 
-## cluster-manger 配置
+## cluster-manger configuration
 
 ```
 ZINC_CLUSTER_MANAGER_LOG_DIR=./log

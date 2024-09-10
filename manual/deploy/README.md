@@ -1,28 +1,28 @@
-# 启动 SeaSearch
+# Launch SeaSearch
 
-## 启动单机
+## Start a single machine
 
-对于开发环境而言，只需要按照官方说明，配置 启动帐号和启动密码两个 环境变量即可。
+For the development environment, you only need to follow the official instructions to configure the two environment variables of the startup account and startup password.
 
-编译 SeaSearch 参考： [Setup](../setup/README.md)
+Compile SeaSearch reference： [Setup](../setup/README.md)
 
-对于开发环境，直接配置环境变量，并启动二进制文件即可；
+For the development environment, simply configure the environment variables and start the binary file
 
-以下命令会首先创建一个 data文件夹，作为默认的存储路径，之后以 admin 以及 Complexpass#123作为初始用户，启动一个 SeaSearch 程序，并默认监听4080端口：
+The following command will first create a data folder as the default storage path, then start a SeaSearch program with admin and xxx as the initial users, and listen to port 4080 by default:
 
 ```
 mkdir data
-ZINC_FIRST_ADMIN_USER=admin ZINC_FIRST_ADMIN_PASSWORD=Complexpass#123 GIN_MODE=release ./SeaSearch
+ZINC_FIRST_ADMIN_USER=admin ZINC_FIRST_ADMIN_PASSWORD=xxx GIN_MODE=release ./SeaSearch
 ```
 
-如果需要重置数据，删除整个 data 目录再重启即可，这会清理所有元数据以及索引数据。
+If you need to reset the data, just delete the entire data directory and restart, which will clean up all metadata and index data.
 
-## 启动集群
+## Start the cluster
 
-1. 启动 etcd
+1. Start etcd
 
-2. 启动 SeaSearch 节点，节点会自动向 etcd 注册心跳。
+2. Start the SeaSearch node, which will automatically register its heartbeat with etcd.
 
-3. 启动 cluster-manager，然后通过 API 或者 直接向 etcd 设置 cluster-info，设置SeaSearch 节点的地址。并且同时，cluster-manager 开始根据节点心跳对分片进行分配。
+3. Start cluster-manager, then set the address of the SeaSearch node through the API or directly set cluster-info to etcd. At the same time, cluster-manager starts to allocate shards based on the node heartbeat.
 
-4. 启动 SeaSearch-proxy，此时就可以对外提供服务了。
+4. Start SeaSearch-proxy, and you can now provide services to the outside world.
