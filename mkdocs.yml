@@ -45,9 +45,8 @@ markdown_extensions:
 
 # Page tree
 nav:
-  - SeaSearch Setup:
-    - Installation: setup/README.md
   - Deploy:
-      - Deploy SeaSearch: deploy/README.md
+      - Deploy SeaSearch by Manual: deploy/Deploy_by_manual.md
+      - Deploy SeaSearch by Docker: deploy/Deploy_by_docker.md
   - Configuration: config/README.md
   - SeaSearch API: api/seasearch_api.md

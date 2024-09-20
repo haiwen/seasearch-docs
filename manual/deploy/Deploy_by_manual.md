@@ -1,12 +1,14 @@
-# Installation of SeaSearch
+# Deploy SeaSearch by Manual
+
+## Installation of SeaSearch
 
 The original version of SeaSearch is written in pure Go language and can be compiled directly through the Go compilation tool. When we introduced the vector search function, we used the faiss library, which needs to be called in CGO mode, so it will affect the compilation of SeaSearch.
 
-## Installation of faiss
+### Installation of faiss
 
 To compile or run SeaSearch on a machine, you need to install the faiss library on that machine. The following are the specific installation steps, which are applicable to x86 linux machines. The operating system used in the process is debian 12, using apt as the package manager.
 
-### Prerequisites
+#### Prerequisites
 
 Install through the package manager. If the connection speed is slow, you can try changing the source
 
@@ -50,7 +52,7 @@ echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.co
 sudo apt update && sudo apt install nodejs -y
 ```
 
-### Install Intel MKL library (optional, only supports x86 CPU)
+#### Install Intel MKL library (optional, only supports x86 CPU)
 
 faiss relies on BLAS, and Intel MKL is recommended for best performance.
 
@@ -79,7 +81,7 @@ MKL cannot be installed on non-x86 CPUs, but can be instead by installing OpenBL
 sudo apt install -y libatlas-base-dev libatlas3-base
 ```
 
-### compile faiss
+#### compile faiss
 
 Download faiss source code by ssh:
 
@@ -136,7 +138,7 @@ sudo cp /tmp/faiss/build/c_api/libfaiss_c.so /usr/lib
 
 For the complete installation script, please refer to /ci/install\_faiss.sh in the SeaSearch project directory.
 
-## Compile SeaSearch
+### Compile SeaSearch
 
 Faiss has been installed, you can start compiling SeaSearch
 
@@ -198,7 +200,7 @@ If the runtime prompts that the dynamic link library cannot be found, you can us
 LD_LIBRARY_PATH=/usr/lib # Specify the dynamic link library directory
 ```
 
-## Compile seasearch proxy and cluster manger
+### Compile seasearch proxy and cluster manger
 
 In a cluster, you need to compile and deploy seasearch proxy and cluster manager
 
@@ -215,7 +217,7 @@ go build -o cluster-manager ./cmd/cluster-manager/main.go
 ```
 
 
-## Publish
+### Publish
 
 There is a Dokcerfile file in the project root directory, and you can build a docker image based on this file
 
@@ -225,13 +227,13 @@ Note: To build this docker image, you need to ensure that you can access github 
 docker build -f ./Dockerfile .
 ```
 
-## Installation issues on Mac
+### Installation issues on Mac
 
-### faiss installation
+#### faiss installation
 
 faiss can be installed via brew install faiss.
 
-### fatal error: 'faiss/c\_api/AutoTune\_c.h' file not found
+#### fatal error: 'faiss/c\_api/AutoTune\_c.h' file not found
 
 Execute the following command to solve:
 
@@ -245,3 +247,32 @@ make -C build
 sudo make -C build install
 sudo cp build/c_api/libfaiss_c.dylib /usr/local/lib/libfaiss_c.dylib
 ```
+
+## Launch SeaSearch
+
+### Start a single machine
+
+For the development environment, you only need to follow the official instructions to configure the two environment variables of the startup account and startup password.
+
+Compile SeaSearch reference： [Setup](../setup/README.md)
+
+For the development environment, simply configure the environment variables and start the binary file
+
+The following command will first create a data folder as the default storage path, then start a SeaSearch program with admin and xxx as the initial users, and listen to port 4080 by default:
+
+```
+mkdir data
+ZINC_FIRST_ADMIN_USER=admin ZINC_FIRST_ADMIN_PASSWORD=xxx GIN_MODE=release ./SeaSearch
+```
+
+If you need to reset the data, just delete the entire data directory and restart, which will clean up all metadata and index data.
+
+### Start the cluster
+
+1. Start etcd
+
+2. Start the SeaSearch node, which will automatically register its heartbeat with etcd.
+
+3. Start cluster-manager, then set the address of the SeaSearch node through the API or directly set cluster-info to etcd. At the same time, cluster-manager starts to allocate shards based on the node heartbeat.
+
+4. Start SeaSearch-proxy, and you can now provide services to the outside world.
