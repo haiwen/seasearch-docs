@@ -1,12 +1,14 @@
 # SeaSearch Configuration
 
-## Environment Variables
+## Original Configurations
 
-The official configuration can be referenced：[https://zincsearch-docs.zinc.dev/environment-variables/](https://zincsearch-docs.zinc.dev/environment-variables/)
+The original configurations of environment variables can be referenced：[https://zincsearch-docs.zinc.dev/environment-variables/](https://zincsearch-docs.zinc.dev/environment-variables/)
 
 The following configuration instructions are for our extended configuration items. All configurations are set in the form of environment variables.
 
-### Extended Environment Variables
+## Extended Configurations in SeaSearch
+
+### Single-Node Configurations
 
 ```
 GIN_MODE, log mode of gin framework，default release
@@ -47,7 +49,7 @@ ZINC_LOG_LEVEL, log level，default debug
 
 ```
 
-#### Proxy Configuration
+### Proxy Configurations
 
 ```
 ZINC_CLUSTER_PROXY_LOG_DIR=./log 
@@ -60,7 +62,7 @@ ZINC_MAX_DOCUMENT_SIZE=1m # Bulk and multisearch limit on the maximum single doc
 ZINC_CLUSTER_MANAGER_ADDR=127.0.0.1:4081 # manager address
 ```
 
-#### Cluster-manger Configuration
+### Cluster-manger Configurations
 
 ```
 ZINC_CLUSTER_MANAGER_LOG_DIR=./log
@@ -69,32 +71,3 @@ ZINC_CLUSTER_MANAGER_PORT=4081
 ZINC_CLUSTER_MANAGER_ETCD_ENDPOINTS=127.0.0.1:2379
 ZINC_CLUSTER_MANAGER_ETCD_PREFIX=/zinc
 ```
-
-## Integration into SeaTable Service by Nginx
-
-Add a `location` block in `nginx.conf`:
-
-```conf
-#... 
-server { 
-    #...  
-    location /sea-search/ {   
-        proxy_pass http://127.0.0.1:4080;  
-  
-        proxy_http_version 1.1;  
-        proxy_set_header Upgrade $http_upgrade;  
-        proxy_set_header Connection 'upgrade';  
-        proxy_set_header Host $host;  
-        proxy_cache_bypass $http_upgrade;  
-        proxy_set_header X-Real-IP $remote_addr;  
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
-        proxy_set_header X-Forwarded-Proto $scheme;  
-
-        #...
-    }
-    #...
-}
-#...
-```
-
-You can browse the SeaSearch and use relative APIs by the url `http(s)://{your_SeaTable_server_url}/sea-search/` after restarting the nginx service.

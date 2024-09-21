@@ -1,6 +1,6 @@
-# Deploy by Docker
+# Deploy
 
-If your SeaTable service is deployed using [docker](https://admin.seatable.io/installation/basic-setup/), we also recommend that you use docker to deploy SeaSearch.
+Note: SeaSearch only supports deployment via docker now.
 
 ## Modify .env file
 
@@ -46,9 +46,11 @@ networks:
 
 ```
 
-Restart the services, and browse seasearch services in [http://127.0.0.1:4080/](http://127.0.0.1:4080/).
+Restart the services
 
 ```shell
 docker-compose down
 docker-compose up
 ```
+
+Browse seasearch services in [http://127.0.0.1:4080/](http://127.0.0.1:4080/).
