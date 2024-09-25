@@ -12,6 +12,8 @@ First, you need to specify the environment variables used by the SeaSearch image
 COMPOSE_FILE='docker-compose.yml,seasearch.yml'
 
 # other environment variables in .env file
+# For Apple's chip (M2, e.g.), you should use the images with -nomkl tags (i.e., seafileltd/seasearch-nomkl:latest)
+SEASEARCH_IMAGE=seafileltd/seasearch:latest
 
 SEASEARCH_DATA_PATH=<persistent-volume-path-of-seasearch>
 ZINC_FIRST_ADMIN_USER=<admin-username>  
