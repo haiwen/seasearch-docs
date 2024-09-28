@@ -2,9 +2,15 @@
 
 Note: SeaSearch only supports deployment via docker now.
 
+## Download the seasearch.yml
+
+```bash
+wget https://haiwen.github.io/seasearch-docs/repo/seasearch.yml
+```
+
 ## Modify .env file
 
-First, you need to specify the environment variables used by the SeaSearch image in the relevant `.env` file. Some environment variables can be found in [here](../config/README.md). Please add and modify the values (i.e., `<...>`) ​​of the following fields in the `.env` file
+First, you need to specify the environment variables used by the SeaSearch image in the relevant `.env` file. Some environment variables can be found in [here](../config/README.md). Please add and modify the values (i.e., `<...>`) ​​of the following fields in the `.env` file.
 
 
 ```shell
@@ -20,35 +26,9 @@ ZINC_FIRST_ADMIN_USER=<admin-username>
 ZINC_FIRST_ADMIN_PASSWORD=<admin-password>
 ```
 
-## SeaSearch.yml
+Note: if new environment variables are added in .env, they also need to **be set synchronously** in the `seasearch.yml`
 
-```yml
-services:  
-  seasearch:  
-    image: ${SEASEARCH_IMAGE:-seafileltd/seasearch:latest}
-    container_name: seasearch  
-    volumes:  
-      - ${SEASEARCH_DATA_PATH}:/opt/seasearch/data  
-    ports:  
-      - "4080:4080" 
-    environment: 
-      # Note: if new environment variables are added in .env, they also need to be set synchronously here
-      - ZINC_FIRST_ADMIN_USER=${ZINC_FIRST_ADMIN_USER}
-      - ZINC_FIRST_ADMIN_PASSWORD=${ZINC_FIRST_ADMIN_PASSWORD}
-    networks:
-      - frontend-net
-      - backend-scheduler-net
-
-
-networks:
-  frontend-net:
-    name: frontend-net
-  backend-scheduler-net:
-    name: backend-scheduler-net
-
-```
-
-Restart the services
+## Restart the Service
 
 ```shell
 docker-compose down
