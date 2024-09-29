@@ -1,28 +1,38 @@
-# Launch SeaSearch
+# Deploy
 
-## Start a single machine
+Note: SeaSearch only supports deployment via docker now.
 
-For the development environment, you only need to follow the official instructions to configure the two environment variables of the startup account and startup password.
+## Download the seasearch.yml
 
-Compile SeaSearch reference： [Setup](../setup/README.md)
-
-For the development environment, simply configure the environment variables and start the binary file
-
-The following command will first create a data folder as the default storage path, then start a SeaSearch program with admin and xxx as the initial users, and listen to port 4080 by default:
-
-```
-mkdir data
-ZINC_FIRST_ADMIN_USER=admin ZINC_FIRST_ADMIN_PASSWORD=xxx GIN_MODE=release ./SeaSearch
+```bash
+wget https://haiwen.github.io/seasearch-docs/repo/seasearch.yml
 ```
 
-If you need to reset the data, just delete the entire data directory and restart, which will clean up all metadata and index data.
+## Modify .env file
 
-## Start the cluster
+First, you need to specify the environment variables used by the SeaSearch image in the relevant `.env` file. Some environment variables can be found in [here](../config/README.md). Please add and modify the values (i.e., `<...>`) ​​of the following fields in the `.env` file.
 
-1. Start etcd
 
-2. Start the SeaSearch node, which will automatically register its heartbeat with etcd.
+```shell
+# If seasearch uses a separate configuration file such as seasearch.yml, you need to write it into COMPOSE_FILE
+COMPOSE_FILE='docker-compose.yml,seasearch.yml'
 
-3. Start cluster-manager, then set the address of the SeaSearch node through the API or directly set cluster-info to etcd. At the same time, cluster-manager starts to allocate shards based on the node heartbeat.
+# other environment variables in .env file
+# For Apple's chip (M2, e.g.), you should use the images with -nomkl tags (i.e., seafileltd/seasearch-nomkl:latest)
+SEASEARCH_IMAGE=seafileltd/seasearch:latest
 
-4. Start SeaSearch-proxy, and you can now provide services to the outside world.
+SEASEARCH_DATA_PATH=<persistent-volume-path-of-seasearch>
+ZINC_FIRST_ADMIN_USER=<admin-username>  
+ZINC_FIRST_ADMIN_PASSWORD=<admin-password>
+```
+
+Note: if new environment variables are added in .env, they also need to **be set synchronously** in the `seasearch.yml`
+
+## Restart the Service
+
+```shell
+docker-compose down
+docker-compose up
+```
+
+Browse seasearch services in [http://127.0.0.1:4080/](http://127.0.0.1:4080/).

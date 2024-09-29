@@ -1,10 +1,14 @@
 # SeaSearch Configuration
 
-The official configuration can be referenced：[https://zincsearch-docs.zinc.dev/environment-variables/](https://zincsearch-docs.zinc.dev/environment-variables/)
+## Original Configurations
+
+The original configurations of environment variables can be referenced：[https://zincsearch-docs.zinc.dev/environment-variables/](https://zincsearch-docs.zinc.dev/environment-variables/)
 
 The following configuration instructions are for our extended configuration items. All configurations are set in the form of environment variables.
 
-## Extended configuration
+## Extended Configurations in SeaSearch
+
+### Single-Node Configurations
 
 ```
 GIN_MODE, log mode of gin framework，default release
@@ -45,7 +49,7 @@ ZINC_LOG_LEVEL, log level，default debug
 
 ```
 
-## proxy configuration
+### Proxy Configurations
 
 ```
 ZINC_CLUSTER_PROXY_LOG_DIR=./log 
@@ -58,7 +62,7 @@ ZINC_MAX_DOCUMENT_SIZE=1m # Bulk and multisearch limit on the maximum single doc
 ZINC_CLUSTER_MANAGER_ADDR=127.0.0.1:4081 # manager address
 ```
 
-## cluster-manger configuration
+### Cluster-manger Configurations
 
 ```
 ZINC_CLUSTER_MANAGER_LOG_DIR=./log
