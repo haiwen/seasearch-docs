@@ -6,7 +6,7 @@
 
 ```shell
 # log mode of gin framework，default release
-ZINC_WAL_ENABLE=release
+ZINC_WAL_ENABLE=true
 
 # type of storage's engine, i.e., s3
 ZINC_STORAGE_TYPE=
@@ -50,14 +50,13 @@ ZINC_ETCD_PASSWORD=<your etcd password>
 ```
 
 ### Proxy Configurations
+If the current node is a proxy node, the term `ZINC_SERVER_MODE` has to be set as **proxy** and the `ZINC_ETCD_ENDPOINTS` has to be pointed (i.e., =127.0.0.1:2379).
 
 ```shell
 ZINC_CLUSTER_PROXY_LOG_DIR=/opt/seasearch/data/log 
 ZINC_CLUSTER_PROXY_HOST=0.0.0.0
 ZINC_CLUSTER_PROXY_PORT=4082
-ZINC_SERVER_MODE=proxy # must be proxy
-ZINC_ETCD_ENDPOINTS=127.0.0.1:2379
-ZINC_ETCD_PREFIX=/zinc
+ZINC_ETCD_PREFIX=<yout etcd perfix, default /zinc>
 ZINC_MAX_DOCUMENT_SIZE=1m # Bulk and multisearch limit on the maximum single document，default 1m 
 ZINC_CLUSTER_MANAGER_ADDR=127.0.0.1:4081 # manager address
 ```
@@ -68,14 +67,14 @@ ZINC_CLUSTER_MANAGER_ADDR=127.0.0.1:4081 # manager address
 ZINC_CLUSTER_MANAGER_LOG_DIR=/opt/seasearch/data/log
 ZINC_CLUSTER_MANAGER_HOST=0.0.0.0
 ZINC_CLUSTER_MANAGER_PORT=4081
-ZINC_CLUSTER_MANAGER_ETCD_ENDPOINTS=127.0.0.1:2379
-ZINC_CLUSTER_MANAGER_ETCD_PREFIX=/zinc
+ZINC_CLUSTER_MANAGER_ETCD_ENDPOINTS=<your etcd endpoints>
+ZINC_CLUSTER_MANAGER_ETCD_PREFIX=<yout etcd perfix, default /zinc>
 ```
 
 ## Logs Configurations
 
 ```shell
-ZINC_LOG_OUTPUT=yes #whether to output logs to files, default yes
+ZINC_LOG_OUTPUT=true #whether to output logs to files, default yes
 ZINC_LOG_DIR=/opt/seasearch/data/log #log directory
 ZINC_LOG_LEVEL=debug #log level，default debug
 ```
