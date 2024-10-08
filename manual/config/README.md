@@ -1,73 +1,80 @@
 # SeaSearch Configuration
 
-## Original Configurations
+## Single-Node Configurations
 
-The original configurations of environment variables can be referenced：[https://zincsearch-docs.zinc.dev/environment-variables/](https://zincsearch-docs.zinc.dev/environment-variables/)
+### Basic Configurations
 
-The following configuration instructions are for our extended configuration items. All configurations are set in the form of environment variables.
+```shell
+# log mode of gin framework，default release
+ZINC_WAL_ENABLE=true
 
-## Extended Configurations in SeaSearch
+# type of storage's engine, i.e., s3
+ZINC_STORAGE_TYPE=
 
-### Single-Node Configurations
-
+# the number of shards, since seaseach has one index per database, in order to improve loading efficiency, the default value is changed to 1
+ZINC_SHARD_NUM=1
 ```
-GIN_MODE, log mode of gin framework，default release
-ZINC_WAL_ENABLE, whether to enable WAL，defaule enabled
-ZINC_STORAGE_TYPE
-ZINC_MAX_OBJ_CACHE_SIZE, when s3 and oss are enabled, the maximum local cache file size
-ZINC_SHARD_LOAD_OBJS_GOROUTINE_NUM, index loading parallelism, when S3 and oss are enabled, can improve the index loading speed
 
-ZINC_SHARD_NUM zincsearch the original default value is 3. Since seaseach has one index per database, in order to improve loading efficiency, the default value is changed to 1
+### S3 Storage Configurations
 
-S3 related, only valid when ZINC_STORAGE_TYPE=s3
-ZINC_S3_ACCESS_ID
-ZINC_S3_USE_V4_SIGNATURE
-ZINC_S3_ACCESS_SECRET
-ZINC_S3_ENDPOINT
-ZINC_S3_USE_HTTPS
-ZINC_S3_PATH_STYLE_REQUEST
-ZINC_S3_AWS_REGION
+To enable s3 storage configurations, the term `ZINC_STORAGE_TYPE` has to be set as `ZINC_STORAGE_TYPE=s3`.
 
-OSS related, only valid when ZINC_STORAGE_TYPE=oss
-ZINC_OSS_ACCESS_ID
-ZINC_OSS_ACCESS_SECRET
-ZINC_OSS_BUCKET
-ZINC_OSS_ENDPOINT
+```shell
+# the maximum local cache file size
+ZINC_MAX_OBJ_CACHE_SIZE=
 
-cluster related
-ZINC_SERVER_MODE, default none for standalone deployment, optional to cluster, must be cluster for cluster deployment
-ZINC_CLUSTER_ID, cluster id，need to be globally unique
-ZINC_ETCD_ENDPOINTS, etcd address
-ZINC_ETCD_ENDPOINTS, etcd key prefix, default /zinc
-ZINC_ETCD_USERNAME,  etcd username
-ZINC_ETCD_PASSWORD,  etcd password
+# S3 relative informations
+ZINC_S3_ACCESS_ID=<your s3 access id>
+ZINC_S3_USE_V4_SIGNATURE=<your s3 signature>
+ZINC_S3_ACCESS_SECRET=<your s3 access secret>
+ZINC_S3_ENDPOINT=<your s3 endpoint>
+ZINC_S3_USE_HTTPS=<your s3 tls enabled>
+ZINC_S3_PATH_STYLE_REQUEST=<your s3 style request path>
+ZINC_S3_AWS_REGION=<your s3 AWS region>
+```
 
-log related
-ZINC_LOG_OUTPUT, whether to output logs to files, default yes
-ZINC_LOG_DIR, log directory, recommended configuration, default is the log subdirectory under the current directory
-ZINC_LOG_LEVEL, log level，default debug
+## Cluster Configurations
 
+### Basic Configurations
+
+```shell
+# default none for standalone deployment, optional to cluster, must be cluster for cluster deployment
+ZINC_SERVER_MODE=
+
+# cluster id，need to be globally unique
+ZINC_CLUSTER_ID=<your cluster id>
+
+ZINC_ETCD_ENDPOINTS=<your etcd address> 
+ZINC_ETCD_USERNAME=<your etcd username>
+ZINC_ETCD_PASSWORD=<your etcd password>
 ```
 
 ### Proxy Configurations
+If the current node is a proxy node, the term `ZINC_SERVER_MODE` has to be set as **proxy** and the `ZINC_ETCD_ENDPOINTS` has to be pointed (i.e., =127.0.0.1:2379).
 
-```
-ZINC_CLUSTER_PROXY_LOG_DIR=./log 
+```shell
+ZINC_CLUSTER_PROXY_LOG_DIR=/opt/seasearch/data/log 
 ZINC_CLUSTER_PROXY_HOST=0.0.0.0
 ZINC_CLUSTER_PROXY_PORT=4082
-ZINC_SERVER_MODE=proxy # must be proxy
-ZINC_ETCD_ENDPOINTS=127.0.0.1:2379
-ZINC_ETCD_PREFIX=/zinc
+ZINC_ETCD_PREFIX=<yout etcd perfix, default /zinc>
 ZINC_MAX_DOCUMENT_SIZE=1m # Bulk and multisearch limit on the maximum single document，default 1m 
 ZINC_CLUSTER_MANAGER_ADDR=127.0.0.1:4081 # manager address
 ```
 
 ### Cluster-manger Configurations
 
-```
-ZINC_CLUSTER_MANAGER_LOG_DIR=./log
+```shell
+ZINC_CLUSTER_MANAGER_LOG_DIR=/opt/seasearch/data/log
 ZINC_CLUSTER_MANAGER_HOST=0.0.0.0
 ZINC_CLUSTER_MANAGER_PORT=4081
-ZINC_CLUSTER_MANAGER_ETCD_ENDPOINTS=127.0.0.1:2379
-ZINC_CLUSTER_MANAGER_ETCD_PREFIX=/zinc
+ZINC_CLUSTER_MANAGER_ETCD_ENDPOINTS=<your etcd endpoints>
+ZINC_CLUSTER_MANAGER_ETCD_PREFIX=<yout etcd perfix, default /zinc>
+```
+
+## Logs Configurations
+
+```shell
+ZINC_LOG_OUTPUT=true #whether to output logs to files, default yes
+ZINC_LOG_DIR=/opt/seasearch/data/log #log directory
+ZINC_LOG_LEVEL=debug #log level，default debug
 ```
