@@ -90,3 +90,17 @@ These configurations are only effective when `SS_STORAGE_TYPE=s3`.
   SS_S3_REGION=<region name for storage provider>
   SS_S3_USE_HTTPS=true
 ```
+=== "Self-hosted S3 Storage"
+```sh
+  ZINC_FIRST_ADMIN_USER=admin
+  ZINC_FIRST_ADMIN_PASSWORD=password
+  SS_DATA_PATH=./data
+  SS_STORAGE_TYPE=s3
+  SS_S3_ACCESS_ID=<your-s3-key-id>
+  SS_S3_ACCESS_SECRET=<your-s3-secret-key>
+  SS_S3_BUCKET=<your-seasearch-bucket>
+  SS_S3_ENDPOINT=<your s3 api endpoint host>:<your s3 api endpoint port>
+  SS_S3_USE_HTTPS=true
+  SS_S3_PATH_STYLE_REQUEST=true
+  SS_S3_USE_HTTPS=true
+```
