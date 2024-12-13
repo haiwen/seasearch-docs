@@ -1,6 +1,6 @@
 # SeaSearch API Manual
 ## Overview
-SeaSearch is developed based on ZincSearch and is compatible with ElasticSearch (ES) APIs. The concepts used in the API are similar to those in ElasticSearch, so users can directly refer to the ElasticSearch API documentation and ZincSearch API documentation for most API calls. This document introduces the commonly used APIs to help users quickly understand the main concepts and basic usage flow. It will also explain the modifications we made to the ZincSearch API and highlight the differences from the upstream API.
+SeaSearch is developed based on ZincSearch and is compatible with ElasticSearch (ES) APIs. The concepts used in the API are similar to those in ElasticSearch, so users can directly refer to the [ElasticSearch API documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html) and [ZincSearch API documentation](https://zincsearch-docs.zinc.dev/api-es-compatible/) for most API calls. This document introduces the commonly used APIs to help users quickly understand the main concepts and basic usage flow. It will also explain the modifications we made to the ZincSearch API and highlight the differences from the upstream API.
 
 The ES-compatible APIs provided by SeaSearch can be accessed by adding the /es/ prefix in the URL. For example, the ES API URL is:
 ```
@@ -35,7 +35,9 @@ Here is an example of setting the administrator account via shell:
 set ZINC_FIRST_ADMIN_USER=admin
 set ZINC_FIRST_ADMIN_PASSWORD=Complexpass#123
 ```
-💡 In most scenarios, you can use the administrator account to provide access for applications. Only when you need to integrate multiple applications with different permissions, you should create regular users.
+!!! tip 
+In most scenarios, you can use the administrator account to provide access for applications. Only when you need to integrate multiple applications with different permissions, you should create regular users.
+
 
 ### Regular Users
 You can create/update users via the API:
@@ -121,7 +123,8 @@ GSE will load the dictionary and stop words from this path and use the user-defi
 ## Document Operations
 An index stores multiple documents. Users can perform CRUD operations (Create, Read, Update, Delete) on documents via the API. In SeaSearch, each document has a unique ID.
 
-💡 Due to architectural design, SeaSearch’s performance for single document CRUD operations is much lower than that of ElasticSearch. Therefore, we recommend using batch operations whenever possible.
+!!! tip 
+Due to architectural design, SeaSearch’s performance for single document CRUD operations is much lower than that of ElasticSearch. Therefore, we recommend using batch operations whenever possible.
 
 ElasticSearch Document APIs contain many additional parameters that are not meaningful to SeaSearch and are not supported. All query parameters are unsupported.
 
@@ -172,7 +175,7 @@ ElasticSearch API: [Multi-Search API Documentation](https://www.elastic.co/guide
 
 We extended the multi-search to support using the same scoring information across different indexes for more accurate score calculation. To enable this, set `unify_score=true` in the query.
 
-`unify_score` is meaningful only in this scenario: when searching the same query across multiple indexes. For example, in Seafile, when globally searching across all accessible repositories, each repository corresponds to an index. Enabling unify_score ensures consistent scoring across different repositories, providing more accurate search results.
+`unify_score` is meaningful only in this scenario: when searching the same query across multiple indexes. For example, in Seafile, we create an index for each library. When globally searching across all accessible libraries, enabling unify_score ensures consistent scoring across different repositories, providing more accurate search results.
 ```
 [POST] /es/_msearch?unify_score=true
 {"index": "t1"}
