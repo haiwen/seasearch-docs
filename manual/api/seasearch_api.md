@@ -1,496 +1,180 @@
+# SeaSearch API Manual
+## Overview
+SeaSearch is developed based on ZincSearch and is compatible with ElasticSearch (ES) APIs. The concepts used in the API are similar to those in ElasticSearch, so users can directly refer to the ElasticSearch API documentation and ZincSearch API documentation for most API calls. This document introduces the commonly used APIs to help users quickly understand the main concepts and basic usage flow. It will also explain the modifications we made to the ZincSearch API and highlight the differences from the upstream API.
 
+The ES-compatible APIs provided by SeaSearch can be accessed by adding the /es/ prefix in the URL. For example, the ES API URL is:
+```
+GET /my-index-000001/_search
+```
+The corresponding SeaSearch API URL is:
+```
+GET /es/my-index-000001/_search
+```
 
-# API introduction
+## API Authentication
+SeaSearch uses HTTP Basic Auth for authentication. API requests must include the corresponding basic auth token in the header.
 
-SeaSearch uses Http Basic Auth for permission verification, and the API request needs to carry the corresponding token in the header.
+To generate a basic auth token, combine the username and password with a colon (e.g., aladdin:opensesame), and then base64 encode the resulting string (e.g., YWxhZGRpbjpvcGVuc2VzYW1l).
+
+You can generate a token using the following command, for example with aladdin:opensesame:
 
 ```
-# headers
-{
-  'Authorization': 'Basic <basic auth token>'
-}
+echo -n 'aladdin:opensesame' | base64
+YWxhZGRpbjpvcGVuc2VzYW1l
+```
+Note: Basic auth is not secure. If you need to access SeaSearch over the public internet, it is strongly recommended to use HTTPS (e.g., via reverse proxy such as Nginx).
+```
+"Authorization": "Basic YWRtaW46MTIzNDU2Nzg="
 ```
 
-## User management
+### Administrator User
+SeaSearch uses accounts to manage API permissions. When the program starts for the first time, an administrator account must be configured through environment variables.
 
-### Administrator user
-
-SeaSearch manages API permissions through accounts. When the program is started for the first time, an administrator account needs to be configured through environment variables.
-
-The following is an example of an administrator account:
-
+Here is an example of setting the administrator account via shell:
 ```
 set ZINC_FIRST_ADMIN_USER=admin
-set ZINC_FIRST_ADMIN_PASSWORD=xxx
+set ZINC_FIRST_ADMIN_PASSWORD=Complexpass#123
 ```
+💡 In most scenarios, you can use the administrator account to provide access for applications. Only when you need to integrate multiple applications with different permissions, you should create regular users.
 
-### Normal user
-
-Users can be created/updated via the API:
-
+### Regular Users
+You can create/update users via the API:
 ```
 [POST] /api/user
-
 { 
     "_id": "prabhat",
     "name": "Prabhat Sharma",
     "role": "admin", // or user
-    "password": "xxx"
+    "password": "Complexpass#123"
 }
 ```
-
-get all users：
-
+To get all users:
 ```
 [GET] /api/user
 ```
-
-delete user：
-
+To delete a user:
 ```
 [DELETE] /api/user/${userId}
 ```
 
-## Index related
+## Index Management
+In SeaSearch, users can create any number of indexes. An index is a collection of documents that can be searched, and a document can contain multiple searchable fields. Users specify the fields contained in the index via mappings and can customize the analyzers available to the index through settings. Each field can specify either a built-in or custom analyzer. The analyzer is used to split the content of a field into searchable tokens.
 
-### create index
+### Create Index
+To create a SeaSearch index, you can configure the mappings and settings at the same time. For more details about mappings and settings, refer to the following sections.
 
-Create a SeaSearch index, and you can set both mappings and settings at the same time.
+ElasticSearch API: [Create Index](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html)
 
-We can also set settings or mapping directly through other requests. If the index does not exist, it will be created automatically.
+### Configure Mappings
+Mappings define the types and attributes of fields in a document. Users can configure the mapping via the API.
 
-SeaSearch documentation：[https://zincsearch-docs.zinc.dev/api/index/create/#update-a-exists-index](https://zincsearch-docs.zinc.dev/api/index/create/#update-a-exists-index)
+SeaSearch supports the following field types:
 
-ES documentation：[https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html)
+- text
+- keyword
+- numeric
+- bool
+- date
+- vector
 
-### Configure mappings
+Other types, such as flattened, object, nested, etc., are not supported, and mappings do not support modifying existing fields (new fields can be added).
 
-Mappings define the rules for fields in a document, such as type, format, etc.
+ElasticSearch Mappings API: [Put Mapping](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html)
 
-Mapping can be configured via a separate API:
+ElasticSearch Mappings Explanation: [Mapping Types](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)
 
-SeaSearch api: [https://zincsearch-docs.zinc.dev/api-es-compatible/index/update-mapping/](https://zincsearch-docs.zinc.dev/api-es-compatible/index/update-mapping/)
+### Configure Settings
+Index settings control the properties of the index. The most commonly used property is `analysis`, which allows you to customize the analyzers for the index. The analyzers defined here can be used by fields in the mappings.
 
-ES related instructions：[https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)
+ElasticSearch Settings API: [Update Settings](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html)
 
+ElasticSearch related explanation:
+- [Analyzer Concepts](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-concepts.html)
+- [Specifying Analyzers](https://www.elastic.co/guide/en/elasticsearch/reference/current/specify-analyzer.html)
 
-### Configure settings
+### Analyzer Support
+Analyzers can be configured as default when creating an index, or they can be set for specific fields. (See the previous section for related concepts from the ES documentation.)
 
-Settings set the analyzer sharding and other related settings of the index.
+SeaSearch supports the following analyzers, which can be found here: [ZincSearch Documentation](https://zincsearch-docs.zinc.dev/api/index/analyze/). The concepts such as tokenization and token filters are consistent with ES and support most of the commonly used analyzers and tokenizers in ES.
 
-SeaSearch api: [https://zincsearch-docs.zinc.dev/api-es-compatible/index/update-settings/](https://zincsearch-docs.zinc.dev/api-es-compatible/index/update-settings/)
+### Chinese Analyzer
+To enable the Chinese analyzer in the system, set the environment variable `ZINC_PLUGIN_GSE_ENABLE=true`.
 
-ES related instructions：
+If you need more comprehensive support for Chinese word dictionaries, set `ZINC_PLUGIN_GSE_DICT_EMBED = BIG`.
 
-  * analyzer related concepts：[https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-concepts.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-concepts.html)
-
-  * How to specify an analyzer：[https://www.elastic.co/guide/en/elasticsearch/reference/current/specify-analyzer.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/specify-analyzer.html)
-
-### Analyzer support
-
-Analyzer can configure the default when creating an index, or set it for a specific field. (Refer to the settings ES documentation in the previous section to understand the relevant concepts.)
-
-The analyzers supported by SeaSearch can be found on this page: [https://zincsearch-docs.zinc.dev/api/index/analyze/](https://zincsearch-docs.zinc.dev/api/index/analyze/). The concepts such as tokenize and token filter are consistent with ES, and most of the commonly used analyzers and tokenizers in ES are supported.
-
-Supported general analyzers
-
-  * standard, the default analyzer. If not specified, this analyzer is used to split words and lowercase them.
-
-  * simple, split according to non-letters (symbols are filtered), lowercase
-
-  * keyword, no word segmentation, directly treat input as output
-
-  * stop, lowercase, stop word filter (the, a, is, etc.)
-
-  * web, implemented by Bluge, matching email addresses, urls, etc. Handling lowercase, using stop word filters
-
-  * regexp/pattern, regular expression, default is \W+ (non-character segmentation), supports lowercase and stop words
-
-  * whitespace, split by space, do not convert to lowercase
-
-
-### Luanguages analyzers
-
-| Country        | Shortened form |
-| -------------- | -------------- |
-| arabic         | ar             |
-| Asia Countries | cjk            |
-| sorani         | ckb            |
-| danish         | da             |
-| german         | de             |
-| english        | en             |
-| spanish        | es             |
-| persian        | fa             |
-| finnish        | fi             |
-| french         | fr             |
-| hindi          | hi             |
-| hungarian      | hu             |
-| italian        | it             |
-| dutch          | nl             |
-| norwegian      | no             |
-| portuguese     | pt             |
-| romanian       | ro             |
-| russian        | ru             |
-| swedish        | sv             |
-| turkish        | tr             |
-
-
-Chinese analyzer:
-
-  * gse_standard, use the shortest path algorithm to segment words
-
-  * gse_search, the search engine's word segmentation mode provides as many keywords as possible
-
-The Chinese analyzer uses the [gse](https://github.com/go-ego/gse) library to implement word segmentation. It is a Golang implementation of the Python stammer library. It is not enabled by default and needs to be enabled through environment variables.
-
+`GSE` is a standard analyzer, so you can directly assign the Chinese analyzer to fields in the mappings:
 ```
-ZINC_PLUGIN_GSE_ENABLE=true
-# true: enable Chinese word segmentation support, default is false
-
-ZINC_PLUGIN_GSE_DICT_EMBED=BIG 
-# BIG: use the gse built-in vocabulary and stop words; otherwise, use the SeaSearch built-in simple vocabulary, the default is small
-
-ZINC_PLUGIN_GSE_ENABLE_STOP=true
-# true: use stop words, default true
-
-ZINC_PLUGIN_GSE_ENABLE_HMM=true
-# Use HMM mode for search word segmentation, default is true
-
-ZINC_PLUGIN_GSE_DICT_PATH=./plugins/gse/dict
-# To use a user-defined word library and stop words, you need to put the content in the configured path, and name the word library user.txt and the stop words stop.txt
+PUT /es/my-index/_mappings
+{
+  "properties": {
+    "content": { 
+        "type": "text",
+        "analyzer": "gse_standard"
+      }
+  }
+}
 ```
+If users have custom tokenization habits, they can specify their dictionary files by setting the environment variable `ZINC_PLUGIN_GSE_DICT_PATH=${DICT_PATH}`, where `DICT_PATH` is the actual path to the dictionary files. The `user.txt` file contains the dictionary, and the `stop.txt` file contains stop words. Each line contains a single word.
 
+GSE will load the dictionary and stop words from this path and use the user-defined dictionary to segment Chinese sentences.
 
-## Full text search
+### Document Operations
+An index stores multiple documents. Users can perform CRUD operations (Create, Read, Update, Delete) on documents via the API. In SeaSearch, each document has a unique ID.
 
-### document CRUD
+💡 Due to architectural design, SeaSearch’s performance for single document CRUD operations is much lower than that of ElasticSearch. Therefore, we recommend using batch operations whenever possible.
 
-create document:
+ElasticSearch Document APIs contain many additional parameters that are not meaningful to SeaSearch and are not supported. All query parameters are unsupported.
 
-SeaSearch API: [https://zincsearch-docs.zinc.dev/api-es-compatible/document/create/](https://zincsearch-docs.zinc.dev/api-es-compatible/document/create/)
+#### Create Document
+ElasticSearch API: [Index Document](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html)
 
-ES API：[https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html)
+#### Update Document
+ElasticSearch’s update API supports partial updates to fields. SeaSearch only supports full document updates and does not support updating data via script or detecting if an update is a no-op.
 
-update document:
+If the document does not exist during an update, SeaSearch will create the corresponding document.
 
-SeaSearch API: [https://zincsearch-docs.zinc.dev/api-es-compatible/document/update/](https://zincsearch-docs.zinc.dev/api-es-compatible/document/update/)
+ElasticSearch API: [Update Document](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html)
 
-ES API: [https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html)
+#### Delete Document 
+Delete a document by its ID.
 
-delete document：
+ElasticSearch API: [Delete Document](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete.html)
 
-SeaSearch API: [https://zincsearch-docs.zinc.dev/api-es-compatible/document/delete/](https://zincsearch-docs.zinc.dev/api-es-compatible/document/delete/)
-
-ES API: [https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete.html)
-
-Get document by id:
-
+#### Get Document by ID
 ```
 [GET] /api/${indexName}/_doc/${docId}
 ```
 
-### Batch Operation
+#### Batch Operations
+It is recommended to use batch operations to update indexes.
 
-Batch operations should be used to update indexes whenever possible.
+ElasticSearch API: [Bulk Document API](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
 
-SeaSearch API： [https://zincsearch-docs.zinc.dev/api-es-compatible/document/bulk/#request](https://zincsearch-docs.zinc.dev/api-es-compatible/document/bulk/#request)
+### Search Documents
+#### Query DSL
+To perform full-text search, use the DSL. For usage, refer to:
 
-ES API：[https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
+[Query DSL Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
 
+We do not support all query parameter options provided by ES. Unsupported parameters include: indices_boost, knn, min_score, retriever, pit, runtime_mappings, seq_no_primary_term, stats, terminate_after, version.
 
-### search
+Search API: [Search API](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-search.html)
 
-API examples:
+#### Delete by Query
+To delete documents based on a query, use the delete-by-query operation. Like search, we do not support some ES parameters.
 
-[https://zincsearch-docs.zinc.dev/api-es-compatible/search/search/](https://zincsearch-docs.zinc.dev/api-es-compatible/search/search/)
+ElasticSearch API: [Delete by Query](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html)
 
-Full-text search uses DSL. For usage, please refer to:
+#### Multi-Search
+Multi-search supports searching multiple indexes and running different queries on each index.
 
-[https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
+ElasticSearch API: [Multi-Search API Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html)
 
-delete-by-query：Delete based on query
+We extended the multi-search to support using the same scoring information across different indexes for more accurate score calculation. To enable this, set `unify_score=true` in the query.
 
-```
-[POST] /es/${indexName}/_delete_by_query
-
-{
-  "query": {
-    "match": {
-      "name": "jack"
-    }
-  }
-}
-```
-
-ES API: [https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html)
-
-multi-search，supports executing different queries on different indexes:
-
-SeaSearch API: [https://zincsearch-docs.zinc.dev/api-es-compatible/search/msearch/](https://zincsearch-docs.zinc.dev/api-es-compatible/search/msearch/)
-
-ES API: [https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html)
-
-We have extended multi-search to support using the same statistics when searching different indexes to make the score calculation more accurate. You can enable it by setting query: unify_score=true in the request.
-
+`unify_score` is meaningful only in this scenario: when searching the same query across multiple indexes. For example, in Seafile, when globally searching across all accessible repositories, each repository corresponds to an index. Enabling unify_score ensures consistent scoring across different repositories, providing more accurate search results.
 ```
 [POST] /es/_msearch?unify_score=true
-
 {"index": "t1"}
-{"query": {"bool": {"should": [{"match": {"filename": {"query": "test string", "minimum_should_match": "-25%"}}}, {"match": {"filename.ngram": {"query": "test string", "minimum_should_match": "80%"}}}], "minimum_should_match": 1}}, "from": 0, "size": 10, "_source": ["path", "repo_id", "filename", "is_dir"], "sort": ["_score"]}
-{"index": "t2"}
-{"query": {"bool": {"should": [{"match": {"filename": {"query": "test string", "minimum_should_match": "-25%"}}}, {"match": {"filename.ngram": {"query": "test string", "minimum_should_match": "80%"}}}], "minimum_should_match": 1}}, "from": 0, "size": 10, "_source": ["path", "repo_id", "filename", "is_dir"], "sort": ["_score"]}
+{"query": {"bool": {"should": [{"match": {"filename": {"query": "数据库", "minimum_should_match": "-25%"}}}, {"match": {"filename.ngram": {"query": "数据库", "minimum_should_match": "80
 ```
-
-
-## Vector search
-
-We have developed a vector search function for the SeaSearch extension. The following is an introduction to the relevant API.
-
-### Create vector search
-
-To use the vector search function, you need to create a vector index in advance, which can be done through mapping.
-
-We create an index and set the vector field of the document data to be written to be called "vec", the index type is flat, and the vector dimension is 768
-
-```
-[PUT] /es/${indexName}/_mapping
-
-{
-"properties":{
-        "vec":{
-            "type":"vector", 
-            "dims":768,
-            "m":64,
-            "nbits":8,
-            "vec_index_type":"flat"
-        }
-    }
-}
-```
-
-Parameter Description:
-
-```
-${indexName} zincIndex, index name
-
-type,  fixed to vector, indicating vector index
-dims,  vector dimensions
-m,     ivf_pq index required parameters, need to be divisible by dims
-nbits, ivf_pq index required parameter, default is 8
-vec_index_type, index type, supports two types: flat and ivf_pq
-```
-
-### Write a document containing a vector
-
-
-There is no difference between writing a document containing a vector and writing a normal document at the API level. You can choose the appropriate method.
-
-The following takes the bluk API as an example
-
-```
-[POST] /es/_bulk
-
-body:
-
-{ "index" : { "_index" : "index1" } } 
-{"name": "jack1","vec":[10.2,10.41,9.5,22.2]}
-{ "index" : { "_index" : "index1" } } 
-{"name": "jack2","vec":[10.2,11.41,9.5,22.2]}
-{ "index" : { "_index" : "index1" } } 
-{"name": "jack3","vec":[10.2,12.41,9.5,22.2]}
-```
-
-Note that the _bulk API strictly requires the format of each line, and the data cannot exceed one line. For details, please refer to [ES bulk](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
-
-Modification and deletion can also be done using bulk. After deleting a document, its corresponding vector data will also be deleted
-
-
-### Retrieval vector
-
-By passing in a vector, we can search for N similar vectors in the system and return the corresponding document information:
-
-```
-[POST] /api/${indexName}/_search/vector
-
-body:
-{
-    {
-    "query_field":"vec",
-    "k":7,
-    "return_fields":["name"],
-    "vector":[10.2,10.40,9.5,22.2.......],
-    "_source":false
-    }
-}
-```
-
-The API response format is the same as the full-text search format.
-
-The following is a description of the parameters:
-
-```
-${indexName} zincIndex, index name
-
-query_field,    the field in the index to retrieve, the field must be of vector type
-k,              the number of K most similar vectors to return
-return_fields,  the name of the field to be returned individually
-vector,         the vector used for query
-nprobe,         only works for ivf_pq index type, the number of clusters to query, the higher the number, the more accurate
-_source,        it is used to control whether to return the _source field, supports bool or an array, describing which fields need to be returned
-
-```
-
-### Rebuild index
-
-Rebuild the index immediately, suitable for situations where you don't need to wait for background automatic detection.
-
-```
-[POST] /api/:target/:field/_rebuild
-```
-
-### query recall
-
-
-For vectors of type ivf_pq, recall checks can be performed on their data.
-
-```
-[POST] /api/:target/_recall
-{
-    "field":"vec_001", # Fields to test
-    "k":10, 
-    "nprobe":5, # nprobe number
-    "query_count":1000 # Number of times the test was performed
-}
-```
-
-# Vector search usage examples
-
-Next, we will demonstrate how to index a batch of papers. Each paper may contain multiple vectors that need to be indexed. We hope to obtain the most similar N vectors through vector retrieval, and thus obtain their corresponding paper-ids.
-
-## Creating SeaSearch indexes and vector indexes
-
-The first step is to set the mapping of the vector index. When setting the mapping, the index and vector index are automatically created.
-
-Since paper-id is just a normal string, we don't need to analyze it, so we set its type to keyword:
-
-```
-[PUT] /es/paper/_mapping
-
-{
-"properties":{
-        "title-vec":{
-            "type":"vector", 
-            "dims":768,
-            "vec_index_type":"flat",
-            "m":1
-        },
-        "paper-id":{
-            "type":"keyword"
-        }
-    }
-}
-```
-
-Through the above request, we created an index named paper and established a flat vector index for the title-vec field of the index.
-
-## Index data
-
-We write these paper data to SeaSearch in batches through the _bulk API.
-
-```
-[POST] /es/_bulk
-
-{ "index" : {"_index" : "paper" } } 
-{"paper-id": "001","title-vec":[10.2,10.40,9.5,22.2....]}
-{ "index" : {"_index" : "paper" } } 
-{"paper-id": "002","title-vec":[10.2,11.40,9.5,22.2....]}
-{ "index" : {"_index" : "paper" } } 
-{"paper-id": "003","title-vec":[10.2,12.40,9.5,22.2....]}
-....
-
-
-```
-
-## Retrieving data
-
-Now we can retrieve it using the vector:
-
-```
-[POST] /api/paper/_search/vector
-
-{
-    "query_field":"title-vec",
-    "k":10,
-    "return_fields":["paper-id"],
-    "vector":[10.2,10.40,9.5,22.2....]
-}
-```
-
-The document corresponding to the most similar vector can be retrieved, and the paper-id can be obtained. Since a paper may contain multiple vectors, if multiple vectors of a paper are very similar to the query vector, then this paper-id may appear multiple times in the results.
-
-## Maintaining vector data
-
-### Update the document directly
-
-After a document is successfully imported, SeaSearch will return its doc id. We can directly update a document based on the doc id:
-
-```
-[POST] /es/_bulk
-
-{ "update" : {"_id":"23gZX9eT6QM","_index" : "paper" } } 
-{"paper-id": "005","vec":[10.2,1.43,9.5,22.2...]}
-```
-
-### Query first and then update
-
-If the returned doc id is not saved, you can first use SeaSearch's full-text search function to query the documents corresponding to paper-id:
-
-```
-[POST] /es/paper/_search
-
-{
-    "query": {
-        "bool": {
-            "must": [
-                {
-                    "term": {"paper-id":"003"}
-                }
-            ]
-        }
-    }
-}
-```
-
-Through DSL, we can directly retrieve the document corresponding to the paper-id and its doc id.
-
-### Fully updated paper
-
-A paper contains multiple vectors. If a vector needs to be updated, we can directly update the document corresponding to the vector. However, in actual applications, it is not easy to distinguish which contents of a paper are newly added and which are updated.
-
-We can adopt the method of full update:
-
-  * First, query all documents of a paper through DSL
-
-  * Delete all documents
-
-  * Import the latest paper data
-
-Steps 2 and 3 can be performed in one batch operation.
-
-The following example will demonstrate deleting the document of paper 001 and re-importing it; at the same time, directly updating paper 005 and paper 006 because they only have one vector:
-
-```
-[POST] /es/_bulk
-
-
-{ "index" : {"_index" : "paper" } } 
-{"paper-id": "001","title-vec":[10.2,10.40,9.5,22.2....]}
-{ "index" : {"_index" : "paper" } } 
-{"paper-id": "002","title-vec":[10.2,11.40,9.5,22.2....]}
-{ "index" : {"_index" : "paper" } } 
-{"paper-id": "003","title-vec":[10.2,12.40,9.5,22.2....]}
-....
-
-
-```
-
