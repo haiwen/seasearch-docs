@@ -66,3 +66,4 @@ nav:
     - Index management: api/index_management.md
     - Document operation: api/document_operation.md
     - Search document: api/search_document.md
+    - Vector search: api/vector_search.md
