@@ -3,7 +3,7 @@ name: Deploy CI
 on:
   push:
     branches:
-      - 1.0
+      - "1.0"
 
 jobs:
   deploy:
@@ -17,4 +17,5 @@ jobs:
       - run: cd $GITHUB_WORKSPACE
       - run: git config user.name ci-bot
       - run: git config user.email ci-bot@seafile.com
+      - run: git pull --rebase origin gh-pages
       - run: mike deploy --push -u 1.0
