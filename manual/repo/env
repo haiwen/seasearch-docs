@@ -8,7 +8,7 @@ SEASEARCH_SERVER_PROTOCOL=http
 SEASEARCH_SERVER_HOSTNAME=<your seasearch host>
 
 #SEASEARCH_IMAGE=seafileltd/seasearch-nomkl:latest # Apple's Chip
-SEASEARCH_IMAGE=seafileltd/seasearch:latest
+SEASEARCH_IMAGE=seafileltd/seasearch:0.9-latest
 
 # Storage
 SS_STORAGE_TYPE=disk # disk (local storage), s3, oss
