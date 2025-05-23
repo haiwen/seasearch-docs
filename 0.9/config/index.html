@@ -860,7 +860,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 </code></pre></div>
 </div>
 <h2 id="object-storage">Object Storage<a class="headerlink" href="#object-storage" title="Permanent link">&para;</a></h2>
-<p><code>USE_S3_STORAGE</code>: Use S3 for the data storage, default is <code>false</code> (i.e., the SeaSearch's data will be storaged locally).</p>
+<p><code>SS_STORAGE_TYPE</code>: Type of storage medium, default is <code>disk</code>. Other possible options are <code>s3</code> and <code>oss</code> (<code>oss</code> option will not show in this document, please refer to <a href="https://zincsearch-docs.zinc.dev/">ZincSearch official document</a> for the details)</p>
 <h3 id="local-storage">Local Storage<a class="headerlink" href="#local-storage" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -884,7 +884,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 </tbody>
 </table>
 <h3 id="s3">S3<a class="headerlink" href="#s3" title="Permanent link">&para;</a></h3>
-<p>These configurations are only effective when <code>USE_S3_STORAGE=true</code>.</p>
+<p>These configurations are only effective when <code>SS_STORAGE_TYPE=s3</code>.</p>
 <table>
 <thead>
 <tr>
@@ -895,47 +895,47 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 </thead>
 <tbody>
 <tr>
-<td><code>S3_SS_BUCKET</code></td>
-<td>Bucket name for SeaSearch storage. Make sure it follows <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/BucketRestrictions.html#bucketnamingrules">S3 naming rules</a>.</td>
+<td><code>SS_S3_ACCESS_ID</code></td>
+<td>The <code>SS_S3_ACCESS_ID</code> is required to authenticate you to S3. You can find the <code>SS_S3_ACCESS_ID</code> in the "security credentials" section on your AWS account page or from your storage provider.</td>
 <td>&lt;required&gt;</td>
 </tr>
 <tr>
-<td><code>S3_HOST</code></td>
-<td>The endpoint by which you access the storage service. Usually it starts with the region name. It's required to provide the host address if you use storage provider other than AWS, otherwise SeaSearch will use AWS's address (i.e., <code>s3.us-east-1.amazonaws.com</code>).</td>
-<td>(required when not use AWS)</td>
-</tr>
-<tr>
-<td><code>S3_KEY_ID</code></td>
-<td>The <code>S3_KEY_ID</code> is required to authenticate you to S3. You can find the <code>S3_KEY_ID</code> in the "security credentials" section on your AWS account page or from your storage provider.</td>
-<td>&lt;required&gt;</td>
-</tr>
-<tr>
-<td><code>S3_USE_V4_SIGNATURE</code></td>
+<td><code>SS_S3_USE_V4_SIGNATURE</code></td>
 <td>There are two versions of authentication protocols that can be used with S3 storage: Version 2 (older, may still be supported by some regions) and Version 4 (current, used by most regions). If you don't set this option, SeaSearch will use the v2 protocol. It's suggested to use the v4 protocol.</td>
 <td><code>false</code></td>
 </tr>
 <tr>
-<td><code>S3_KEY</code></td>
+<td><code>SS_S3_ACCESS_SECRET</code></td>
 <td>This variable is required to authenticate you to S3. You can find the key in the "security credentials" section on your AWS account page or from your storage provider.</td>
 <td>&lt;required&gt;</td>
 </tr>
 <tr>
-<td><code>S3_USE_HTTPS</code></td>
+<td><code>SS_S3_ENDPOINT</code></td>
+<td>The endpoint by which you access the storage service. Usually it starts with the region name. It's required to provide the host address if you use storage provider other than AWS, otherwise SeaSearch will use AWS's address (i.e., <code>s3.us-east-1.amazonaws.com</code>).</td>
+<td>(required when not use AWS)</td>
+</tr>
+<tr>
+<td><code>SS_S3_BUCKET</code></td>
+<td>Bucket name for SeaSearch storage. Make sure it follows <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/BucketRestrictions.html#bucketnamingrules">S3 naming rules</a>.</td>
+<td>&lt;required&gt;</td>
+</tr>
+<tr>
+<td><code>SS_S3_USE_HTTPS</code></td>
 <td>Use https to connect to S3. It's recommended to use https.</td>
 <td>true</td>
 </tr>
 <tr>
-<td><code>S3_PATH_STYLE_REQUEST</code></td>
+<td><code>SS_S3_PATH_STYLE_REQUEST</code></td>
 <td>This option asks SeaSearch to use URLs like <code>https://192.168.1.123:8080/bucketname/object</code> to access objects. In Amazon S3, the default URL format is in virtual host style, such as <code>https://bucketname.s3.amazonaws.com/object</code>. But this style relies on advanced DNS server setup. So most self-hosted storage systems only implement the path style format. So we recommend to set this option to <code>true</code> for self-hosted storage.</td>
 <td><code>true</code></td>
 </tr>
 <tr>
-<td><code>S3_AWS_REGION</code></td>
+<td><code>SS_S3_AWS_REGION</code></td>
 <td>If you use the v4 protocol and AWS S3, set this option to the region you chose when you create the buckets. If it's not set and you're using the v4 protocol, SeaSearch will use <code>us-east-1</code> as the default. This option will be ignored if you use the v2 protocol.</td>
 <td><code>us-east-1</code></td>
 </tr>
 <tr>
-<td><code>S3_SSE_C_KEY</code></td>
+<td><code>SS_S3_SSE_C_KEY</code></td>
 <td>A string of 32 characters can be generated by <code>openssl rand -base64 24</code>. It can be any 32-character long random string. It's required to use V4 authentication protocol and https if you enable SSE-C.</td>
 <td>&lt;only required if SSE-C is enabled&gt;</td>
 </tr>
@@ -982,12 +982,12 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <span class="nv">INIT_SS_ADMIN_PASSWORD</span><span class="o">=</span>password
 <span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
 <span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
-<span class="nv">S3_KEY_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
-<span class="nv">S3_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
-<span class="nv">S3_SS_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
+<span class="nv">SS_S3_ACCESS_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
+<span class="nv">SS_S3_ACCESS_SECRET</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">SS_S3_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
 <span class="nv">SS_S3_REGION</span><span class="o">=</span>us-east-1
-<span class="nv">S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
-<span class="nv">S3_USE_V4_SIGNATURE</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_USE_V4_SIGNATURE</span><span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -995,11 +995,11 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <span class="nv">INIT_SS_ADMIN_PASSWORD</span><span class="o">=</span>password
 <span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
 <span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
-<span class="nv">S3_KEY_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
-<span class="nv">S3_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
-<span class="nv">S3_SS_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
-<span class="nv">S3_HOST</span><span class="o">=</span>sos-de-fra-1.exo.io
-<span class="nv">S3_PATH_STYLE_REQUEST</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_ACCESS_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
+<span class="nv">SS_S3_ACCESS_SECRET</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">SS_S3_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
+<span class="nv">SS_S3_ENDPOINT</span><span class="o">=</span>sos-de-fra-1.exo.io
+<span class="nv">SS_S3_PATH_STYLE_REQUEST</span><span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -1007,12 +1007,12 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <span class="nv">INIT_SS_ADMIN_PASSWORD</span><span class="o">=</span>password
 <span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
 <span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
-<span class="nv">S3_KEY_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
-<span class="nv">S3_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
-<span class="nv">S3_SS_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
-<span class="nv">S3_HOST</span><span class="o">=</span>fsn1.your-objectstorage.com
-<span class="nv">S3_PATH_STYLE_REQUEST</span><span class="o">=</span><span class="nb">true</span>
-<span class="nv">S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_ACCESS_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
+<span class="nv">SS_S3_ACCESS_SECRET</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">SS_S3_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
+<span class="nv">SS_S3_ENDPOINT</span><span class="o">=</span>fsn1.your-objectstorage.com
+<span class="nv">SS_S3_PATH_STYLE_REQUEST</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -1020,12 +1020,12 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <span class="nv">INIT_SS_ADMIN_PASSWORD</span><span class="o">=</span>password
 <span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
 <span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
-<span class="nv">S3_KEY_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
-<span class="nv">S3_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
-<span class="nv">S3_SS_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
-<span class="nv">S3_HOST</span><span class="o">=</span>&lt;access<span class="w"> </span>endpoint<span class="w"> </span><span class="k">for</span><span class="w"> </span>storage<span class="w"> </span>provider&gt;
+<span class="nv">SS_S3_ACCESS_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
+<span class="nv">SS_S3_ACCESS_SECRET</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">SS_S3_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
+<span class="nv">SS_S3_ENDPOINT</span><span class="o">=</span>&lt;access<span class="w"> </span>endpoint<span class="w"> </span><span class="k">for</span><span class="w"> </span>storage<span class="w"> </span>provider&gt;
 <span class="nv">SS_S3_REGION</span><span class="o">=</span>&lt;region<span class="w"> </span>name<span class="w"> </span><span class="k">for</span><span class="w"> </span>storage<span class="w"> </span>provider&gt;
-<span class="nv">S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -1033,13 +1033,13 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <span class="nv">INIT_SS_ADMIN_PASSWORD</span><span class="o">=</span>password
 <span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
 <span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
-<span class="nv">S3_KEY_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
-<span class="nv">S3_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
-<span class="nv">S3_SS_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
-<span class="nv">S3_HOST</span><span class="o">=</span>&lt;your<span class="w"> </span>s3<span class="w"> </span>api<span class="w"> </span>endpoint<span class="w"> </span>host&gt;:&lt;your<span class="w"> </span>s3<span class="w"> </span>api<span class="w"> </span>endpoint<span class="w"> </span>port&gt;
-<span class="nv">S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
-<span class="nv">S3_PATH_STYLE_REQUEST</span><span class="o">=</span><span class="nb">true</span>
-<span class="nv">S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_ACCESS_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
+<span class="nv">SS_S3_ACCESS_SECRET</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">SS_S3_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
+<span class="nv">SS_S3_ENDPOINT</span><span class="o">=</span>&lt;your<span class="w"> </span>s3<span class="w"> </span>api<span class="w"> </span>endpoint<span class="w"> </span>host&gt;:&lt;your<span class="w"> </span>s3<span class="w"> </span>api<span class="w"> </span>endpoint<span class="w"> </span>port&gt;
+<span class="nv">SS_S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_PATH_STYLE_REQUEST</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
 </div>
 </div>

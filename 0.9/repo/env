@@ -7,24 +7,26 @@ SEASEARCH_CADDY_VOLUME=./caddy-data
 SEASEARCH_SERVER_PROTOCOL=http
 SEASEARCH_SERVER_HOSTNAME=<your seasearch host>
 
-#SEASEARCH_IMAGE=seafileltd/seasearch-nomkl:1.0-latest # Apple's Chip
-SEASEARCH_IMAGE=seafileltd/seasearch:1.0-latest
+#SEASEARCH_IMAGE=seafileltd/seasearch-nomkl:latest # Apple's Chip
+SEASEARCH_IMAGE=seafileltd/seasearch:latest
+
+# Storage
+SS_STORAGE_TYPE=disk # disk (local storage), s3, oss
 
 ## local storage mode
 SS_DATA_PATH=./data # Persistent storage path
 SS_MAX_OBJ_CACHE_SIZE=10GB
 
 ## s3 mode
-USE_S3_STORAGE=false
-S3_SS_BUCKET=<your bucket name>
-S3_HOST=
-S3_KEY_ID=<your access id>
-S3_KEY=<your access secret>
-S3_USE_HTTPS=true
-S3_USE_V4_SIGNATURE=false
-S3_PATH_STYLE_REQUEST=false
-S3_AWS_REGION=us-east-1
-S3_SSE_C_KEY=
+SS_S3_USE_V4_SIGNATURE=false
+SS_S3_ACCESS_ID=<your access id>
+SS_S3_ACCESS_SECRET=<your access secret>
+SS_S3_ENDPOINT=
+SS_S3_BUCKET=<your bucket name>
+SS_S3_USE_HTTPS=true
+SS_S3_PATH_STYLE_REQUEST=true
+SS_S3_AWS_REGION=us-east-1
+SS_S3_SSE_C_KEY=<your SSE-C key>
 
 # log
 SS_LOG_TO_STDOUT=false
