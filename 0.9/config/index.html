@@ -1,0 +1,1121 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="seafile">
+      
+      
+        <link rel="canonical" href="https://haiwen.github.io/seasearch-docs/0.9/config/">
+      
+      
+        <link rel="prev" href="../usage/backup_and_restore/">
+      
+      
+        <link rel="next" href="../api/overview/">
+      
+      
+      <link rel="icon" href="../media/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Configuration - SeaSearch Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#seasearch-configuration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="SeaSearch Manual" class="md-header__button md-logo" aria-label="SeaSearch Manual" data-md-component="logo">
+      
+  <img src="../media/seafile-transparent-1024.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SeaSearch Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configuration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/haiwen/seasearch-docs/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    haiwen/seasearch-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="SeaSearch Manual" class="md-nav__button md-logo" aria-label="SeaSearch Manual" data-md-component="logo">
+      
+  <img src="../media/seafile-transparent-1024.png" alt="logo">
+
+    </a>
+    SeaSearch Manual
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/haiwen/seasearch-docs/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    haiwen/seasearch-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deployment and Usage
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment and Usage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deploy SeaSearch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/use_and_access_seasearch_apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use and access SeaSearch APIs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/https/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Https
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/backup_and_restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup and Restore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#object-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Object Storage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      S3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-seasearch-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example SeaSearch Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example SeaSearch Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-seasearch-with-local-disk-as-storage-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Seasearch with Local Disk as Storage Backend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-seasearch-with-s3-as-storage-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Seasearch with S3 as Storage Backend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    SeaSearch API
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            SeaSearch API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Authentication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/index_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Index management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/document_operation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Document operation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/search_document/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Search document
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/vector_search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vector search
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#object-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Object Storage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      S3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-seasearch-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example SeaSearch Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example SeaSearch Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-seasearch-with-local-disk-as-storage-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Seasearch with Local Disk as Storage Backend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-seasearch-with-s3-as-storage-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Seasearch with S3 as Storage Backend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="seasearch-configuration">SeaSearch Configuration<a class="headerlink" href="#seasearch-configuration" title="Permanent link">&para;</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>After adding new vairables or modifying the existing variables, you have to restart the service to enable changing:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>down
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+</div>
+<h2 id="object-storage">Object Storage<a class="headerlink" href="#object-storage" title="Permanent link">&para;</a></h2>
+<p><code>SS_STORAGE_TYPE</code>: Type of storage medium, default is <code>disk</code>. Other possible options are <code>s3</code> and <code>oss</code> (<code>oss</code> option will not show in this document, please refer to <a href="https://zincsearch-docs.zinc.dev/">ZincSearch official document</a> for the details)</p>
+<h3 id="local-storage">Local Storage<a class="headerlink" href="#local-storage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SS_MAX_OBJ_CACHE_SIZE</code></td>
+<td>When using object storage, the maximum local cache size.</td>
+<td>10GB</td>
+</tr>
+<tr>
+<td><code>SS_DATA_PATH</code></td>
+<td>Local storage path. This is a required option and will be used for local cache storage when using object storage (replaces the original <code>ZINC_DATA_PATH</code>).</td>
+<td><code>./data</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="s3">S3<a class="headerlink" href="#s3" title="Permanent link">&para;</a></h3>
+<p>These configurations are only effective when <code>SS_STORAGE_TYPE=s3</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SS_S3_ACCESS_ID</code></td>
+<td>The <code>SS_S3_ACCESS_ID</code> is required to authenticate you to S3. You can find the <code>SS_S3_ACCESS_ID</code> in the "security credentials" section on your AWS account page or from your storage provider.</td>
+<td>&lt;required&gt;</td>
+</tr>
+<tr>
+<td><code>SS_S3_USE_V4_SIGNATURE</code></td>
+<td>There are two versions of authentication protocols that can be used with S3 storage: Version 2 (older, may still be supported by some regions) and Version 4 (current, used by most regions). If you don't set this option, SeaSearch will use the v2 protocol. It's suggested to use the v4 protocol.</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>SS_S3_ACCESS_SECRET</code></td>
+<td>This variable is required to authenticate you to S3. You can find the key in the "security credentials" section on your AWS account page or from your storage provider.</td>
+<td>&lt;required&gt;</td>
+</tr>
+<tr>
+<td><code>SS_S3_ENDPOINT</code></td>
+<td>The endpoint by which you access the storage service. Usually it starts with the region name. It's required to provide the host address if you use storage provider other than AWS, otherwise SeaSearch will use AWS's address (i.e., <code>s3.us-east-1.amazonaws.com</code>).</td>
+<td>(required when not use AWS)</td>
+</tr>
+<tr>
+<td><code>SS_S3_BUCKET</code></td>
+<td>Bucket name for SeaSearch storage. Make sure it follows <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/BucketRestrictions.html#bucketnamingrules">S3 naming rules</a>.</td>
+<td>&lt;required&gt;</td>
+</tr>
+<tr>
+<td><code>SS_S3_USE_HTTPS</code></td>
+<td>Use https to connect to S3. It's recommended to use https.</td>
+<td>true</td>
+</tr>
+<tr>
+<td><code>SS_S3_PATH_STYLE_REQUEST</code></td>
+<td>This option asks SeaSearch to use URLs like <code>https://192.168.1.123:8080/bucketname/object</code> to access objects. In Amazon S3, the default URL format is in virtual host style, such as <code>https://bucketname.s3.amazonaws.com/object</code>. But this style relies on advanced DNS server setup. So most self-hosted storage systems only implement the path style format. So we recommend to set this option to <code>true</code> for self-hosted storage.</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>SS_S3_AWS_REGION</code></td>
+<td>If you use the v4 protocol and AWS S3, set this option to the region you chose when you create the buckets. If it's not set and you're using the v4 protocol, SeaSearch will use <code>us-east-1</code> as the default. This option will be ignored if you use the v2 protocol.</td>
+<td><code>us-east-1</code></td>
+</tr>
+<tr>
+<td><code>SS_S3_SSE_C_KEY</code></td>
+<td>A string of 32 characters can be generated by <code>openssl rand -base64 24</code>. It can be any 32-character long random string. It's required to use V4 authentication protocol and https if you enable SSE-C.</td>
+<td>&lt;only required if SSE-C is enabled&gt;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SS_LOG_TO_STDOUT</code></td>
+<td>Whether to output logs to standard output.</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>SS_LOG_DIR</code></td>
+<td>Log directory.</td>
+<td><code>/opt/seasearch/data/log</code> (a log subdirectory in the <code>SS_DATA_PATH</code> directory)</td>
+</tr>
+<tr>
+<td><code>SS_LOG_LEVEL</code></td>
+<td>Log level.</td>
+<td><code>debug</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="example-seasearch-configuration">Example SeaSearch Configuration<a class="headerlink" href="#example-seasearch-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="initial-seasearch-with-local-disk-as-storage-backend">Initial Seasearch with Local Disk as Storage Backend<a class="headerlink" href="#initial-seasearch-with-local-disk-as-storage-backend" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nv">INIT_SS_ADMIN_USER</span><span class="o">=</span>admin
+<span class="w">  </span><span class="nv">INIT_SS_ADMIN_PASSWORD</span><span class="o">=</span>password
+<span class="w">  </span><span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
+</code></pre></div>
+<h3 id="initial-seasearch-with-s3-as-storage-backend">Initial Seasearch with S3 as Storage Backend<a class="headerlink" href="#initial-seasearch-with-s3-as-storage-backend" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">AWS</label><label for="__tabbed_1_2">Exoscale</label><label for="__tabbed_1_3">Hetzner</label><label for="__tabbed_1_4">Other Public Hosted S3 Storag</label><label for="__tabbed_1_5">Self-hosted S3 Storage</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nv">INIT_SS_ADMIN_USER</span><span class="o">=</span>admin
+<span class="nv">INIT_SS_ADMIN_PASSWORD</span><span class="o">=</span>password
+<span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
+<span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
+<span class="nv">SS_S3_ACCESS_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
+<span class="nv">SS_S3_ACCESS_SECRET</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">SS_S3_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
+<span class="nv">SS_S3_REGION</span><span class="o">=</span>us-east-1
+<span class="nv">SS_S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_USE_V4_SIGNATURE</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nv">INIT_SS_ADMIN_USER</span><span class="o">=</span>admin
+<span class="nv">INIT_SS_ADMIN_PASSWORD</span><span class="o">=</span>password
+<span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
+<span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
+<span class="nv">SS_S3_ACCESS_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
+<span class="nv">SS_S3_ACCESS_SECRET</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">SS_S3_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
+<span class="nv">SS_S3_ENDPOINT</span><span class="o">=</span>sos-de-fra-1.exo.io
+<span class="nv">SS_S3_PATH_STYLE_REQUEST</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nv">INIT_SS_ADMIN_USER</span><span class="o">=</span>admin
+<span class="nv">INIT_SS_ADMIN_PASSWORD</span><span class="o">=</span>password
+<span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
+<span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
+<span class="nv">SS_S3_ACCESS_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
+<span class="nv">SS_S3_ACCESS_SECRET</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">SS_S3_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
+<span class="nv">SS_S3_ENDPOINT</span><span class="o">=</span>fsn1.your-objectstorage.com
+<span class="nv">SS_S3_PATH_STYLE_REQUEST</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nv">INIT_SS_ADMIN_USER</span><span class="o">=</span>admin
+<span class="nv">INIT_SS_ADMIN_PASSWORD</span><span class="o">=</span>password
+<span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
+<span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
+<span class="nv">SS_S3_ACCESS_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
+<span class="nv">SS_S3_ACCESS_SECRET</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">SS_S3_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
+<span class="nv">SS_S3_ENDPOINT</span><span class="o">=</span>&lt;access<span class="w"> </span>endpoint<span class="w"> </span><span class="k">for</span><span class="w"> </span>storage<span class="w"> </span>provider&gt;
+<span class="nv">SS_S3_REGION</span><span class="o">=</span>&lt;region<span class="w"> </span>name<span class="w"> </span><span class="k">for</span><span class="w"> </span>storage<span class="w"> </span>provider&gt;
+<span class="nv">SS_S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nv">INIT_SS_ADMIN_USER</span><span class="o">=</span>admin
+<span class="nv">INIT_SS_ADMIN_PASSWORD</span><span class="o">=</span>password
+<span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
+<span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
+<span class="nv">SS_S3_ACCESS_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
+<span class="nv">SS_S3_ACCESS_SECRET</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">SS_S3_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
+<span class="nv">SS_S3_ENDPOINT</span><span class="o">=</span>&lt;your<span class="w"> </span>s3<span class="w"> </span>api<span class="w"> </span>endpoint<span class="w"> </span>host&gt;:&lt;your<span class="w"> </span>s3<span class="w"> </span>api<span class="w"> </span>endpoint<span class="w"> </span>port&gt;
+<span class="nv">SS_S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_PATH_STYLE_REQUEST</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">SS_S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 Seafile Ltd.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/haiwen/seasearch-docs/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
