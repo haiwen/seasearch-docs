@@ -1,0 +1,36 @@
+COMPOSE_FILE='seasearch.yml,caddy.yml'
+COMPOSE_PATH_SEPARATOR=','
+
+# For caddy and http protocol
+SEASEARCH_CADDY_IMAGE=lucaslorentz/caddy-docker-proxy:2.9-alpine
+SEASEARCH_CADDY_VOLUME=./caddy-data
+SEASEARCH_SERVER_PROTOCOL=http
+SEASEARCH_SERVER_HOSTNAME=<your seasearch host>
+
+#SEASEARCH_IMAGE=seafileltd/seasearch-nomkl:1.0-latest # Apple's Chip
+SEASEARCH_IMAGE=seafileltd/seasearch:1.0-latest
+
+## local storage mode
+SS_DATA_PATH=./data # Persistent storage path
+SS_MAX_OBJ_CACHE_SIZE=10GB
+
+## s3 mode
+USE_S3_STORAGE=false
+S3_SS_BUCKET=<your bucket name>
+S3_HOST=
+S3_KEY_ID=<your access id>
+S3_KEY=<your access secret>
+S3_USE_HTTPS=true
+S3_USE_V4_SIGNATURE=false
+S3_PATH_STYLE_REQUEST=false
+S3_AWS_REGION=us-east-1
+S3_SSE_C_KEY=
+
+# log
+SS_LOG_TO_STDOUT=false
+SS_LOG_OUTPUT=true
+SS_LOG_LEVEL=info
+
+# initial
+INIT_SS_ADMIN_USER=<admin-username>
+INIT_SS_ADMIN_PASSWORD=<admin-password>
