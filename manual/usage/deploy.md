@@ -29,8 +29,8 @@ Modify the environment variables ​​of the following fields in the `.env` fil
 ```shell
 SEASEARCH_SERVER_HOSTNAME=seasearch.example.com
 
-#SEASEARCH_IMAGE=seafileltd/seasearch-nomkl:latest # for Apple's chips
-SEASEARCH_IMAGE=seafileltd/seasearch:latest
+#SEASEARCH_IMAGE=seafileltd/seasearch-nomkl:1.0-latest # for Apple's chips
+SEASEARCH_IMAGE=seafileltd/seasearch:1.0-latest
 
 SS_DATA_PATH=/opt/seasearch-data
 INIT_SS_ADMIN_USER=<admin-username>  
