@@ -17,8 +17,8 @@ You can download the `.yml` and `.env` files by following commands:
 ```bash
 mkdir /opt/seasearch
 cd /opt/seasearch
-wget https://seasearch-manual.seafile.com/repo/caddy.yml
-wget https://seasearch-manual.seafile.com/repo/seasearch.yml
+wget https://seasearch-manual.seafile.com/0.9/repo/caddy.yml
+wget https://seasearch-manual.seafile.com/0.9/repo/seasearch.yml
 wget -O .env https://seasearch-manual.seafile.com/repo/env
 ```
 
