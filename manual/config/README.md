@@ -8,7 +8,7 @@
     ```
   
 ## Object Storage
-`SS_STORAGE_TYPE`: What kind of the data is storaging, default is `disk` (i.e., the SeaSearch's data will be storaged locally). Available options are `disk` and `s3` (use S3 storage).
+`SS_STORAGE_TYPE`: What kind of the data for storage, default is `disk` (i.e., the SeaSearch's data will be storaged locally). Available options are `disk` and `s3` (use S3 storage).
 
 ### Local Storage
 
