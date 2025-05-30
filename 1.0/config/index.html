@@ -860,7 +860,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 </code></pre></div>
 </div>
 <h2 id="object-storage">Object Storage<a class="headerlink" href="#object-storage" title="Permanent link">&para;</a></h2>
-<p><code>USE_S3_STORAGE</code>: Use S3 for the data storage, default is <code>false</code> (i.e., the SeaSearch's data will be storaged locally).</p>
+<p><code>SS_STORAGE_TYPE</code>: What kind of the data for storage, default is <code>disk</code> (i.e., the SeaSearch's data will be storaged locally). Available options are <code>disk</code> and <code>s3</code> (use S3 storage).</p>
 <h3 id="local-storage">Local Storage<a class="headerlink" href="#local-storage" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -884,7 +884,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 </tbody>
 </table>
 <h3 id="s3">S3<a class="headerlink" href="#s3" title="Permanent link">&para;</a></h3>
-<p>These configurations are only effective when <code>USE_S3_STORAGE=true</code>.</p>
+<p>These configurations are only effective when <code>SS_STORAGE_TYPE=s3</code>.</p>
 <table>
 <thead>
 <tr>
