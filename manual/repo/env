@@ -15,7 +15,7 @@ SS_DATA_PATH=./data # Persistent storage path
 SS_MAX_OBJ_CACHE_SIZE=10GB
 
 ## s3 mode
-USE_S3_STORAGE=false
+SS_STORAGE_TYPE=disk
 S3_SS_BUCKET=<your bucket name>
 S3_HOST=
 S3_KEY_ID=<your access id>

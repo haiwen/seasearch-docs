@@ -8,7 +8,7 @@
     ```
   
 ## Object Storage
-`USE_S3_STORAGE`: Use S3 for the data storage, default is `false` (i.e., the SeaSearch's data will be storaged locally).
+`SS_STORAGE_TYPE`: What kind of the data for storage, default is `disk` (i.e., the SeaSearch's data will be storaged locally). Available options are `disk` and `s3` (use S3 storage).
 
 ### Local Storage
 
@@ -18,7 +18,7 @@
 | `SS_DATA_PATH` | Local storage path. This is a required option and will be used for local cache storage when using object storage (replaces the original `ZINC_DATA_PATH`). | `./data` |
 
 ### S3
-These configurations are only effective when `USE_S3_STORAGE=true`.
+These configurations are only effective when `SS_STORAGE_TYPE=s3`.
 
 | Variable | Description | Default |
 | --- | --- | --- |
