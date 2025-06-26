@@ -33,6 +33,7 @@ You can specify the following parameters for vector indexes:
 - `m`: A parameter required for the `ivf_pq` index, it must be divisible by dims. For example, the `dims` is `768`, the `m` could be `192`.
 - `nbits`: A parameter required for the `ivf_pq` index, must grater than 0, we recommend `4` or `8`.
 - `vec_index_type`: The index type. Supported types are `flat` and `ivf_pq`.
+- `store_with_float16`: Store vector as float16 type. It saves storage space, but it will decreases search accuracy.
 
 ### Indexing Documents Containing Vectors
 
