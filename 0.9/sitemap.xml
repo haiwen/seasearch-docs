@@ -2,54 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/api/authentication/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/api/document_operation/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/api/index_management/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/api/overview/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/api/search_document/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/api/vector_search/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/config/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/usage/backup_and_restore/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/usage/deploy/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/usage/https/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/usage/overview/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
     <url>
          <loc>https://haiwen.github.io/seasearch-docs/0.9/usage/use_and_access_seasearch_apis/</loc>
-         <lastmod>2025-06-07</lastmod>
+         <lastmod>2025-06-26</lastmod>
     </url>
 </urlset>

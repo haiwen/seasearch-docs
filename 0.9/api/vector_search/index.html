@@ -1133,6 +1133,7 @@ body:
 <li><code>m</code>: A parameter required for the <code>ivf_pq</code> index, it must be divisible by dims. For example, the <code>dims</code> is <code>768</code>, the <code>m</code> could be <code>192</code>.</li>
 <li><code>nbits</code>: A parameter required for the <code>ivf_pq</code> index, must grater than 0, we recommend <code>4</code> or <code>8</code>.</li>
 <li><code>vec_index_type</code>: The index type. Supported types are <code>flat</code> and <code>ivf_pq</code>.</li>
+<li><code>store_with_float16</code>: Store vector as float16 type. It saves storage space, but it will decreases search accuracy.</li>
 </ul>
 <h3 id="indexing-documents-containing-vectors">Indexing Documents Containing Vectors<a class="headerlink" href="#indexing-documents-containing-vectors" title="Permanent link">&para;</a></h3>
 <p>Indexing a document that includes vectors is identical at the API level to indexing a regular document. 
