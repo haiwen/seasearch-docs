@@ -69,7 +69,7 @@ The API response format is the same as that for full-text search.
 
 You can specify the following parameters for vector search:
 
-- `${indexName}`: The name of the index.
+- `${indexName}`: The name of the index. Multiple index names can be specified, separated by commas. Wildcards may also be used to match multiple indexes.
 - `query_field`: The field in the index to search. This field must be of type vector.
 - `k`: The number of most similar vectors to return.
 - `return_fields`: The names of the fields to return separately.
