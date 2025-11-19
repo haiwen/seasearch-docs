@@ -40,6 +40,8 @@ You can specify the following parameters for vector indexes:
 Indexing a document that includes vectors is identical at the API level to indexing a regular document. 
 You may choose the method that best suits your needs. The following example uses the bulk API.
 
+Note, if you plan to use the vector search in an index, you must not specify the document ID when creating documents. SeaSearch will automatically generate a unique ID for each document.
+
 ```
 [POST] /es/_bulk
 
