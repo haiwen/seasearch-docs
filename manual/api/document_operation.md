@@ -7,7 +7,10 @@ An index stores multiple documents. Users can perform CRUD operations (Create, R
 ElasticSearch Document APIs contain many additional parameters that are not meaningful to SeaSearch and are not supported. All query parameters are unsupported.
 
 ### Create Document
+
 ElasticSearch API: [Index Document](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html)
+
+Note, if you plan to use the vector search in an index, you must not specify the document ID when creating documents. SeaSearch will automatically generate a unique ID for each document.
 
 ### Update Document
 ElasticSearch’s update API supports partial updates to fields. SeaSearch only supports full document updates and does not support updating data via script or detecting if an update is a no-op.
