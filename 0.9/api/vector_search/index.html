@@ -1281,6 +1281,7 @@ body:
 <h3 id="indexing-documents-containing-vectors">Indexing Documents Containing Vectors<a class="headerlink" href="#indexing-documents-containing-vectors" title="Permanent link">&para;</a></h3>
 <p>Indexing a document that includes vectors is identical at the API level to indexing a regular document. 
 You may choose the method that best suits your needs. The following example uses the bulk API.</p>
+<p>Note, if you plan to use the vector search in an index, you must not specify the document ID when creating documents. SeaSearch will automatically generate a unique ID for each document.</p>
 <div class="highlight"><pre><span></span><code>[POST] /es/_bulk
 
 { &quot;index&quot; : { &quot;_index&quot; : &quot;index1&quot; } }
