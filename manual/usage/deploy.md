@@ -19,7 +19,7 @@ mkdir /opt/seasearch
 cd /opt/seasearch
 wget https://seasearch-manual.seafile.com/0.9/repo/caddy.yml
 wget https://seasearch-manual.seafile.com/0.9/repo/seasearch.yml
-wget -O .env https://seasearch-manual.seafile.com/repo/env
+wget -O .env https://seasearch-manual.seafile.com/0.9/repo/env
 ```
 
 ## Modify .env file
