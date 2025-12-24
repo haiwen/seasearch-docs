@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1311,6 +1311,7 @@ The API response format is the same as that for full-text search.</p>
 <li><code>return_fields</code>: The names of the fields to return separately.</li>
 <li><code>vector</code>: The vector used for querying.</li>
 <li><code>nprobe</code>: Applicable only to the <code>ivf_pq</code> index type; it specifies the number of clusters to search. The higher the number, the more accurate the results.</li>
+<li><code>filter_query</code>: An optional parameter that allows you to filter the search results based on specific conditions, similar to the filter context in full-text search. (<a href="https://www.elastic.co/docs/reference/query-languages/query-dsl/query-filter-context#filter-context">https://www.elastic.co/docs/reference/query-languages/query-dsl/query-filter-context#filter-context</a>)</li>
 </ul>
 <h3 id="recall-query">Recall Query<a class="headerlink" href="#recall-query" title="Permanent link">&para;</a></h3>
 <p>For vector indexes of the <code>ivf_pq</code> type, you can evaluate the recall for search on the data. You can optimize and adjust your <code>ivf_pq</code> index parameters based on the results of this API.
@@ -1536,10 +1537,10 @@ At the same time, it directly updates paper <code>005</code> and paper <code>006
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tracking", "navigation.sections", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "search.share", "math", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tracking", "navigation.sections", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "search.share", "math", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
