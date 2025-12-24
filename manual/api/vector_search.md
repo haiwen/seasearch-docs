@@ -77,7 +77,7 @@ You can specify the following parameters for vector search:
 - `return_fields`: The names of the fields to return separately.
 - `vector`: The vector used for querying.
 - `nprobe`: Applicable only to the `ivf_pq` index type; it specifies the number of clusters to search. The higher the number, the more accurate the results.
-
+- `filter_query`: An optional parameter that allows you to filter the search results based on specific conditions, similar to the filter context in full-text search. ([https://www.elastic.co/docs/reference/query-languages/query-dsl/query-filter-context#filter-context](https://www.elastic.co/docs/reference/query-languages/query-dsl/query-filter-context#filter-context))
 
 ### Recall Query
 For vector indexes of the `ivf_pq` type, you can evaluate the recall for search on the data. You can optimize and adjust your `ivf_pq` index parameters based on the results of this API.
