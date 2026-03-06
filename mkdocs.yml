@@ -81,7 +81,6 @@ nav:
     - Overview: usage/overview.md
     - Deploy SeaSearch: usage/deploy.md
     - Use and access SeaSearch APIs: usage/use_and_access_seasearch_apis.md
-    - Https: usage/https.md
     - Backup and Restore: usage/backup_and_restore.md
   - Configuration: config/README.md
   - SeaSearch API: 

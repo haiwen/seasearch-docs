@@ -1,11 +1,5 @@
-COMPOSE_FILE='seasearch.yml,caddy.yml'
+COMPOSE_FILE='seasearch.yml'
 COMPOSE_PATH_SEPARATOR=','
-
-# For caddy and http protocol
-SEASEARCH_CADDY_IMAGE=lucaslorentz/caddy-docker-proxy:2.9-alpine
-SEASEARCH_CADDY_VOLUME=./caddy-data
-SEASEARCH_SERVER_PROTOCOL=http
-SEASEARCH_SERVER_HOSTNAME=<your seasearch host>
 
 #SEASEARCH_IMAGE=seafileltd/seasearch-nomkl:1.0-latest # Apple's Chip
 SEASEARCH_IMAGE=seafileltd/seasearch:1.0-latest

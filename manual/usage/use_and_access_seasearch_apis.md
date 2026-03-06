@@ -79,7 +79,7 @@ You can create a regular user by **POST `/api/user`** with the role `regular_use
 
 ```sh
 curl -X 'POST' \
-  'https://seasearch.example.com/api/user' \
+  'http://<your IP>:4080/api/user' \
   -H 'accept: application/json' \
   -H 'authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=' \
   -H 'Content-Type: application/json' \
@@ -109,7 +109,7 @@ echo -n 'ru_username:ru_password' | base64
 bmV3dXNlcm5hbWU6Q29tcGxleHBhc3MjMTIz
 ```
 
-Here we will take regular users creating, using and deleting an index as examples.
+Here we will take regular users creating, using and deleting an index as examples, for the whole descriptions of SeaSearch APIs, please refer to [here](../api/overview.md).
 
 ### Create an index
 
@@ -117,7 +117,7 @@ You can create an index by **PUT `/Index_name`** with related settings, for exma
 
 ```sh
 curl -X 'POST' \
-  'https://seasearch.example.com/es/index_1' \
+  'http://<your IP>:4080/es/index_1' \
   -H 'accept: application/json' \
   -H 'authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=' \
   -H 'Content-Type: application/json' \
@@ -147,7 +147,7 @@ You can create a document by sending a **POST** request to `/es/<your index name
 
 ```sh
 curl -X 'POST' \
-  'https://seasearch.example.com/es/index_1/_doc' \
+  'http://<your IP>:4080/es/index_1/_doc' \
   -H 'accept: application/json' \
   -H 'authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=' \
   -H 'Content-Type: application/json' \
@@ -182,7 +182,7 @@ When you have stored a considerable number of documents in an index in SeaSearch
 
 ```sh
 curl -X 'POST' \
-  'https://seasearch.example.com/es/index_1/_search' \
+  'http://<your IP>:4080/es/index_1/_search' \
   -H 'accept: application/json' \
   -H 'authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=' \
   -H 'Content-Type: application/json' \
@@ -230,7 +230,7 @@ You can delete a document by **DELETE** `/api/<your index name>/_doc/<your docum
 
 ```sh
 curl -X 'DELETE' \
-  'https://seasearch.example.com/es/index_1/_doc/2evSk96OVLa' \
+  'http://<your IP>:4080/es/index_1/_doc/2evSk96OVLa' \
   -H 'accept: application/json' \
   -H 'authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ='
 ```
@@ -251,7 +251,7 @@ You can delete an index by sending a **DELETE** request to `/api/index/<your ind
 
 ```sh
 curl -X 'DELETE' \
-  'https://seasearch.example.com/api/index/index_1' \
+  'http://<your IP>:4080/api/index/index_1' \
   -H 'accept: application/json' \
   -H 'authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ='
 ```
