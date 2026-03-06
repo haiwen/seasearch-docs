@@ -16,14 +16,14 @@
         <link rel="prev" href="../deploy/">
       
       
-        <link rel="next" href="../https/">
+        <link rel="next" href="../backup_and_restore/">
       
       
         
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
     
     
       
@@ -680,34 +680,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../https/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Https
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../backup_and_restore/" class="md-nav__link">
         
   
@@ -1207,7 +1179,7 @@
 <h2 id="create-a-regular-user">Create a regular user<a class="headerlink" href="#create-a-regular-user" title="Permanent link">&para;</a></h2>
 <p>You can create a regular user by <strong>POST <code>/api/user</code></strong> with the role <code>regular_user</code>, e.g.,</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s1">&#39;https://seasearch.example.com/api/user&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">&#39;http://&lt;your IP&gt;:4080/api/user&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
@@ -1228,11 +1200,11 @@
 <div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;ru_username:ru_password&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
 bmV3dXNlcm5hbWU6Q29tcGxleHBhc3MjMTIz
 </code></pre></div>
-<p>Here we will take regular users creating, using and deleting an index as examples.</p>
+<p>Here we will take regular users creating, using and deleting an index as examples, for the whole descriptions of SeaSearch APIs, please refer to <a href="../../api/overview/">here</a>.</p>
 <h3 id="create-an-index">Create an index<a class="headerlink" href="#create-an-index" title="Permanent link">&para;</a></h3>
 <p>You can create an index by <strong>PUT <code>/Index_name</code></strong> with related settings, for exmaple (we assume the index name is <code>index_1</code>):</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s1">&#39;https://seasearch.example.com/es/index_1&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">&#39;http://&lt;your IP&gt;:4080/es/index_1&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
@@ -1255,7 +1227,7 @@ bmV3dXNlcm5hbWU6Q29tcGxleHBhc3MjMTIz
 <h3 id="create-a-document">Create a document<a class="headerlink" href="#create-a-document" title="Permanent link">&para;</a></h3>
 <p>You can create a document by sending a <strong>POST</strong> request to <code>/es/&lt;your index name&gt;/_doc</code>. For example, we add a book names <em>Snow Crash</em> by the author <em>Neal Stephenson</em>:</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s1">&#39;https://seasearch.example.com/es/index_1/_doc&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">&#39;http://&lt;your IP&gt;:4080/es/index_1/_doc&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
@@ -1282,7 +1254,7 @@ bmV3dXNlcm5hbWU6Q29tcGxleHBhc3MjMTIz
 <h3 id="search-document-by-querying-matched-fields">Search document by querying matched fields<a class="headerlink" href="#search-document-by-querying-matched-fields" title="Permanent link">&para;</a></h3>
 <p>When you have stored a considerable number of documents in an index in SeaSearch (such as <code>index_1</code> above), you can use <strong>GET</strong> <code>/api/&lt;your index name&gt;/_search</code> to search for the required document by the fields you want to match:</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s1">&#39;https://seasearch.example.com/es/index_1/_search&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">&#39;http://&lt;your IP&gt;:4080/es/index_1/_search&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
@@ -1323,7 +1295,7 @@ bmV3dXNlcm5hbWU6Q29tcGxleHBhc3MjMTIz
 <h3 id="delete-document">Delete document<a class="headerlink" href="#delete-document" title="Permanent link">&para;</a></h3>
 <p>You can delete a document by <strong>DELETE</strong> <code>/api/&lt;your index name&gt;/_doc/&lt;your document id&gt;</code>, e.g.:</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;DELETE&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s1">&#39;https://seasearch.example.com/es/index_1/_doc/2evSk96OVLa&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">&#39;http://&lt;your IP&gt;:4080/es/index_1/_doc/2evSk96OVLa&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=&#39;</span>
 </code></pre></div>
@@ -1337,7 +1309,7 @@ bmV3dXNlcm5hbWU6Q29tcGxleHBhc3MjMTIz
 <h3 id="delete-index">Delete index<a class="headerlink" href="#delete-index" title="Permanent link">&para;</a></h3>
 <p>You can delete an index by sending a <strong>DELETE</strong> request to <code>/api/index/&lt;your index name&gt;</code>, e.g.:</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;DELETE&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s1">&#39;https://seasearch.example.com/api/index/index_1&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">&#39;http://&lt;your IP&gt;:4080/api/index/index_1&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=&#39;</span>
 </code></pre></div>
@@ -1402,13 +1374,13 @@ bmV3dXNlcm5hbWU6Q29tcGxleHBhc3MjMTIz
         
         
           
-          <a href="../https/" class="md-footer__link md-footer__link--next" aria-label="Next: Https">
+          <a href="../backup_and_restore/" class="md-footer__link md-footer__link--next" aria-label="Next: Backup and Restore">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Https
+                Backup and Restore
               </div>
             </div>
             <div class="md-footer__button md-icon">

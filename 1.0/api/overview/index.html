@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
     
     
       
@@ -523,34 +523,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usage/https/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Https
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../usage/backup_and_restore/" class="md-nav__link">
         
   
@@ -890,7 +862,7 @@
 <p>SeaSearch is developed based on ZincSearch and is compatible with ElasticSearch (ES) APIs. The concepts used in the API are similar to those in ElasticSearch, so users can directly refer to the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html">ElasticSearch API documentation</a> and <a href="https://zincsearch-docs.zinc.dev/api-es-compatible/">ZincSearch API documentation</a> for most API calls. This document introduces the commonly used APIs to help users quickly understand the main concepts and basic usage flow. It will also explain the modifications we made to the ZincSearch API and highlight the differences from the upstream API.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>If you have deployed the SeaSearch server, you can browse the most APIs in <code>http{s}://seasearch.example.com/swagger/index.html</code></p>
+<p>If you have deployed the SeaSearch server, you can browse the most APIs in <code>http://&lt;your IP&gt;:4080/swagger/index.html</code></p>
 </div>
 <p>The ES-compatible APIs provided by SeaSearch can be accessed by adding the /es/ prefix in the URL. For example, the ES API URL is:
 <div class="highlight"><pre><span></span><code>GET /my-index-000001/_search

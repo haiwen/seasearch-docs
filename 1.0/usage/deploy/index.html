@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
     
     
       
@@ -619,34 +619,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../https/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Https
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../backup_and_restore/" class="md-nav__link">
         
   
@@ -1031,15 +1003,12 @@
 <p>You can download the <code>.yml</code> and <code>.env</code> files by following commands:</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>/opt/seasearch
 <span class="nb">cd</span><span class="w"> </span>/opt/seasearch
-wget<span class="w"> </span>https://seasearch-manual.seafile.com/1.0/repo/caddy.yml
 wget<span class="w"> </span>https://seasearch-manual.seafile.com/1.0/repo/seasearch.yml
 wget<span class="w"> </span>-O<span class="w"> </span>.env<span class="w"> </span>https://seasearch-manual.seafile.com/1.0/repo/env
 </code></pre></div>
 <h2 id="modify-env-file">Modify .env file<a class="headerlink" href="#modify-env-file" title="Permanent link">&para;</a></h2>
 <p>Modify the environment variables ​​of the following fields in the <code>.env</code> file.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">SEASEARCH_SERVER_HOSTNAME</span><span class="o">=</span>seasearch.example.com
-
-<span class="c1">#SEASEARCH_IMAGE=seafileltd/seasearch-nomkl:1.0-latest # for Apple&#39;s chips</span>
+<div class="highlight"><pre><span></span><code><span class="c1">#SEASEARCH_IMAGE=seafileltd/seasearch-nomkl:1.0-latest # for Apple&#39;s chips</span>
 <span class="nv">SEASEARCH_IMAGE</span><span class="o">=</span>seafileltd/seasearch:1.0-latest
 
 <span class="nv">SS_DATA_PATH</span><span class="o">=</span>/opt/seasearch-data
@@ -1056,7 +1025,7 @@ wget<span class="w"> </span>-O<span class="w"> </span>.env<span class="w"> </spa
 <p>Start the service use the following command:</p>
 <div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
-<p>Now, you can access SeaSearch services at <code>http://seasearch.example.com/</code> and login by the <code>INIT_SS_ADMIN_USER</code> and <code>INIT_SS_ADMIN_PASSWORD</code> defined in the <code>.env</code> file. You will see the SeaSearch plane like below:</p>
+<p>Now, you can access SeaSearch services at <code>http://&lt;your IP&gt;:4080/</code> and login by the <code>INIT_SS_ADMIN_USER</code> and <code>INIT_SS_ADMIN_PASSWORD</code> defined in the <code>.env</code> file. You will see the SeaSearch plane like below:</p>
 <p><img alt="grafik" src="../../media/seasearch_console.png" /></p>
 <p>You can remove the initial admin account informations in <code>.env</code> (e.g., <code>INIT_SS_ADMIN_USER</code>, <code>INIT_SS_ADMIN_PASSWORD</code>), which are only used in the SeaSearch initialization progress. (Make sure <strong>you have recorded it somewhere else in case you forget the password</strong>.)</p>
 
