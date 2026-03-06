@@ -5,7 +5,7 @@ COMPOSE_PATH_SEPARATOR=','
 SEASEARCH_IMAGE=seafileltd/seasearch:1.0-latest
 
 ## local storage mode
-SS_DATA_PATH=./data # Persistent storage path
+SS_DATA_PATH=/opt/seasearch-data # Persistent storage path
 SS_MAX_OBJ_CACHE_SIZE=10GB
 
 ## s3 mode
@@ -22,7 +22,6 @@ S3_SSE_C_KEY=
 
 # log
 SS_LOG_TO_STDOUT=false
-SS_LOG_OUTPUT=true
 SS_LOG_LEVEL=info
 
 # initial

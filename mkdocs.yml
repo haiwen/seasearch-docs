@@ -79,9 +79,12 @@ nav:
   - Introduction: README.md
   - Deployment and Usage:
     - Overview: usage/overview.md
-    - Deploy SeaSearch: usage/deploy.md
-    - Use and access SeaSearch APIs: usage/use_and_access_seasearch_apis.md
-    - Backup and Restore: usage/backup_and_restore.md
+    - Deployment:
+      - Single node: usage/deploy_single_node.md
+      - Cluster (AMD64 CPU only): usage/deploy_cluster.md
+    - Usage and management:
+      - Use and access SeaSearch APIs: usage/use_and_access_seasearch_apis.md
+      - Backup and Restore: usage/backup_and_restore.md
   - Configuration: config/README.md
   - SeaSearch API: 
     - Overview: api/overview.md

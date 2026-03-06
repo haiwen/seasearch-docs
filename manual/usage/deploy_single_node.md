@@ -1,4 +1,4 @@
-# Deploy SeaSearch
+# Deploy SeaSearch in single node
 
 This document provides step by step guild for deploying SeaSearch using Docker.
 
@@ -17,8 +17,8 @@ You can download the `.yml` and `.env` files by following commands:
 ```bash
 mkdir /opt/seasearch
 cd /opt/seasearch
-wget https://seasearch-manual.seafile.com/1.0/repo/seasearch.yml
-wget -O .env https://seasearch-manual.seafile.com/1.0/repo/env
+wget https://seasearch-manual.seafile.com/1.0/repo/single-node/seasearch.yml
+wget -O .env https://seasearch-manual.seafile.com/1.0/repo/single-node/env
 ```
 
 ## Modify .env file
@@ -29,7 +29,6 @@ Modify the environment variables ​​of the following fields in the `.env` fil
 #SEASEARCH_IMAGE=seafileltd/seasearch-nomkl:1.0-latest # for Apple's chips
 SEASEARCH_IMAGE=seafileltd/seasearch:1.0-latest
 
-SS_DATA_PATH=/opt/seasearch-data
 INIT_SS_ADMIN_USER=<admin-username>  
 INIT_SS_ADMIN_PASSWORD=<admin-password>
 ```
@@ -49,7 +48,7 @@ Start the service use the following command:
 docker-compose up -d
 ```
 
-Now, you can access SeaSearch services at `http://<your IP>:4080/` and login by the `INIT_SS_ADMIN_USER` and `INIT_SS_ADMIN_PASSWORD` defined in the `.env` file. You will see the SeaSearch plane like below:
+Now, you can access SeaSearch at `http://<your IP>:4080/` and login by the `INIT_SS_ADMIN_USER` and `INIT_SS_ADMIN_PASSWORD` defined in the `.env` file. You will see the SeaSearch plane like below:
 
 ![grafik](../media/seasearch_console.png)
 
