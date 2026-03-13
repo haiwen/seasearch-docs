@@ -554,7 +554,7 @@
   <span class="md-ellipsis">
     
   
-    Cluster (AMD64 CPU only)
+    Cluster (X86 CPU only)
   
 
     
@@ -1288,7 +1288,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <td><code>false</code></td>
 </tr>
 <tr>
-<td><code>S3_KEY</code></td>
+<td><code>S3_SECRET_KEY</code></td>
 <td>This variable is required to authenticate you to S3. You can find the key in the "security credentials" section on your AWS account page or from your storage provider.</td>
 <td>&lt;required&gt;</td>
 </tr>
@@ -1356,7 +1356,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
 <span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
 <span class="nv">S3_KEY_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
-<span class="nv">S3_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">S3_SECRET_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
 <span class="nv">S3_SS_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
 <span class="nv">SS_S3_REGION</span><span class="o">=</span>us-east-1
 <span class="nv">S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>
@@ -1369,7 +1369,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
 <span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
 <span class="nv">S3_KEY_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
-<span class="nv">S3_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">S3_SECRET_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
 <span class="nv">S3_SS_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
 <span class="nv">S3_HOST</span><span class="o">=</span>sos-de-fra-1.exo.io
 <span class="nv">S3_PATH_STYLE_REQUEST</span><span class="o">=</span><span class="nb">true</span>
@@ -1381,7 +1381,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
 <span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
 <span class="nv">S3_KEY_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
-<span class="nv">S3_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">S3_SECRET_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
 <span class="nv">S3_SS_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
 <span class="nv">S3_HOST</span><span class="o">=</span>fsn1.your-objectstorage.com
 <span class="nv">S3_PATH_STYLE_REQUEST</span><span class="o">=</span><span class="nb">true</span>
@@ -1394,7 +1394,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
 <span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
 <span class="nv">S3_KEY_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
-<span class="nv">S3_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">S3_SECRET_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
 <span class="nv">S3_SS_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
 <span class="nv">S3_HOST</span><span class="o">=</span>&lt;access<span class="w"> </span>endpoint<span class="w"> </span><span class="k">for</span><span class="w"> </span>storage<span class="w"> </span>provider&gt;
 <span class="nv">SS_S3_REGION</span><span class="o">=</span>&lt;region<span class="w"> </span>name<span class="w"> </span><span class="k">for</span><span class="w"> </span>storage<span class="w"> </span>provider&gt;
@@ -1407,7 +1407,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 <span class="nv">SS_DATA_PATH</span><span class="o">=</span>./data
 <span class="nv">SS_STORAGE_TYPE</span><span class="o">=</span>s3
 <span class="nv">S3_KEY_ID</span><span class="o">=</span>&lt;your-s3-key-id&gt;
-<span class="nv">S3_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
+<span class="nv">S3_SECRET_KEY</span><span class="o">=</span>&lt;your-s3-secret-key&gt;
 <span class="nv">S3_SS_BUCKET</span><span class="o">=</span>&lt;your-seasearch-bucket&gt;
 <span class="nv">S3_HOST</span><span class="o">=</span>&lt;your<span class="w"> </span>s3<span class="w"> </span>api<span class="w"> </span>endpoint<span class="w"> </span>host&gt;:&lt;your<span class="w"> </span>s3<span class="w"> </span>api<span class="w"> </span>endpoint<span class="w"> </span>port&gt;
 <span class="nv">S3_USE_HTTPS</span><span class="o">=</span><span class="nb">true</span>

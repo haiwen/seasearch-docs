@@ -27,7 +27,7 @@
     
     
       
-        <title>Cluster (AMD64 CPU only) - SeaSearch Manual</title>
+        <title>Cluster (X86 CPU only) - SeaSearch Manual</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deploy-seasearch-in-cluster-amd64-cpu-only" class="md-skip">
+        <a href="#deploy-seasearch-in-cluster-x86-cpu-only" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Cluster (AMD64 CPU only)
+              Cluster (X86 CPU only)
             
           </span>
         </div>
@@ -573,7 +573,7 @@
   <span class="md-ellipsis">
     
   
-    Cluster (AMD64 CPU only)
+    Cluster (X86 CPU only)
   
 
     
@@ -591,7 +591,7 @@
   <span class="md-ellipsis">
     
   
-    Cluster (AMD64 CPU only)
+    Cluster (X86 CPU only)
   
 
     
@@ -717,15 +717,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploy-cluster-gateway-single-node" class="md-nav__link">
+  <a href="#deploy-gateway" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Deploy cluster gateway (single node)
+        Deploy gateway
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Deploy cluster gateway (single node)">
+    <nav class="md-nav" aria-label="Deploy gateway">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -751,10 +751,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#start-cluster-gateway-node" class="md-nav__link">
+  <a href="#start-gateway-node" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Start cluster gateway node
+        Start gateway node
       
     </span>
   </a>
@@ -762,10 +762,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#register-all-seasearch-nodes" class="md-nav__link">
+  <a href="#external-load-balancer-for-seasearch-gateway-cluster" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Register all SeaSearch nodes
+        External load balancer for SeaSearch gateway cluster
       
     </span>
   </a>
@@ -1301,15 +1301,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploy-cluster-gateway-single-node" class="md-nav__link">
+  <a href="#deploy-gateway" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Deploy cluster gateway (single node)
+        Deploy gateway
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Deploy cluster gateway (single node)">
+    <nav class="md-nav" aria-label="Deploy gateway">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1335,10 +1335,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#start-cluster-gateway-node" class="md-nav__link">
+  <a href="#start-gateway-node" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Start cluster gateway node
+        Start gateway node
       
     </span>
   </a>
@@ -1346,10 +1346,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#register-all-seasearch-nodes" class="md-nav__link">
+  <a href="#external-load-balancer-for-seasearch-gateway-cluster" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Register all SeaSearch nodes
+        External load balancer for SeaSearch gateway cluster
       
     </span>
   </a>
@@ -1381,13 +1381,12 @@
   
 
 
-<h1 id="deploy-seasearch-in-cluster-amd64-cpu-only">Deploy SeaSearch in cluster (AMD64 CPU only)<a class="headerlink" href="#deploy-seasearch-in-cluster-amd64-cpu-only" title="Permanent link">&para;</a></h1>
+<h1 id="deploy-seasearch-in-cluster-x86-cpu-only">Deploy SeaSearch in cluster (x86 CPU only)<a class="headerlink" href="#deploy-seasearch-in-cluster-x86-cpu-only" title="Permanent link">&para;</a></h1>
 <h2 id="cluster-architecture">Cluster architecture<a class="headerlink" href="#cluster-architecture" title="Permanent link">&para;</a></h2>
-<p>A SeaSearch cluster deployment consists of SeaSearch nodes (<strong>recommended more than three nodes for high availability</strong>), and a cluster gateway node. These nodes coordinate internal state and index allocation through etcd: </p>
-<p><img alt="grafik" src="../../media/seasearch_cluster_architecture.png" /></p>
+<p>A SeaSearch cluster deployment consists of SeaSearch nodes (<strong>recommended more than three nodes for high availability</strong>), and gateway node(s). These nodes coordinate internal state and index allocation through etcd: </p>
 <ul>
 <li>The SeaSearch node is responsible for reading and writing the index. The index is temporarily stored on the local disk as a cache. If the required data is not in the cache, it is read from S3. When a SeaSearch node goes offline, its indexes are reassigned to the remaining nodes, which then retrieve the latest data from S3.</li>
-<li>The cluster gateway node mainly consists of two processes: the cluster-manager process and the proxy process. The former monitors the health of the Seasearch nodes and assigns the most suitable node to new requests. The latter queries etcd for the metadata information of the most suitable node assigned by the cluster-manager and uses this metadata information to forward user requests to that node.</li>
+<li>The gateway node mainly consists of two processes: the SeaSearch cluster-manager service and the SeaSearch proxy service. The former monitors the health of the Seasearch nodes and assigns the most suitable node to new requests. The latter queries etcd for the metadata information of the most suitable node assigned by the cluster-manager and uses this metadata information to forward user requests to that node.</li>
 </ul>
 <h2 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Permanent link">&para;</a></h2>
 <h3 id="prepare-s3-storage-for-storing-indexes">Prepare S3 storage for storing indexes<a class="headerlink" href="#prepare-s3-storage-for-storing-indexes" title="Permanent link">&para;</a></h3>
@@ -1424,12 +1423,21 @@ ETCD_AUTO_COMPACTION_RETENTION=&quot;1&quot;
 <p>Then restart etcd with</p>
 <div class="highlight"><pre><span></span><code>service<span class="w"> </span>etcd<span class="w"> </span>restart
 </code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Timeout failure while restart etcd</p>
+<p>This is usually because etcd is not yet installed on all etcd nodes (often happens while configuring a particular etcd node and etcd has not yet installed in some required nodes). You just need to wait until the configuration files (i.e., <code>/etc/default/etcd</code>) on all etcd nodes , and then restart the service togather.</p>
+</div>
 </li>
 </ul>
 <h2 id="deploy-seasearch-server-recommended-more-than-three-nodes">Deploy SeaSearch server (recommended more than three nodes)<a class="headerlink" href="#deploy-seasearch-server-recommended-more-than-three-nodes" title="Permanent link">&para;</a></h2>
-<p>The following assumptions and conventions are used in the rest of this document (applicable to <strong>all nodes</strong>, including cluster-gateway node):</p>
+<p>The following assumptions and conventions are used in the rest of this document (applicable to <strong>all nodes</strong>, including the gateway nodes):</p>
 <ul>
-<li><code>/opt/seasearch</code> is the directory for storing SeaSearch docker compose files. If you decide to put SeaSearch in a different directory, adjust all paths accordingly.</li>
+<li>
+<p><code>/opt/seasearch</code> is the directory for storing SeaSearch server docker compose files. If you decide to put SeaSearch in a different directory, adjust all paths accordingly.</p>
+</li>
+<li>
+<p><code>/opt/seasearch-cluster-gateway</code> is the directory for storing SeaSearch gateway docker compose files. If you decide to put the gateway server in a different directory, adjust all paths accordingly.</p>
+</li>
 </ul>
 <h3 id="download-the-yml-and-env-file">Download the yml and env file<a class="headerlink" href="#download-the-yml-and-env-file" title="Permanent link">&para;</a></h3>
 <p>You can download the <code>.yml</code> and <code>.env</code> files by following commands:</p>
@@ -1442,7 +1450,7 @@ wget<span class="w"> </span>-O<span class="w"> </span>.env<span class="w"> </spa
 <div class="highlight"><pre><span></span><code>INIT_SS_ADMIN_USER=&lt;admin-username&gt;  
 INIT_SS_ADMIN_PASSWORD=&lt;admin-password&gt;
 SS_CLUSTER_ID= # e.g., 1, 2, 3...., each node must be distinct and cannot be modified after initialization.
-SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1,192.168.0.2,192.168.0.3&#39;
+SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380&#39;
 SS_ETCD_USERNAME=
 SS_ETCD_PASSWORD=
 SS_ETCD_PREFIX=/seasearch
@@ -1450,34 +1458,115 @@ SS_ETCD_PREFIX=/seasearch
 <h3 id="start-seasearch-server">Start SeaSearch server<a class="headerlink" href="#start-seasearch-server" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>docker compose up -d
 </code></pre></div>
-<h2 id="deploy-cluster-gateway-single-node">Deploy cluster gateway (single node)<a class="headerlink" href="#deploy-cluster-gateway-single-node" title="Permanent link">&para;</a></h2>
+<h2 id="deploy-gateway">Deploy gateway<a class="headerlink" href="#deploy-gateway" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Deployment method 1: single gateway (for most situations)</p>
+<p>In most cases, deploying just one gateway node is sufficient to handle user needs within a SeaSearch cluster. At this time, both the SeaSearch cluster-manager and SeaSearch proxy services on the gateway node are enabled:</p>
+<p><img alt="grafik" src="../../media/seasearch_cluster_architecture.png" /></p>
+</li>
+<li>
+<p>Deployment method 2: SeaSearch gateway cluster</p>
+<p>In addition to the main SeaSearch service, the SeaSearch gateway also supports clustering (i.e., <strong><em>SeaSearch gateway cluster</em></strong>) to achieve load balancing for higher demand. The <strong><em>SeaSearch gateway cluster</em></strong> mainly consists of several SeaSearch proxy nodes (more than 3 are recommended for high availability) and one SeaSearch cluster manager node:</p>
+<p><img alt="grafik" src="../../media/seasearch_cluster_architecture_with_gateway_clsuter.png" /></p>
+</li>
+</ul>
+<p>Regardless of the deployment method, you need to perform the following steps:</p>
 <h3 id="download-the-yml-and-env-file_1">Download the yml and env file<a class="headerlink" href="#download-the-yml-and-env-file_1" title="Permanent link">&para;</a></h3>
 <p>You can download the <code>.yml</code> and <code>.env</code> files by following commands:</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>/opt/seasearch
-<span class="nb">cd</span><span class="w"> </span>/opt/seasearch
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>/opt/seasearch-cluster-gateway
+<span class="nb">cd</span><span class="w"> </span>/opt/seasearch-cluster-gateway
 wget<span class="w"> </span>https://seasearch-manual.seafile.com/1.0/repo/cluster/gateway/cluster-gateway.yml
 wget<span class="w"> </span>-O<span class="w"> </span>.env<span class="w"> </span>https://seasearch-manual.seafile.com/1.0/repo/gateway/env
 </code></pre></div>
 <h3 id="modify-env-file_1">Modify <code>.env</code> file<a class="headerlink" href="#modify-env-file_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1,192.168.0.2,192.168.0.3&#39;
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Single gateway</label><label for="__tabbed_1_2">Gateway cluster</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code># SeaSearch server cluster nodes
+# format: &lt;CLUSTER_ID&gt;:&lt;SeaSearch server endpoint&gt;, separated by commas
+# e.g., &#39;1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080&#39;
+SS_SERVER_CLUSTER_ENPOINTS=
+
+SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380&#39;
 SS_ETCD_USERNAME=
 SS_ETCD_PASSWORD=
 SS_ETCD_PREFIX=/seasearch
 </code></pre></div>
-<h3 id="start-cluster-gateway-node">Start cluster gateway node<a class="headerlink" href="#start-cluster-gateway-node" title="Permanent link">&para;</a></h3>
+</div>
+<div class="tabbed-block">
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Cluster manager node (<strong>only one node</strong>)</label><label for="__tabbed_2_2">Proxy node (&gt; 3 nodes recommended)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code># SeaSearch server cluster nodes
+# format: &lt;CLUSTER_ID&gt;:&lt;SeaSearch server endpoint&gt;, separated by commas
+# e.g., &#39;1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080&#39;
+SS_SERVER_CLUSTER_ENPOINTS=
+
+SS_GATEWAY_NODE_TYPE=manager # only start the cluster manager service
+
+SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380&#39;
+SS_ETCD_USERNAME=
+SS_ETCD_PASSWORD=
+SS_ETCD_PREFIX=/seasearch
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>SS_GATEWAY_NODE_TYPE=proxy # only start the proxy service
+SS_CLUSTER_MANAGER_URL=http://&lt;your_cluster_manager_node&gt;:4081
+
+SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380&#39;
+SS_ETCD_USERNAME=
+SS_ETCD_PASSWORD=
+SS_ETCD_PREFIX=/seasearch
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title"><code>SS_GATEWAY_NODE_TYPE</code> for Gateway cluster</p>
+<p>When you set <code>SS_GATEWAY_NODE_TYPE=manager</code>, only the cluster-manager service will be started on the current gateway node (correspondingly, setting it to <code>proxy</code> will only start the proxy service). However, SeaSearch gateway cluster also supports users starting both the cluster manager and proxy services on a single gateway node to save resource overhead. In this case, you only need to set <code>SS_GATEWAY_NODE_TYPE</code> to empty.</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="start-gateway-node">Start gateway node<a class="headerlink" href="#start-gateway-node" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
-<h3 id="register-all-seasearch-nodes">Register all SeaSearch nodes<a class="headerlink" href="#register-all-seasearch-nodes" title="Permanent link">&para;</a></h3>
-<p>You can register SeaSearch nodes by a command with</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>seasearch-cluster-gateway<span class="w"> </span>&lt;SS_CLUSTER_ID_1&gt;:&lt;ip1&gt;:4080<span class="w"> </span>&lt;SS_CLUSTER_ID_2&gt;:&lt;ip2&gt;:4080<span class="w"> </span>...
+<p>Now, you can access SeaSearch API (console is unavailable) at <code>http://&lt;your cluster-gateway IP&gt;:4082/</code> (i.e., the URL of SeaSearch proxy, and refer to <a href="#external-load-balancer-for-seasearch-gateway-cluster">here</a> for the situation with gateway cluster) and login by the <code>INIT_SS_ADMIN_USER</code> and <code>INIT_SS_ADMIN_PASSWORD</code> defined in the <code>.env</code> file.</p>
+<h3 id="external-load-balancer-for-seasearch-gateway-cluster">External load balancer for SeaSearch gateway cluster<a class="headerlink" href="#external-load-balancer-for-seasearch-gateway-cluster" title="Permanent link">&para;</a></h3>
+<p>Since the access endpoint for the SeaSearch cluster is the address of the proxy service in the gateway, you also need to configure load balancing for multiple proxy services to enable external connections for the SeaSearch gateway cluster. Here, we will use Nginx as an example to briefly describe how to configure Nginx to access the SeaSearch gateway cluster in this scenario:</p>
+<div class="highlight"><pre><span></span><code>upstream seasearch_proxy_backend {
+    keepalive 32;
+
+    server &lt;seasearch-gateway-proxy-node1-ip&gt;:4082 weight=3 max_fails=3 fail_timeout=30s;
+    server &lt;seasearch-gateway-proxy-node2-ip&gt;:4082 weight=2 max_fails=3 fail_timeout=30s;
+    server &lt;seasearch-gateway-proxy-node3-ip&gt;:4082 weight=1 max_fails=3 fail_timeout=30s;
+
+    # Also you can configure a backup node
+    # server &lt;seasearch-gateway-proxy-node-backup-ip&gt;:4082 backup;
+}
+
+server {
+    listen 80;
+    server_name seasearch.example.com; # your load balancer domain / IP
+
+    access_log /var/log/nginx/seasearch.access.log main;
+    error_log /var/log/nginx/seasearch.error.log warn;
+
+    location / {
+        proxy_pass http://seasearch_backend;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $server_name;
+
+        # ... other Nginx configurations
+    }
+}
 </code></pre></div>
-<p>For example, there are three SeaSearch nodes:
-- Cluster ID 1 with IP 192.168.0.1
-- Cluster ID 2 with IP 192.168.0.2
-- Cluster ID 3 with IP 192.168.0.3</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>seasearch-cluster-gateway<span class="w"> </span><span class="m">1</span>:192.168.0.1:4080<span class="w"> </span><span class="m">2</span>:192.168.0.2:4080<span class="w"> </span><span class="m">3</span>:192.168.0.3:4080
-</code></pre></div>
-<p>Now, you can access SeaSearch cluster at <code>http://&lt;your cluster-gateway IP&gt;:4082/</code> and login by the <code>INIT_SS_ADMIN_USER</code> and <code>INIT_SS_ADMIN_PASSWORD</code> defined in the <code>.env</code> file.</p>
 
 
 
