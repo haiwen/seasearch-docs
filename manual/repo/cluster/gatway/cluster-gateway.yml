@@ -1,14 +1,18 @@
 services:  
   seasearch-cluster-manager:  
-    image: ${SEASEARCH_IMAGE:-seafileltd/seasearch-cluster-gateway:1.0-latest}
+    image: ${SEASEARCH_CLUSTER_GATEWAY_IMAGE:-seafileltd/seasearch-cluster-gateway:1.0-latest}
     container_name: seasearch-cluster-gateway
     ports:
+      - "4081:4081"
       - "4082:4082"
-    environment: 
+    environment:
+      - SS_SERVER_CLUSTER_ENPOINTS=${SS_SERVER_CLUSTER_ENPOINTS:-}
+      - SS_GATEWAY_NODE_TYPE=${SS_GATEWAY_NODE_TYPE:-}
       - SS_ETCD_USERNAME=${SS_ETCD_USERNAME:-}
       - SS_ETCD_PASSWORD=${SS_ETCD_PASSWORD:-}
       - SS_ETCD_ENDPOINTS=${SS_ETCD_ENDPOINTS:?Variable is not set or empty}
       - SS_ETCD_PREFIX=${SS_ETCD_PREFIX:-/seasearch}
+      - SS_CLUSTER_MANAGER_URL=${SS_CLUSTER_MANAGER_URL:-http://127.0.0.1:4081}
       - SS_LOG_TO_STDOUT=true
       - SS_CLUSTER_MANAGER_LOG_LEVEL:${SS_CLUSTER_MANAGER_LOG_LEVEL:-}
       - SS_CLUSTER_PROXY_LOG_LEVEL:${SS_CLUSTER_PROXY_LOG_LEVEL:-}

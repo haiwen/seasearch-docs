@@ -1,7 +1,6 @@
 COMPOSE_FILE='seasearch.yml'
 COMPOSE_PATH_SEPARATOR=','
 
-#SEASEARCH_IMAGE=seafileltd/seasearch-nomkl:1.0-latest # Apple's Chip
 SEASEARCH_IMAGE=seafileltd/seasearch:1.0-latest
 
 ## local cache size limit
@@ -11,7 +10,7 @@ SS_MAX_OBJ_CACHE_SIZE=10GB
 S3_SS_BUCKET=
 S3_HOST=
 S3_KEY_ID=
-S3_KEY=
+S3_SECRET_KEY=
 S3_USE_HTTPS=true
 S3_USE_V4_SIGNATURE=false
 S3_PATH_STYLE_REQUEST=false
@@ -26,7 +25,7 @@ INIT_SS_ADMIN_PASSWORD=
 SS_CLUSTER_ID= # node ID, e.g., 0, 1, 2..., (cannot modify after deployment)
 
 ## ETCD (required)
-SS_ETCD_ENDPOINTS= # separated by commas, e.g., '192.168.0.1,192.168.0.2,192.168.0.3'
+SS_ETCD_ENDPOINTS= # separated by commas, e.g., '192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380'
 SS_ETCD_USERNAME=
 SS_ETCD_PASSWORD=
 SS_ETCD_PREFIX=/seasearch

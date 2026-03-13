@@ -26,7 +26,7 @@ These configurations are only effective when `SS_STORAGE_TYPE=s3`.
 | `S3_HOST` | The endpoint by which you access the storage service. Usually it starts with the region name. It's required to provide the host address if you use storage provider other than AWS, otherwise SeaSearch will use AWS's address (i.e., `s3.us-east-1.amazonaws.com`). | (required when not use AWS) |
 | `S3_KEY_ID` | The `S3_KEY_ID` is required to authenticate you to S3. You can find the `S3_KEY_ID` in the "security credentials" section on your AWS account page or from your storage provider. | <required\> |
 | `S3_USE_V4_SIGNATURE` | There are two versions of authentication protocols that can be used with S3 storage: Version 2 (older, may still be supported by some regions) and Version 4 (current, used by most regions). If you don't set this option, SeaSearch will use the v2 protocol. It's suggested to use the v4 protocol. | `false` |
-| `S3_KEY` | This variable is required to authenticate you to S3. You can find the key in the "security credentials" section on your AWS account page or from your storage provider. | <required\> |
+| `S3_SECRET_KEY` | This variable is required to authenticate you to S3. You can find the key in the "security credentials" section on your AWS account page or from your storage provider. | <required\> |
 | `S3_USE_HTTPS` | Use https to connect to S3. It's recommended to use https. | true |
 | `S3_PATH_STYLE_REQUEST` | This option asks SeaSearch to use URLs like `https://192.168.1.123:8080/bucketname/object` to access objects. In Amazon S3, the default URL format is in virtual host style, such as `https://bucketname.s3.amazonaws.com/object`. But this style relies on advanced DNS server setup. So most self-hosted storage systems only implement the path style format. So we recommend to set this option to `true` for self-hosted storage. | `true` |
 | `S3_AWS_REGION` | If you use the v4 protocol and AWS S3, set this option to the region you chose when you create the buckets. If it's not set and you're using the v4 protocol, SeaSearch will use `us-east-1` as the default. This option will be ignored if you use the v2 protocol. | `us-east-1` |
@@ -55,7 +55,7 @@ These configurations are only effective when `SS_STORAGE_TYPE=s3`.
     SS_DATA_PATH=./data
     SS_STORAGE_TYPE=s3
     S3_KEY_ID=<your-s3-key-id>
-    S3_KEY=<your-s3-secret-key>
+    S3_SECRET_KEY=<your-s3-secret-key>
     S3_SS_BUCKET=<your-seasearch-bucket>
     SS_S3_REGION=us-east-1
     S3_USE_HTTPS=true
@@ -68,7 +68,7 @@ These configurations are only effective when `SS_STORAGE_TYPE=s3`.
     SS_DATA_PATH=./data
     SS_STORAGE_TYPE=s3
     S3_KEY_ID=<your-s3-key-id>
-    S3_KEY=<your-s3-secret-key>
+    S3_SECRET_KEY=<your-s3-secret-key>
     S3_SS_BUCKET=<your-seasearch-bucket>
     S3_HOST=sos-de-fra-1.exo.io
     S3_PATH_STYLE_REQUEST=true
@@ -80,7 +80,7 @@ These configurations are only effective when `SS_STORAGE_TYPE=s3`.
     SS_DATA_PATH=./data
     SS_STORAGE_TYPE=s3
     S3_KEY_ID=<your-s3-key-id>
-    S3_KEY=<your-s3-secret-key>
+    S3_SECRET_KEY=<your-s3-secret-key>
     S3_SS_BUCKET=<your-seasearch-bucket>
     S3_HOST=fsn1.your-objectstorage.com
     S3_PATH_STYLE_REQUEST=true
@@ -93,7 +93,7 @@ These configurations are only effective when `SS_STORAGE_TYPE=s3`.
     SS_DATA_PATH=./data
     SS_STORAGE_TYPE=s3
     S3_KEY_ID=<your-s3-key-id>
-    S3_KEY=<your-s3-secret-key>
+    S3_SECRET_KEY=<your-s3-secret-key>
     S3_SS_BUCKET=<your-seasearch-bucket>
     S3_HOST=<access endpoint for storage provider>
     SS_S3_REGION=<region name for storage provider>
@@ -106,7 +106,7 @@ These configurations are only effective when `SS_STORAGE_TYPE=s3`.
     SS_DATA_PATH=./data
     SS_STORAGE_TYPE=s3
     S3_KEY_ID=<your-s3-key-id>
-    S3_KEY=<your-s3-secret-key>
+    S3_SECRET_KEY=<your-s3-secret-key>
     S3_SS_BUCKET=<your-seasearch-bucket>
     S3_HOST=<your s3 api endpoint host>:<your s3 api endpoint port>
     S3_USE_HTTPS=true
