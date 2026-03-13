@@ -10,24 +10,24 @@
         <meta name="author" content="seafile">
       
       
-        <link rel="canonical" href="https://haiwen.github.io/seasearch-docs/1.0/usage/deploy/">
+        <link rel="canonical" href="https://haiwen.github.io/seasearch-docs/1.0/usage/deploy_single_node/">
       
       
         <link rel="prev" href="../overview/">
       
       
-        <link rel="next" href="../use_and_access_seasearch_apis/">
+        <link rel="next" href="../deploy_cluster/">
       
       
         
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
     
     
       
-        <title>Deploy SeaSearch - SeaSearch Manual</title>
+        <title>Single node - SeaSearch Manual</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deploy-seasearch" class="md-skip">
+        <a href="#deploy-seasearch-in-single-node" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Deploy SeaSearch
+              Single node
             
           </span>
         </div>
@@ -473,6 +473,63 @@
   
   
   
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deployment
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -488,7 +545,7 @@
   <span class="md-ellipsis">
     
   
-    Deploy SeaSearch
+    Single node
   
 
     
@@ -506,7 +563,7 @@
   <span class="md-ellipsis">
     
   
-    Deploy SeaSearch
+    Single node
   
 
     
@@ -591,6 +648,97 @@
   
   
     <li class="md-nav__item">
+      <a href="../deploy_cluster/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cluster (AMD64 CPU only)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage and management
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Usage and management
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../use_and_access_seasearch_apis/" class="md-nav__link">
         
   
@@ -635,6 +783,14 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -991,7 +1147,7 @@
   
 
 
-<h1 id="deploy-seasearch">Deploy SeaSearch<a class="headerlink" href="#deploy-seasearch" title="Permanent link">&para;</a></h1>
+<h1 id="deploy-seasearch-in-single-node">Deploy SeaSearch in single node<a class="headerlink" href="#deploy-seasearch-in-single-node" title="Permanent link">&para;</a></h1>
 <p>This document provides step by step guild for deploying SeaSearch using Docker.</p>
 <h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
 <p>The following assumptions and conventions are used in the rest of this document:</p>
@@ -1003,15 +1159,14 @@
 <p>You can download the <code>.yml</code> and <code>.env</code> files by following commands:</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>/opt/seasearch
 <span class="nb">cd</span><span class="w"> </span>/opt/seasearch
-wget<span class="w"> </span>https://seasearch-manual.seafile.com/1.0/repo/seasearch.yml
-wget<span class="w"> </span>-O<span class="w"> </span>.env<span class="w"> </span>https://seasearch-manual.seafile.com/1.0/repo/env
+wget<span class="w"> </span>https://seasearch-manual.seafile.com/1.0/repo/single-node/seasearch.yml
+wget<span class="w"> </span>-O<span class="w"> </span>.env<span class="w"> </span>https://seasearch-manual.seafile.com/1.0/repo/single-node/env
 </code></pre></div>
 <h2 id="modify-env-file">Modify .env file<a class="headerlink" href="#modify-env-file" title="Permanent link">&para;</a></h2>
 <p>Modify the environment variables ​​of the following fields in the <code>.env</code> file.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">#SEASEARCH_IMAGE=seafileltd/seasearch-nomkl:1.0-latest # for Apple&#39;s chips</span>
 <span class="nv">SEASEARCH_IMAGE</span><span class="o">=</span>seafileltd/seasearch:1.0-latest
 
-<span class="nv">SS_DATA_PATH</span><span class="o">=</span>/opt/seasearch-data
 <span class="nv">INIT_SS_ADMIN_USER</span><span class="o">=</span>&lt;admin-username&gt;<span class="w">  </span>
 <span class="nv">INIT_SS_ADMIN_PASSWORD</span><span class="o">=</span>&lt;admin-password&gt;
 </code></pre></div>
@@ -1025,7 +1180,7 @@ wget<span class="w"> </span>-O<span class="w"> </span>.env<span class="w"> </spa
 <p>Start the service use the following command:</p>
 <div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
-<p>Now, you can access SeaSearch services at <code>http://&lt;your IP&gt;:4080/</code> and login by the <code>INIT_SS_ADMIN_USER</code> and <code>INIT_SS_ADMIN_PASSWORD</code> defined in the <code>.env</code> file. You will see the SeaSearch plane like below:</p>
+<p>Now, you can access SeaSearch at <code>http://&lt;your IP&gt;:4080/</code> and login by the <code>INIT_SS_ADMIN_USER</code> and <code>INIT_SS_ADMIN_PASSWORD</code> defined in the <code>.env</code> file. You will see the SeaSearch plane like below:</p>
 <p><img alt="grafik" src="../../media/seasearch_console.png" /></p>
 <p>You can remove the initial admin account informations in <code>.env</code> (e.g., <code>INIT_SS_ADMIN_USER</code>, <code>INIT_SS_ADMIN_PASSWORD</code>), which are only used in the SeaSearch initialization progress. (Make sure <strong>you have recorded it somewhere else in case you forget the password</strong>.)</p>
 
@@ -1080,13 +1235,13 @@ wget<span class="w"> </span>-O<span class="w"> </span>.env<span class="w"> </spa
         
         
           
-          <a href="../use_and_access_seasearch_apis/" class="md-footer__link md-footer__link--next" aria-label="Next: Use and access SeaSearch APIs">
+          <a href="../deploy_cluster/" class="md-footer__link md-footer__link--next" aria-label="Next: Cluster (AMD64 CPU only)">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Use and access SeaSearch APIs
+                Cluster (AMD64 CPU only)
               </div>
             </div>
             <div class="md-footer__button md-icon">
