@@ -1,8 +1,15 @@
-COMPOSE_FILE='cluster-manager.yml'
+COMPOSE_FILE='cluster-gateway.yml'
 COMPOSE_PATH_SEPARATOR=','
 
+SEASEARCH_CLUSTER_GATEWAY_IMAGE=seafileltd/seasearch-cluster-gateway:1.0-latest
+
+# SeaSearch server cluster nodes
+# format: <CLUSTER_ID>:<SeaSearch server endpoint>, separated by commas
+# e.g., '1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080'
+SS_SERVER_CLUSTER_ENPOINTS=
+
 # ETCD (required)
-SS_ETCD_ENDPOINTS= # separated by commas, e.g., '192.168.0.1,192.168.0.2,192.168.0.3'
+SS_ETCD_ENDPOINTS= # separated by commas, e.g., '192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380'
 SS_ETCD_USERNAME=
 SS_ETCD_PASSWORD=
 SS_ETCD_PREFIX=/seasearch
@@ -10,3 +17,7 @@ SS_ETCD_PREFIX=/seasearch
 # Log
 SS_CLUSTER_MANAGER_LOG_LEVEL=INFO
 SS_CLUSTER_PROXY_LOG_LEVEL=INFO
+
+# Gateway cluster (as required)
+SS_GATEWAY_NODE_TYPE=
+SS_CLUSTER_MANAGER_URL=
