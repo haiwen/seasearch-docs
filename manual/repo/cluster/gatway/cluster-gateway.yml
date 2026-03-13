@@ -1,0 +1,14 @@
+services:  
+  seasearch-cluster-manager:  
+    image: ${SEASEARCH_IMAGE:-seafileltd/seasearch-cluster-gateway:1.0-latest}
+    container_name: seasearch-cluster-gateway
+    ports:
+      - "4082:4082"
+    environment: 
+      - SS_ETCD_USERNAME=${SS_ETCD_USERNAME:-}
+      - SS_ETCD_PASSWORD=${SS_ETCD_PASSWORD:-}
+      - SS_ETCD_ENDPOINTS=${SS_ETCD_ENDPOINTS:?Variable is not set or empty}
+      - SS_ETCD_PREFIX=${SS_ETCD_PREFIX:-/seasearch}
+      - SS_LOG_TO_STDOUT=true
+      - SS_CLUSTER_MANAGER_LOG_LEVEL:${SS_CLUSTER_MANAGER_LOG_LEVEL:-}
+      - SS_CLUSTER_PROXY_LOG_LEVEL:${SS_CLUSTER_PROXY_LOG_LEVEL:-}
