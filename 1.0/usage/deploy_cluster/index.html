@@ -1521,20 +1521,15 @@ SS_ETCD_PREFIX=/seasearch
 </div>
 </div>
 <h3 id="start-gateway-node">Start gateway node<a class="headerlink" href="#start-gateway-node" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Single gateway</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Single gateway</label><label for="__tabbed_3_2">Gateway cluster</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-</div>
-</div>
+<div class="tabbed-block">
 <ol>
 <li>
 <p>Start container</p>
-<div class="codehilite"><pre><span></span><code>```sh
-docker compose up -d
-```
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
-
-<ol>
+</li>
 <li>
 <p>Register cluster</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># cluster_enpoints: &quot;&lt;CLUSTER_ID_1&gt;:&lt;SeaSearch server endpoint 1&gt;,&lt;CLUSTER_ID_2&gt;:&lt;SeaSearch server endpoint 2&gt;&quot;</span>
@@ -1547,10 +1542,7 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <p class="admonition-title">Proxy server will be started automatically after registering cluster</p>
 <p>After registering cluster, the SeaSearch-proxy server will be started automatically after registering cluster if <code>register-cluster</code> command executed successfully.</p>
 </div>
-</li>
-</ol>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Gateway cluster</label></div>
-<div class="tabbed-content">
+</div>
 <div class="tabbed-block">
 <ol>
 <li>
