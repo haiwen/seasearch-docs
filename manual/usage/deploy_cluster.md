@@ -123,11 +123,6 @@ wget -O .env https://seasearch-manual.seafile.com/1.0/repo/gateway/env
 === "Single gateway"
 
     ```env
-    # SeaSearch server cluster nodes
-    # format: <CLUSTER_ID>:<SeaSearch server endpoint>, separated by commas
-    # e.g., '1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080'
-    SS_SERVER_CLUSTER_ENPOINTS=
-
     SS_ETCD_ENDPOINTS= # separated by commas, e.g., '192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380'
     SS_ETCD_USERNAME=
     SS_ETCD_PASSWORD=
@@ -139,11 +134,6 @@ wget -O .env https://seasearch-manual.seafile.com/1.0/repo/gateway/env
     === "Cluster manager node (**only one node**)"
 
         ```env
-        # SeaSearch server cluster nodes
-        # format: <CLUSTER_ID>:<SeaSearch server endpoint>, separated by commas
-        # e.g., '1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080'
-        SS_SERVER_CLUSTER_ENPOINTS=
-
         SS_GATEWAY_NODE_TYPE=manager # only start the cluster manager service
 
         SS_ETCD_ENDPOINTS= # separated by commas, e.g., '192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380'
@@ -169,9 +159,65 @@ wget -O .env https://seasearch-manual.seafile.com/1.0/repo/gateway/env
 
 ### Start gateway node
 
-```sh
-docker compose up -d
-```
+=== "Single gateway"
+
+   1. Start container
+
+        ```sh
+        docker compose up -d
+        ```
+    
+    2. Register cluster
+
+        ```sh
+        # cluster_enpoints: "<CLUSTER_ID_1>:<SeaSearch server endpoint 1>,<CLUSTER_ID_2>:<SeaSearch server endpoint 2>"
+        # e.g., "1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080"
+        docker exec -it seasearch-cluster-gateway register-cluster <cluster_enpoints>
+        ```
+    
+    !!! tip "Proxy server will be started automatically after registering cluster"
+        After registering cluster, the SeaSearch-proxy server will be started automatically after registering cluster if `register-cluster` command executed successfully.
+
+=== "Gateway cluster"
+
+    1. Start cluster mananger
+
+        ```sh
+        # in the node of deploying cluster mananger
+        docker compose up -d
+        ```
+    
+    2. Register cluster
+
+        ```sh
+        # cluster_enpoints: "<CLUSTER_ID_1>:<SeaSearch server endpoint 1>,<CLUSTER_ID_2>:<SeaSearch server endpoint 2>"
+        # e.g., "1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080"
+        docker exec -it seasearch-cluster-gateway register-cluster <cluster_enpoints>
+        ```
+    
+    3. Start SeaSearch-proxy
+
+        ```sh
+        # in the node of deploying SeaSearch-proxy
+        docker compose up -d
+        ```
+    
+!!! tip "Cluster change"
+    If your SeaSearch cluster information has changed (e.g., a new SeaSearch node has been added), you need to do the following operations:
+
+    1. Re-register cluster:
+
+        ```sh
+        docker exec -it seasearch-cluster-gateway register-cluster <new_cluster_enpoints>
+        ```
+    
+    2. Restart SeaSearch-proxy server in all SeaSearch-proxy nodes (gateway cluster mode only):
+
+        ```sh
+        # in the node of deploying SeaSearch-proxy
+        docker compose restart seasearch-cluster-gateway
+        ```
+
 
 Now, you can access SeaSearch API (console is unavailable) at `http://<your cluster-gateway IP>:4082/` (i.e., the URL of SeaSearch proxy, and refer to [here](#external-load-balancer-for-seasearch-gateway-cluster) for the situation with gateway cluster) and login by the `INIT_SS_ADMIN_USER` and `INIT_SS_ADMIN_PASSWORD` defined in the `.env` file.
 
