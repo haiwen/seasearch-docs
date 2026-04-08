@@ -115,7 +115,7 @@ You can download the `.yml` and `.env` files by following commands:
 mkdir /opt/seasearch-cluster-gateway
 cd /opt/seasearch-cluster-gateway
 wget https://seasearch-manual.seafile.com/1.0/repo/cluster/gateway/cluster-gateway.yml
-wget -O .env https://seasearch-manual.seafile.com/1.0/repo/gateway/env
+wget -O .env https://seasearch-manual.seafile.com/1.0/repo/cluster/gateway/env
 ```
 
 ### Modify `.env` file
