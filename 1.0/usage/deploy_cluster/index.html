@@ -1483,12 +1483,7 @@ wget<span class="w"> </span>-O<span class="w"> </span>.env<span class="w"> </spa
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Single gateway</label><label for="__tabbed_1_2">Gateway cluster</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code># SeaSearch server cluster nodes
-# format: &lt;CLUSTER_ID&gt;:&lt;SeaSearch server endpoint&gt;, separated by commas
-# e.g., &#39;1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080&#39;
-SS_SERVER_CLUSTER_ENPOINTS=
-
-SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380&#39;
+<div class="highlight"><pre><span></span><code>SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380&#39;
 SS_ETCD_USERNAME=
 SS_ETCD_PASSWORD=
 SS_ETCD_PREFIX=/seasearch
@@ -1498,12 +1493,7 @@ SS_ETCD_PREFIX=/seasearch
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Cluster manager node (<strong>only one node</strong>)</label><label for="__tabbed_2_2">Proxy node (&gt; 3 nodes recommended)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code># SeaSearch server cluster nodes
-# format: &lt;CLUSTER_ID&gt;:&lt;SeaSearch server endpoint&gt;, separated by commas
-# e.g., &#39;1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080&#39;
-SS_SERVER_CLUSTER_ENPOINTS=
-
-SS_GATEWAY_NODE_TYPE=manager # only start the cluster manager service
+<div class="highlight"><pre><span></span><code>SS_GATEWAY_NODE_TYPE=manager # only start the cluster manager service
 
 SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380&#39;
 SS_ETCD_USERNAME=
@@ -1531,8 +1521,78 @@ SS_ETCD_PREFIX=/seasearch
 </div>
 </div>
 <h3 id="start-gateway-node">Start gateway node<a class="headerlink" href="#start-gateway-node" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Single gateway</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<ol>
+<li>
+<p>Start container</p>
+<div class="codehilite"><pre><span></span><code>```sh
+docker compose up -d
+```
 </code></pre></div>
+
+<ol>
+<li>
+<p>Register cluster</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># cluster_enpoints: &quot;&lt;CLUSTER_ID_1&gt;:&lt;SeaSearch server endpoint 1&gt;,&lt;CLUSTER_ID_2&gt;:&lt;SeaSearch server endpoint 2&gt;&quot;</span>
+<span class="c1"># e.g., &quot;1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>seasearch-cluster-gateway<span class="w"> </span>register-cluster<span class="w"> </span>&lt;cluster_enpoints&gt;
+</code></pre></div>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Proxy server will be started automatically after registering cluster</p>
+<p>After registering cluster, the SeaSearch-proxy server will be started automatically after registering cluster if <code>register-cluster</code> command executed successfully.</p>
+</div>
+</li>
+</ol>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Gateway cluster</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li>
+<p>Start cluster mananger</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># in the node of deploying cluster mananger</span>
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+</li>
+<li>
+<p>Register cluster</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># cluster_enpoints: &quot;&lt;CLUSTER_ID_1&gt;:&lt;SeaSearch server endpoint 1&gt;,&lt;CLUSTER_ID_2&gt;:&lt;SeaSearch server endpoint 2&gt;&quot;</span>
+<span class="c1"># e.g., &quot;1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>seasearch-cluster-gateway<span class="w"> </span>register-cluster<span class="w"> </span>&lt;cluster_enpoints&gt;
+</code></pre></div>
+</li>
+<li>
+<p>Start SeaSearch-proxy</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># in the node of deploying SeaSearch-proxy</span>
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Cluster change</p>
+<p>If your SeaSearch cluster information has changed (e.g., a new SeaSearch node has been added), you need to do the following operations:</p>
+<ol>
+<li>
+<p>Re-register cluster:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>seasearch-cluster-gateway<span class="w"> </span>register-cluster<span class="w"> </span>&lt;new_cluster_enpoints&gt;
+</code></pre></div>
+</li>
+<li>
+<p>Restart SeaSearch-proxy server in all SeaSearch-proxy nodes (gateway cluster mode only):</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># in the node of deploying SeaSearch-proxy</span>
+docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>seasearch-cluster-gateway
+</code></pre></div>
+</li>
+</ol>
+</div>
 <p>Now, you can access SeaSearch API (console is unavailable) at <code>http://&lt;your cluster-gateway IP&gt;:4082/</code> (i.e., the URL of SeaSearch proxy, and refer to <a href="#external-load-balancer-for-seasearch-gateway-cluster">here</a> for the situation with gateway cluster) and login by the <code>INIT_SS_ADMIN_USER</code> and <code>INIT_SS_ADMIN_PASSWORD</code> defined in the <code>.env</code> file.</p>
 <h3 id="external-load-balancer-for-seasearch-gateway-cluster">External load balancer for SeaSearch gateway cluster<a class="headerlink" href="#external-load-balancer-for-seasearch-gateway-cluster" title="Permanent link">&para;</a></h3>
 <p>Since the access endpoint for the SeaSearch cluster is the address of the proxy service in the gateway, you also need to configure load balancing for multiple proxy services to enable external connections for the SeaSearch gateway cluster. Here, we will use Nginx as an example to briefly describe how to configure Nginx to access the SeaSearch gateway cluster in this scenario:</p>
