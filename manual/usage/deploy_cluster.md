@@ -161,7 +161,7 @@ wget -O .env https://seasearch-manual.seafile.com/1.0/repo/cluster/gateway/env
 
 === "Single gateway"
 
-   1. Start container
+    1. Start container
 
         ```sh
         docker compose up -d
