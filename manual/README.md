@@ -9,3 +9,4 @@
 - **Good Compatibility**: API compatible with ElasticSearch
 - **Support S3 Storage**: SeaSearch can use S3 as storage
 - **Shared Storage Architecture for Cluster**: ElasticSearch's cluster architecture is based on replication of data among nodes. It's complex to maintain and not easy to scale. SeaSearch uses a shared-storage architecture. Cluster nodes share the same storage (usually S3 compatible object storage). With this architecture, it's easier to provide HA guarantees and easier to maintain. It's also possible to scale query performance by using more query nodes.
+- **Vector Search**: SeaSearch provides more lightweight vector search implementation compared to ElasticSearch. You can choose Flat or IVFPQ vector indexes.
