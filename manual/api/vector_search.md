@@ -1,12 +1,28 @@
-## Vecoter Search
+## Vector Search
+
 SeaSearch supports vector search. You can create an index containing a vector field. You can then save vectors (embeddings) generated from texts or images into the index. We'll introduce related APIs in this document.
 
 ### Creating a Vector Index
+
 To use the vector search feature, you first have to create an index containing a vector field. This can be done via mapping API.
 
-SeaSearch supports two types of vector index fields: `flat` and `ivfpq`.
-- Flat index directly save the input vectors. When searching for a vector, it simply computes the distances between the input vector and the saved vectors and returns the top K vectors nearest to the input vector. It's recommended to use this type if you have less than 100K vectors in the index.
-- [IVFPQ](https://towardsdatascience.com/similarity-search-with-ivfpq-9c6348fd4db3/) index uses a more efficient data structure to save the vectors. It requires less memory and less time to search for input vectors. If you have more than 100K vectors, you may consider using IVFPQ index.
+SeaSearch supports three types of vector index fields: `flat`, `ivf_pq`, and `hnsw`.
+
+|   | `flat` | `ivf_pq` | `hnsw` |
+| - | ------ | -------- | ------ |
+| Search speed | Slow | Fast | Fastest |
+| Memory usage | 100% | 10% - 20% | 25% |
+| Indexing speed | - | Medium | Slow |
+| Target scenarios | Small data volume | Large data volume | Search performance, High accuracy |
+
+- `flat` index directly saves the input vectors. When searching for a vector, it simply computes the distances between the input vector and the saved vectors and returns the top K vectors nearest to the input vector.
+- `ivf_pq`(https://towardsdatascience.com/similarity-search-with-ivfpq-9c6348fd4db3/) index uses a more efficient data structure to save the vectors. It requires less memory and less time to search for input vectors.
+- `hnsw` index (added in 1.1.0) uses a hierarchical navigable small world graph to save the vectors. It has a better search performance than `ivf_pq` index, but it requires more memory.
+
+To choose the index type, you can consider the following factors:
+
+1. Although `flat` index provides exact search results, it is usually not necessary for most use cases. Both `hnsw` and `ivf_pq` indexes can automatically fall back to a exact search mode when the dataset is small. In default configuration, `hnsw` performs a exact search when the number of vectors is fewer than 10K, while `ivf_pq` performs a exact search when the number of vectors is fewer than 100K. This avoids the overhead of maintaining and searching complex index structures for small datasets.
+2. In most scenarios, you do not need to explicitly use the `flat` index. As a general guideline, use `hnsw` when the number of vectors is less than 10M because it provides high search performance and accuracy with reasonable memory usage. For larger datasets, `ivf_pq` is recommended because it significantly reduces memory consumption and provides efficient search performance at large scale.
 
 For example, we create an index containing a vector field named "vec". The index type is set to `flat` and the vector dimension is `768`.
 
@@ -31,12 +47,12 @@ You can specify the following parameters for vector indexes:
 - `type`: Fixed as `vector`, indicating that this is a vector index.
 - `dims`: The vector dimension.
 - `m`: A parameter required for the `ivf_pq` index, it must be divisible by dims. For example, the `dims` is `768`, the `m` could be `192`.
-- `nbits`: A parameter required for the `ivf_pq` index, must grater than 0, we recommend `4` or `8`.
-- `vec_index_type`: The index type. Supported types are `flat` and `ivf_pq`.
+- `nbits`: A parameter required for the `ivf_pq` index, must greater than 0, we recommend `4` or `8`.
+- `vec_index_type`: The index type. Supported types are `flat`, `ivf_pq`, and `hnsw`.
 
 ### Indexing Documents Containing Vectors
 
-Indexing a document that includes vectors is identical at the API level to indexing a regular document. 
+Indexing a document that includes vectors is identical at the API level to indexing a regular document.
 You may choose the method that best suits your needs. The following example uses the bulk API.
 
 ```
@@ -61,7 +77,7 @@ You can search the index for the top K similar vectors to the input vector and r
   "query_field": "vec",
   "k": 7,
   "return_fields": ["name"],
-  "vector": [10.2, 10.40, 9.5, 22.2, ...]  
+  "vector": [10.2, 10.40, 9.5, 22.2, ...]
 }
 ```
 The API response format is the same as that for full-text search.
@@ -84,9 +100,9 @@ It returns a floating point number between 0 and 1, representing the recall rate
 [POST] /api/${indexName}/_recall
 
 {
-  "field": "vec_001",  
+  "field": "vec_001",
   "k": 10,
-  "nprobe": 5,         
+  "nprobe": 5,
   "query_count": 1000
 }
 ```
@@ -99,7 +115,7 @@ You can specify the following parameters for vector recall:
 - `nprobe`: The number of probed clusters. The default is `5`.
 - `query_count`: The higher this number, the more accurate the results will be, with a default of 100.
 
-You can try adjusting the following vecotr index parameters to improve recall:
+You can try adjusting the following vector index parameters to improve recall:
 
 -  `m`: The larger the value of `m`, the higher the accuracy, but it will also increase the computational complexity and memory usage.
 -  `nbits`: The larger the `nbits` value, the larger the encoding book, and the more accurately the original vector can be represented. However, this also means that more bits are needed to store each index, resulting in a lower compression rate.
@@ -108,13 +124,13 @@ You can try adjusting the following vecotr index parameters to improve recall:
 
 ## Example of Using Vector Search
 
-Below is an example demonstrating how to index a batch of papers. 
-Each paper may contain multiple vectors that need to be indexed. 
+Below is an example demonstrating how to index a batch of papers.
+Each paper may contain multiple vectors that need to be indexed.
 We aim to retrieve the N most similar vectors via vector search and thereby obtain the corresponding `paper-id`.
 
 ### Creating the SeaSearch Index and Vector Index
 
-First, set up the mapping for the vector index. When you define the mapping, both the index and the vector index will be created automatically. 
+First, set up the mapping for the vector index. When you define the mapping, both the index and the vector index will be created automatically.
 Since `paper-id` is just a plain string and does not require analysis, we set its type to `keyword`.
 
 ```
@@ -125,7 +141,7 @@ Since `paper-id` is just a plain string and does not require analysis, we set it
     "content-vec": {
       "type": "vector",
       "dims": 768,
-      "vec_index_type": "flat"      
+      "vec_index_type": "flat"
     },
     "paper-id": {
       "type": "keyword"
@@ -164,7 +180,7 @@ Now you can perform a vector search.
 }
 ```
 
-This search returns the documents corresponding to the most similar vectors and provides the `paper-id`. 
+This search returns the documents corresponding to the most similar vectors and provides the `paper-id`.
 Note that a paper may contain multiple vectors, if several vectors of the same paper are very similar to the query vector, that `paper-id` might appear multiple times in the results.
 
 ### Maintaining Vector Data
@@ -202,7 +218,7 @@ Using DSL, you can retrieve the document associated with the `paper-id` along wi
 
 #### Full Update for a Paper
 
-A paper may contain multiple vectors. If a particular vector needs updating, you can update the document corresponding to that vector directly. 
+A paper may contain multiple vectors. If a particular vector needs updating, you can update the document corresponding to that vector directly.
 However, in practice, it can be difficult to distinguish which parts of a paper are new versus which are updates.
 
 A full update approach can be adopted as follows:
@@ -212,7 +228,7 @@ A full update approach can be adopted as follows:
 
 Steps 2 and 3 can be executed in a single bulk operation.
 
-The following example demonstrates deleting the documents for paper `001` and re-importing them. 
+The following example demonstrates deleting the documents for paper `001` and re-importing them.
 At the same time, it directly updates paper `005` and paper `006` (since they each have only one vector):
 
 ```
