@@ -8,13 +8,21 @@ To use the vector search feature, you first have to create an index containing a
 
 SeaSearch supports three types of vector index fields: `flat`, `ivf_pq`, and `hnsw`.
 
+|   | `flat` | `ivf_pq` | `hnsw` |
+| - | ------ | -------- | ------ |
+| Search speed | Slow | Fast | Fastest |
+| Memory usage | 100% | 10% - 20% | 25% |
+| Indexing speed | - | Medium | Slow |
+| Target scenarios | Small data volume | Large data volume | Search performance, High accuracy |
+
 - `flat` index directly saves the input vectors. When searching for a vector, it simply computes the distances between the input vector and the saved vectors and returns the top K vectors nearest to the input vector.
 - `ivf_pq`(https://towardsdatascience.com/similarity-search-with-ivfpq-9c6348fd4db3/) index uses a more efficient data structure to save the vectors. It requires less memory and less time to search for input vectors.
 - `hnsw` index uses a hierarchical navigable small world graph to save the vectors. It has a better search performance than `ivf_pq` index, but it requires more memory.
 
 To choose the index type, you can consider the following factors:
-- If you want to save memory and speed up the search, you can choose `ivf_pq` or `hnsw`.
-- If the volume of vectors is huge, for example, the multiple of dimensions and the number of vectors is greater than 100 million, you can choose `ivf_pq`.
+
+1. Although `flat` index provides exact search results, it is usually not necessary for most use cases. Both `hnsw` and `ivf_pq` indexes can automatically fall back to a exact search mode when the dataset is small. In default configuration, `hnsw` performs a exact search when the number of vectors is fewer than 10K, while `ivf_pq` performs a exact search when the number of vectors is fewer than 100K. This avoids the overhead of maintaining and searching complex index structures for small datasets.
+2. In most scenarios, you do not need to explicitly use the `flat` index. As a general guideline, use `hnsw` when the number of vectors is less than 10M because it provides high search performance and accuracy with reasonable memory usage. For larger datasets, `ivf_pq` is recommended because it significantly reduces memory consumption and provides efficient search performance at large scale.
 
 For example, we create an index containing a vector field named "vec". The index type is set to `flat` and the vector dimension is `768`.
 
