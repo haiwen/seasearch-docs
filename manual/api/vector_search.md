@@ -17,7 +17,7 @@ SeaSearch supports three types of vector index fields: `flat`, `ivf_pq`, and `hn
 
 - `flat` index directly saves the input vectors. When searching for a vector, it simply computes the distances between the input vector and the saved vectors and returns the top K vectors nearest to the input vector.
 - `ivf_pq`(https://towardsdatascience.com/similarity-search-with-ivfpq-9c6348fd4db3/) index uses a more efficient data structure to save the vectors. It requires less memory and less time to search for input vectors.
-- `hnsw` index uses a hierarchical navigable small world graph to save the vectors. It has a better search performance than `ivf_pq` index, but it requires more memory.
+- `hnsw` index (added in 1.1.0) uses a hierarchical navigable small world graph to save the vectors. It has a better search performance than `ivf_pq` index, but it requires more memory.
 
 To choose the index type, you can consider the following factors:
 
