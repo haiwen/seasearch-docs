@@ -2,8 +2,6 @@
 
 Manual for SeaSearch
 
-The website: https://seasearch-manual.seafile.com/
-
 ## Serve docs locally
 
 These docs are built using 'mkdocs'.  Install the tooling by running:
