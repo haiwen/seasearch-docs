@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1248,7 +1248,7 @@
 <p>The data files are all stored in the directory specified by <code>SS_DATA_PATH</code> environment variable, so just back up the whole directory. 
 You can directly copy the whole directory to the backup destination, or you can use rsync to do incremental backup.</p>
 <p>To directly copy the whole data directory:
-<div class="highlight"><pre><span></span><code>cp -R /opt/seasearch /backup/data/seasearch-`date +&quot;%Y-%m-%d-%H-%M-%S&quot;`
+<div class="highlight"><pre><span></span><code>cp -R /opt/seasearch /backup/data/seasearch-`date +"%Y-%m-%d-%H-%M-%S"`
 </code></pre></div>
 This produces a separate copy of the data directory each time. You can delete older backup copies after a new one is completed.</p>
 <p>If you have a lot of data, copying the whole data directory would take long. You can use rsync to do incremental backup.
@@ -1258,7 +1258,7 @@ This produces a separate copy of the data directory each time. You can delete ol
 <h3 id="backup-strategy-for-object-storage">Backup strategy for object storage<a class="headerlink" href="#backup-strategy-for-object-storage" title="Permanent link">&para;</a></h3>
 <p>When SeaSearch is deployed with object storage backend, you only need to back up the metadata file.</p>
 <p>To directly copy the metadata file:
-<div class="highlight"><pre><span></span><code>cp /opt/seasearch/_metadata.bolt /backup/data/seasearch-metadata.bolt.`date +&quot;%Y-%m-%d-%H-%M-%S&quot;`
+<div class="highlight"><pre><span></span><code>cp /opt/seasearch/_metadata.bolt /backup/data/seasearch-metadata.bolt.`date +"%Y-%m-%d-%H-%M-%S"`
 </code></pre></div>
 This produces a separate copy of the data directory each time. You can delete older backup copies after a new one is completed.</p>
 <h2 id="restore">Restore<a class="headerlink" href="#restore" title="Permanent link">&para;</a></h2>
@@ -1390,7 +1390,7 @@ This produces a separate copy of the data directory each time. You can delete ol
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tracking", "navigation.sections", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "search.share", "math", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1423,11 +1423,11 @@
 
 body:
 {
-  &quot;properties&quot;: {
-    &quot;vec&quot;: {
-      &quot;type&quot;: &quot;vector&quot;,
-      &quot;dims&quot;: 768,
-      &quot;vec_index_type&quot;: &quot;flat&quot;
+  "properties": {
+    "vec": {
+      "type": "vector",
+      "dims": 768,
+      "vec_index_type": "flat"
     }
   }
 }
@@ -1446,22 +1446,22 @@ body:
 You may choose the method that best suits your needs. The following example uses the bulk API.</p>
 <div class="highlight"><pre><span></span><code>[POST] /es/_bulk
 
-{ &quot;index&quot; : { &quot;_index&quot; : &quot;index1&quot; } }
-{&quot;name&quot;: &quot;jack1&quot;, &quot;vec&quot;: [10.2, 10.41, 9.5, 22.2]}
-{ &quot;index&quot; : { &quot;_index&quot; : &quot;index1&quot; } }
-{&quot;name&quot;: &quot;jack2&quot;, &quot;vec&quot;: [10.2, 11.41, 9.5, 22.2]}
-{ &quot;index&quot; : { &quot;_index&quot; : &quot;index1&quot; } }
-{&quot;name&quot;: &quot;jack3&quot;, &quot;vec&quot;: [10.2, 12.41, 9.5, 22.2]}
+{ "index" : { "_index" : "index1" } }
+{"name": "jack1", "vec": [10.2, 10.41, 9.5, 22.2]}
+{ "index" : { "_index" : "index1" } }
+{"name": "jack2", "vec": [10.2, 11.41, 9.5, 22.2]}
+{ "index" : { "_index" : "index1" } }
+{"name": "jack3", "vec": [10.2, 12.41, 9.5, 22.2]}
 </code></pre></div>
 <h3 id="searching-vectors">Searching Vectors<a class="headerlink" href="#searching-vectors" title="Permanent link">&para;</a></h3>
 <p>You can search the index for the top K similar vectors to the input vector and return information from the documents that contain the vectors.</p>
 <p><div class="highlight"><pre><span></span><code>[POST] /api/${indexName}/_search/vector
 
 {
-  &quot;query_field&quot;: &quot;vec&quot;,
-  &quot;k&quot;: 7,
-  &quot;return_fields&quot;: [&quot;name&quot;],
-  &quot;vector&quot;: [10.2, 10.40, 9.5, 22.2, ...]
+  "query_field": "vec",
+  "k": 7,
+  "return_fields": ["name"],
+  "vector": [10.2, 10.40, 9.5, 22.2, ...]
 }
 </code></pre></div>
 The API response format is the same as that for full-text search.</p>
@@ -1480,10 +1480,10 @@ It returns a floating point number between 0 and 1, representing the recall rate
 <div class="highlight"><pre><span></span><code>[POST] /api/${indexName}/_recall
 
 {
-  &quot;field&quot;: &quot;vec_001&quot;,
-  &quot;k&quot;: 10,
-  &quot;nprobe&quot;: 5,
-  &quot;query_count&quot;: 1000
+  "field": "vec_001",
+  "k": 10,
+  "nprobe": 5,
+  "query_count": 1000
 }
 </code></pre></div>
 <p>You can specify the following parameters for vector recall:</p>
@@ -1511,14 +1511,14 @@ Since <code>paper-id</code> is just a plain string and does not require analysis
 <p><div class="highlight"><pre><span></span><code>[PUT] /es/paper/_mapping
 
 {
-  &quot;properties&quot;: {
-    &quot;content-vec&quot;: {
-      &quot;type&quot;: &quot;vector&quot;,
-      &quot;dims&quot;: 768,
-      &quot;vec_index_type&quot;: &quot;flat&quot;
+  "properties": {
+    "content-vec": {
+      "type": "vector",
+      "dims": 768,
+      "vec_index_type": "flat"
     },
-    &quot;paper-id&quot;: {
-      &quot;type&quot;: &quot;keyword&quot;
+    "paper-id": {
+      "type": "keyword"
     }
   }
 }
@@ -1528,22 +1528,22 @@ With the above request, an index named <code>paper</code> is created, and a <cod
 <p>We use the <code>_bulk</code> API to batch insert these <code>paper</code> data into SeaSearch.</p>
 <div class="highlight"><pre><span></span><code>[POST] /es/_bulk
 
-{ &quot;index&quot; : {&quot;_index&quot; : &quot;paper&quot; } }
-{&quot;paper-id&quot;: &quot;001&quot;, &quot;content-vec&quot;: [10.2, 10.40, 9.5, 22.2, ...]}
-{ &quot;index&quot; : {&quot;_index&quot; : &quot;paper&quot; } }
-{&quot;paper-id&quot;: &quot;002&quot;, &quot;content-vec&quot;: [10.2, 11.40, 9.5, 22.2, ...]}
-{ &quot;index&quot; : {&quot;_index&quot; : &quot;paper&quot; } }
-{&quot;paper-id&quot;: &quot;003&quot;, &quot;content-vec&quot;: [10.2, 12.40, 9.5, 22.2, ...]}
+{ "index" : {"_index" : "paper" } }
+{"paper-id": "001", "content-vec": [10.2, 10.40, 9.5, 22.2, ...]}
+{ "index" : {"_index" : "paper" } }
+{"paper-id": "002", "content-vec": [10.2, 11.40, 9.5, 22.2, ...]}
+{ "index" : {"_index" : "paper" } }
+{"paper-id": "003", "content-vec": [10.2, 12.40, 9.5, 22.2, ...]}
 </code></pre></div>
 <h3 id="searching-data">Searching Data<a class="headerlink" href="#searching-data" title="Permanent link">&para;</a></h3>
 <p>Now you can perform a vector search.</p>
 <div class="highlight"><pre><span></span><code>[POST] /api/paper/_search/vector
 
 {
-  &quot;query_field&quot;: &quot;content-vec&quot;,
-  &quot;k&quot;: 10,
-  &quot;return_fields&quot;: [&quot;paper-id&quot;],
-  &quot;vector&quot;: [10.2, 10.40, 9.5, 22.2, ...]
+  "query_field": "content-vec",
+  "k": 10,
+  "return_fields": ["paper-id"],
+  "vector": [10.2, 10.40, 9.5, 22.2, ...]
 }
 </code></pre></div>
 <p>This search returns the documents corresponding to the most similar vectors and provides the <code>paper-id</code>.
@@ -1553,19 +1553,19 @@ Note that a paper may contain multiple vectors, if several vectors of the same p
 <p>After a document is successfully imported, SeaSearch returns its document ID. You can use this doc id to directly update the document.</p>
 <div class="highlight"><pre><span></span><code>[POST] /es/_bulk
 
-{ &quot;update&quot; : {&quot;_id&quot;: &quot;23gZX9eT6QM&quot;, &quot;_index&quot;: &quot;paper&quot; } }
-{&quot;paper-id&quot;: &quot;005&quot;, &quot;vec&quot;: [10.2, 1.43, 9.5, 22.2, ...]}
+{ "update" : {"_id": "23gZX9eT6QM", "_index": "paper" } }
+{"paper-id": "005", "vec": [10.2, 1.43, 9.5, 22.2, ...]}
 </code></pre></div>
 <h4 id="query-then-update">Query Then Update<a class="headerlink" href="#query-then-update" title="Permanent link">&para;</a></h4>
 <p>If you did not save the returned doc id, you can first use SeaSearch's full-text search functionality to query the document(s) corresponding to a specific <code>paper-id</code>.</p>
 <p><div class="highlight"><pre><span></span><code>[POST] /es/paper/_search
 
 {
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
+  "query": {
+    "bool": {
+      "must": [
         {
-          &quot;term&quot;: {&quot;paper-id&quot;: &quot;003&quot;}
+          "term": {"paper-id": "003"}
         }
       ]
     }
@@ -1585,19 +1585,19 @@ However, in practice, it can be difficult to distinguish which parts of a paper 
 At the same time, it directly updates paper <code>005</code> and paper <code>006</code> (since they each have only one vector):</p>
 <div class="highlight"><pre><span></span><code>[POST] /es/_bulk
 
-{ &quot;delete&quot; : {&quot;_id&quot;: &quot;23gZX9eT6Q8&quot;, &quot;_index&quot;: &quot;paper&quot; } }
-{ &quot;delete&quot; : {&quot;_id&quot;: &quot;23gZX9eT6Q0&quot;, &quot;_index&quot;: &quot;paper&quot; } }
-{ &quot;delete&quot; : {&quot;_id&quot;: &quot;23gZX9eT6Q3&quot;, &quot;_index&quot;: &quot;paper&quot; } }
-{ &quot;index&quot; : {&quot;_index&quot;: &quot;paper&quot; } }
-{&quot;paper-id&quot;: &quot;001&quot;, &quot;content-vec&quot;: [10.2, 1.41, 9.5, 22.2, ...]}
-{ &quot;index&quot; : {&quot;_index&quot;: &quot;paper&quot; } }
-{&quot;paper-id&quot;: &quot;001&quot;, &quot;content-vec&quot;: [10.2, 1.42, 9.5, 22.2, ...]}
-{ &quot;index&quot; : {&quot;_index&quot;: &quot;paper&quot; } }
-{&quot;paper-id&quot;: &quot;001&quot;, &quot;content-vec&quot;: [10.2, 1.43, 9.5, 22.2, ...]}
-{ &quot;update&quot; : {&quot;_id&quot;: &quot;23gZX9eT6QM&quot;, &quot;_index&quot;: &quot;paper&quot; } }
-{&quot;paper-id&quot;: &quot;005&quot;, &quot;content-vec&quot;: [10.2, 1.43, 9.5, 22.2, ...]}
-{ &quot;update&quot; : {&quot;_id&quot;: &quot;23gZX9eT6QY&quot;, &quot;_index&quot;: &quot;paper&quot; } }
-{&quot;paper-id&quot;: &quot;006&quot;, &quot;content-vec&quot;: [10.2, 1.43, 9.5, 22.2, ...]}
+{ "delete" : {"_id": "23gZX9eT6Q8", "_index": "paper" } }
+{ "delete" : {"_id": "23gZX9eT6Q0", "_index": "paper" } }
+{ "delete" : {"_id": "23gZX9eT6Q3", "_index": "paper" } }
+{ "index" : {"_index": "paper" } }
+{"paper-id": "001", "content-vec": [10.2, 1.41, 9.5, 22.2, ...]}
+{ "index" : {"_index": "paper" } }
+{"paper-id": "001", "content-vec": [10.2, 1.42, 9.5, 22.2, ...]}
+{ "index" : {"_index": "paper" } }
+{"paper-id": "001", "content-vec": [10.2, 1.43, 9.5, 22.2, ...]}
+{ "update" : {"_id": "23gZX9eT6QM", "_index": "paper" } }
+{"paper-id": "005", "content-vec": [10.2, 1.43, 9.5, 22.2, ...]}
+{ "update" : {"_id": "23gZX9eT6QY", "_index": "paper" } }
+{"paper-id": "006", "content-vec": [10.2, 1.43, 9.5, 22.2, ...]}
 </code></pre></div>
 
 
@@ -1701,7 +1701,7 @@ At the same time, it directly updates paper <code>005</code> and paper <code>006
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tracking", "navigation.sections", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "search.share", "math", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

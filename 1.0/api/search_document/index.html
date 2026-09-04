@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1182,22 +1182,22 @@
 <p>Multi-search supports searching multiple indexes and running different queries on each index.</p>
 <p>ElasticSearch API: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html">Multi-Search API Documentation</a></p>
 <div class="highlight"><pre><span></span><code>[POST] /es/_msearch
-{&quot;index&quot;: &quot;t1&quot;}
-{&quot;query&quot;: {&quot;bool&quot;: {&quot;should&quot;: [{&quot;match&quot;: {&quot;filename&quot;: {&quot;query&quot;: &quot;数据库&quot;, &quot;minimum_should_match&quot;: &quot;-25%&quot;}}}, {&quot;match&quot;: {&quot;filename.ngram&quot;: {&quot;query&quot;: &quot;数据库&quot;, &quot;minimum_should_match&quot;: &quot;80
+{"index": "t1"}
+{"query": {"bool": {"should": [{"match": {"filename": {"query": "数据库", "minimum_should_match": "-25%"}}}, {"match": {"filename.ngram": {"query": "数据库", "minimum_should_match": "80
 </code></pre></div>
 <h3 id="unified-search">Unified Search<a class="headerlink" href="#unified-search" title="Permanent link">&para;</a></h3>
 <p>When you search multiple indexes with the same query, the "/es/_search" and "/es/_msearch" APIs will calculate scores for each indexes separately. This means you cannot simply sort the results from multiple indexes by relevance. This is inconvenient in some use cases. For example, in Seafile, we create an index for each library. When we search a query for all accessible libraries, it's necesary to sort all results from all libraries based on unified scores.</p>
 <p>To support such scenarios, we provide a unified search API. Please note that the query for each index should be the same except for <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html#filter-context">filters</a>.</p>
 <div class="highlight"><pre><span></span><code>[POST] /api/unified_search
 {
-    &quot;index_queries&quot;: [
+    "index_queries": [
         {
-            &quot;index&quot;: &quot;index1&quot;,
-            &quot;query&quot;: {}
+            "index": "index1",
+            "query": {}
         },
         {
-            &quot;index&quot;: &quot;index2&quot;,
-            &quot;query&quot;: {}
+            "index": "index2",
+            "query": {}
         }
       ]
 }
@@ -1320,7 +1320,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tracking", "navigation.sections", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "search.share", "math", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

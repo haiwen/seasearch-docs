@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1077,23 +1077,23 @@
 <p>SeaSearch uses HTTP Basic Auth for authentication. API requests must include the corresponding basic auth token in the header.</p>
 <p>To generate a basic auth token, combine the username and password with a colon (e.g., aladdin:opensesame), and then base64 encode the resulting string (e.g., YWxhZGRpbjpvcGVuc2VzYW1l).</p>
 <p>You can generate a token using the following command, for example with aladdin:opensesame:</p>
-<div class="highlight"><pre><span></span><code>echo -n &#39;aladdin:opensesame&#39; | base64
+<div class="highlight"><pre><span></span><code>echo -n 'aladdin:opensesame' | base64
 YWxhZGRpbjpvcGVuc2VzYW1l
 </code></pre></div>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>Basic auth is not secure. If you need to access SeaSearch over the public internet, it is strongly recommended to enable <a href="../usage/https.md">HTTPS</a>.</p>
 </div>
-<div class="highlight"><pre><span></span><code>&quot;Authorization&quot;: &quot;Basic YWRtaW46MTIzNDU2Nzg=&quot;
+<div class="highlight"><pre><span></span><code>"Authorization": "Basic YWRtaW46MTIzNDU2Nzg="
 </code></pre></div>
 <h2 id="regular-users">Regular Users<a class="headerlink" href="#regular-users" title="Permanent link">&para;</a></h2>
 <p>You can create/update users via the API:
 <div class="highlight"><pre><span></span><code>[POST] /api/user
 { 
-    &quot;_id&quot;: &quot;prabhat&quot;,
-    &quot;name&quot;: &quot;Prabhat Sharma&quot;,
-    &quot;role&quot;: &quot;admin&quot;, // or user
-    &quot;password&quot;: &quot;Complexpass#123&quot;
+    "_id": "prabhat",
+    "name": "Prabhat Sharma",
+    "role": "admin", // or user
+    "password": "Complexpass#123"
 }
 </code></pre></div>
 To get all users:
@@ -1220,7 +1220,7 @@ To delete a user:
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tracking", "navigation.sections", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "search.share", "math", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

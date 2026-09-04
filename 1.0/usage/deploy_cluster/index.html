@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1409,16 +1409,16 @@ chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/
 # etcd-2 ip: 172.16.1.2
 # etcd-3 ip: 172.16.1.3
 
-ETCD_NAME=&quot;etcd-1&quot;
-ETCD_DATA_DIR=&quot;/opt/etcd-data/&quot;
-ETCD_LISTEN_PEER_URLS=&quot;http://172.16.1.1:2380&quot;
-ETCD_LISTEN_CLIENT_URLS=&quot;http://localhost:2379,http://172.16.1.1:2379&quot;
-ETCD_INITIAL_ADVERTISE_PEER_URLS=&quot;http://172.16.1.1:2380&quot;
-ETCD_INITIAL_CLUSTER=&quot;etcd-1=http://172.16.1.1:2380,etcd-2=http://172.16.1.2:2380,etcd-3=http://172.16.1.3:2380&quot;
-ETCD_INITIAL_CLUSTER_TOKEN=&quot;xxx&quot; # your etcd token
-ETCD_ADVERTISE_CLIENT_URLS=&quot;http://localhost:2379,http://172.16.1.1:2379&quot;
-ETCD_PROXY=&quot;off&quot;
-ETCD_AUTO_COMPACTION_RETENTION=&quot;1&quot;
+ETCD_NAME="etcd-1"
+ETCD_DATA_DIR="/opt/etcd-data/"
+ETCD_LISTEN_PEER_URLS="http://172.16.1.1:2380"
+ETCD_LISTEN_CLIENT_URLS="http://localhost:2379,http://172.16.1.1:2379"
+ETCD_INITIAL_ADVERTISE_PEER_URLS="http://172.16.1.1:2380"
+ETCD_INITIAL_CLUSTER="etcd-1=http://172.16.1.1:2380,etcd-2=http://172.16.1.2:2380,etcd-3=http://172.16.1.3:2380"
+ETCD_INITIAL_CLUSTER_TOKEN="xxx" # your etcd token
+ETCD_ADVERTISE_CLIENT_URLS="http://localhost:2379,http://172.16.1.1:2379"
+ETCD_PROXY="off"
+ETCD_AUTO_COMPACTION_RETENTION="1"
 </code></pre></div></p>
 <p>Then restart etcd with</p>
 <div class="highlight"><pre><span></span><code>service<span class="w"> </span>etcd<span class="w"> </span>restart
@@ -1450,7 +1450,7 @@ wget<span class="w"> </span>-O<span class="w"> </span>.env<span class="w"> </spa
 <div class="highlight"><pre><span></span><code>INIT_SS_ADMIN_USER=&lt;admin-username&gt;  
 INIT_SS_ADMIN_PASSWORD=&lt;admin-password&gt;
 SS_CLUSTER_ID= # e.g., 1, 2, 3...., each node must be distinct and cannot be modified after initialization.
-SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380&#39;
+SS_ETCD_ENDPOINTS= # separated by commas, e.g., '192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380'
 SS_ETCD_USERNAME=
 SS_ETCD_PASSWORD=
 SS_ETCD_PREFIX=/seasearch
@@ -1483,7 +1483,7 @@ wget<span class="w"> </span>-O<span class="w"> </span>.env<span class="w"> </spa
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Single gateway</label><label for="__tabbed_1_2">Gateway cluster</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380&#39;
+<div class="highlight"><pre><span></span><code>SS_ETCD_ENDPOINTS= # separated by commas, e.g., '192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380'
 SS_ETCD_USERNAME=
 SS_ETCD_PASSWORD=
 SS_ETCD_PREFIX=/seasearch
@@ -1495,7 +1495,7 @@ SS_ETCD_PREFIX=/seasearch
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>SS_GATEWAY_NODE_TYPE=manager # only start the cluster manager service
 
-SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380&#39;
+SS_ETCD_ENDPOINTS= # separated by commas, e.g., '192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380'
 SS_ETCD_USERNAME=
 SS_ETCD_PASSWORD=
 SS_ETCD_PREFIX=/seasearch
@@ -1505,7 +1505,7 @@ SS_ETCD_PREFIX=/seasearch
 <div class="highlight"><pre><span></span><code>SS_GATEWAY_NODE_TYPE=proxy # only start the proxy service
 SS_CLUSTER_MANAGER_URL=http://&lt;your_cluster_manager_node&gt;:4081
 
-SS_ETCD_ENDPOINTS= # separated by commas, e.g., &#39;192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380&#39;
+SS_ETCD_ENDPOINTS= # separated by commas, e.g., '192.168.0.1:2380,192.168.0.2:2380,192.168.0.3:2380'
 SS_ETCD_USERNAME=
 SS_ETCD_PASSWORD=
 SS_ETCD_PREFIX=/seasearch
@@ -1532,8 +1532,8 @@ SS_ETCD_PREFIX=/seasearch
 </li>
 <li>
 <p>Register cluster</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># cluster_enpoints: &quot;&lt;CLUSTER_ID_1&gt;:&lt;SeaSearch server endpoint 1&gt;,&lt;CLUSTER_ID_2&gt;:&lt;SeaSearch server endpoint 2&gt;&quot;</span>
-<span class="c1"># e.g., &quot;1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># cluster_enpoints: "&lt;CLUSTER_ID_1&gt;:&lt;SeaSearch server endpoint 1&gt;,&lt;CLUSTER_ID_2&gt;:&lt;SeaSearch server endpoint 2&gt;"</span>
+<span class="c1"># e.g., "1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080"</span>
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>seasearch-cluster-gateway<span class="w"> </span>register-cluster<span class="w"> </span>&lt;cluster_enpoints&gt;
 </code></pre></div>
 </li>
@@ -1553,8 +1553,8 @@ docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> 
 </li>
 <li>
 <p>Register cluster</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># cluster_enpoints: &quot;&lt;CLUSTER_ID_1&gt;:&lt;SeaSearch server endpoint 1&gt;,&lt;CLUSTER_ID_2&gt;:&lt;SeaSearch server endpoint 2&gt;&quot;</span>
-<span class="c1"># e.g., &quot;1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># cluster_enpoints: "&lt;CLUSTER_ID_1&gt;:&lt;SeaSearch server endpoint 1&gt;,&lt;CLUSTER_ID_2&gt;:&lt;SeaSearch server endpoint 2&gt;"</span>
+<span class="c1"># e.g., "1:192.168.1.1:4080,2:192.168.1.2:4080,3:192.168.1.3:4080"</span>
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>seasearch-cluster-gateway<span class="w"> </span>register-cluster<span class="w"> </span>&lt;cluster_enpoints&gt;
 </code></pre></div>
 </li>
@@ -1737,7 +1737,7 @@ server {
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tracking", "navigation.sections", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "search.share", "math", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

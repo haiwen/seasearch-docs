@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1285,39 +1285,39 @@
 <p>For other SeaSearch APIs, you can refer <a href="../../api/overview/">here</a> for the details</p>
 <h2 id="get-auth-token">Get auth token<a class="headerlink" href="#get-auth-token" title="Permanent link">&para;</a></h2>
 <p>SeaSearch's auth token is using <strong>base64 encode</strong> consist of <code>username</code> and <code>password</code>: </p>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;username:password&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s1">'username:password'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
 <span class="nv">dXNlcm5hbWU6cGFzc3dvcmQ</span><span class="o">=</span>
 </code></pre></div>
 <p>Please take your auth token to access SeaSearch APIs by adding it into <code>headers</code>, i.e.,</p>
 <div class="highlight"><pre><span></span><code><span class="err">headers</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;Authorization&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Basic dXNlcm5hbWU6cGFzc3dvcmQ=&quot;</span>
+<span class="w">    </span><span class="nt">"Authorization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Basic dXNlcm5hbWU6cGFzc3dvcmQ="</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="create-a-role-for-the-regular-user">Create a role for the regular user<a class="headerlink" href="#create-a-role-for-the-regular-user" title="Permanent link">&para;</a></h2>
 <p>In this case, we will create a role names <code>regular_user</code> with permissions <strong><em>index</em></strong>, <strong><em>document</em></strong> and <strong><em>search</em></strong> for the regular users in SeaSearch system. You can send a <strong>POST</strong> request to <code>/api/role</code> to create a role, i.e.,:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="s1">&#39;https://seasearch.exmaple.com/api/role&#39;</span><span class="w"> </span><span class="se">\</span>
--H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
--H<span class="w"> </span><span class="s1">&#39;authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=&#39;</span><span class="w"> </span><span class="se">\</span>
--H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
--d<span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">&quot;_id&quot;: &quot;regular_user&quot;,</span>
-<span class="s1">&quot;permission&quot;:   [</span>
-<span class="s1">    &quot;index.Create&quot;,</span>
-<span class="s1">    &quot;index.Delete&quot;,</span>
-<span class="s1">    &quot;document.Create&quot;,</span>
-<span class="s1">    &quot;document.Get&quot;,</span>
-<span class="s1">    &quot;document.Update&quot;,</span>
-<span class="s1">    &quot;document.Delete&quot;,</span>
-<span class="s1">    &quot;search.SearchV1&quot;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">'POST'</span><span class="w"> </span><span class="se">\</span>
+<span class="s1">'https://seasearch.exmaple.com/api/role'</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s1">'accept: application/json'</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s1">'authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ='</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
+-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">"_id": "regular_user",</span>
+<span class="s1">"permission":   [</span>
+<span class="s1">    "index.Create",</span>
+<span class="s1">    "index.Delete",</span>
+<span class="s1">    "document.Create",</span>
+<span class="s1">    "document.Get",</span>
+<span class="s1">    "document.Update",</span>
+<span class="s1">    "document.Delete",</span>
+<span class="s1">    "search.SearchV1"</span>
 <span class="s1">],</span>
-<span class="s1">&quot;role&quot;: &quot;regular_user&quot;</span>
-<span class="s1">}&#39;</span>
+<span class="s1">"role": "regular_user"</span>
+<span class="s1">}'</span>
 </code></pre></div>
 <p>Example response if the role with id <code>regular_user</code> creates successfully</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
-<span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;regular_user&quot;</span>
+<span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span>
+<span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"regular_user"</span>
 <span class="p">}</span>
 </code></pre></div>
 <div class="admonition tip">
@@ -1334,114 +1334,114 @@
 </div>
 <h2 id="create-a-regular-user">Create a regular user<a class="headerlink" href="#create-a-regular-user" title="Permanent link">&para;</a></h2>
 <p>You can create a regular user by <strong>POST <code>/api/user</code></strong> with the role <code>regular_user</code>, e.g.,</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s1">&#39;http://&lt;your IP&gt;:4080/api/user&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;_id&quot;: &quot;ru_username&quot;,</span>
-<span class="s1">  &quot;password&quot;: &quot;ru_password&quot;,</span>
-<span class="s1">  &quot;role&quot;: &quot;regular_user&quot;</span>
-<span class="s1">}&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">'POST'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'http://&lt;your IP&gt;:4080/api/user'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'accept: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ='</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "_id": "ru_username",</span>
+<span class="s1">  "password": "ru_password",</span>
+<span class="s1">  "role": "regular_user"</span>
+<span class="s1">}'</span>
 </code></pre></div>
 <p>After submitting a <strong>POST</strong> to <code>/api/user</code>, you will recive a response</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ru_username&quot;</span>
+<span class="w">  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ru_username"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="access-seasearch-apis-via-regular-user">Access SeaSearch APIs via regular user<a class="headerlink" href="#access-seasearch-apis-via-regular-user" title="Permanent link">&para;</a></h2>
 <p><strong>Similar to administrator accounts</strong>, the regular users also need to get an auth token <strong>before</strong> accessing the relevant APIs:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;ru_username:ru_password&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s1">'ru_username:ru_password'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
 bmV3dXNlcm5hbWU6Q29tcGxleHBhc3MjMTIz
 </code></pre></div>
 <p>Here we will take regular users creating, using and deleting an index as examples, for the whole descriptions of SeaSearch APIs, please refer to <a href="../../api/overview/">here</a>.</p>
 <h3 id="create-an-index">Create an index<a class="headerlink" href="#create-an-index" title="Permanent link">&para;</a></h3>
 <p>You can create an index by <strong>PUT <code>/Index_name</code></strong> with related settings, for exmaple (we assume the index name is <code>index_1</code>):</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s1">&#39;http://&lt;your IP&gt;:4080/es/index_1&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{  </span>
-<span class="s1">  &quot;mappings:{</span>
-<span class="s1">    &quot;name&quot;:{</span>
-<span class="s1">        &quot;type&quot;:&quot;text&quot;,</span>
-<span class="s1">        &quot;highlightable&quot;:true</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">'POST'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'http://&lt;your IP&gt;:4080/es/index_1'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'accept: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ='</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{  </span>
+<span class="s1">  "mappings:{</span>
+<span class="s1">    "name":{</span>
+<span class="s1">        "type":"text",</span>
+<span class="s1">        "highlightable":true</span>
 <span class="s1">    }</span>
 <span class="s1"> }    </span>
-<span class="s1">}&#39;</span>
+<span class="s1">}'</span>
 </code></pre></div>
 <p>Example response if index <code>index_1</code> creates successfully</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;index_1&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;storage_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;disk&quot;</span>
+<span class="w">  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"index"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index_1"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"storage_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"disk"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="create-a-document">Create a document<a class="headerlink" href="#create-a-document" title="Permanent link">&para;</a></h3>
 <p>You can create a document by sending a <strong>POST</strong> request to <code>/es/&lt;your index name&gt;/_doc</code>. For example, we add a book names <em>Snow Crash</em> by the author <em>Neal Stephenson</em>:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s1">&#39;http://&lt;your IP&gt;:4080/es/index_1/_doc&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;name&quot;: &quot;Snow Crash&quot;,</span>
-<span class="s1">  &quot;author&quot;: &quot;Neal Stephenson&quot;,</span>
-<span class="s1">  &quot;release_date&quot;: &quot;1992-06-01&quot;,</span>
-<span class="s1">  &quot;page_count&quot;: 470</span>
-<span class="s1">}&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">'POST'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'http://&lt;your IP&gt;:4080/es/index_1/_doc'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'accept: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ='</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "name": "Snow Crash",</span>
+<span class="s1">  "author": "Neal Stephenson",</span>
+<span class="s1">  "release_date": "1992-06-01",</span>
+<span class="s1">  "page_count": 470</span>
+<span class="s1">}'</span>
 </code></pre></div>
 <p>Example response:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2evTtrGhVf2&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2evTtrGhVf2&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;index_1&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;_seq_no&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;_primary_term&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;created&quot;</span>
+<span class="w">  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2evTtrGhVf2"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2evTtrGhVf2"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"_index"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index_1"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"_version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"_seq_no"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"_primary_term"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>In this case, you will get an id <code>2evTtrGhVf2</code> for this book. Also, you can add multiple documents at the same time by <strong>POST</strong> <code>/api/_bulk</code> (see <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html">Bulk Document API</a>)</p>
 <h3 id="search-document-by-querying-matched-fields">Search document by querying matched fields<a class="headerlink" href="#search-document-by-querying-matched-fields" title="Permanent link">&para;</a></h3>
 <p>When you have stored a considerable number of documents in an index in SeaSearch (such as <code>index_1</code> above), you can use <strong>GET</strong> <code>/api/&lt;your index name&gt;/_search</code> to search for the required document by the fields you want to match:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s1">&#39;http://&lt;your IP&gt;:4080/es/index_1/_search&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;query&quot;: {</span>
-<span class="s1">    &quot;match&quot;: {</span>
-<span class="s1">      &quot;name&quot;: &quot;Snow&quot;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">'POST'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'http://&lt;your IP&gt;:4080/es/index_1/_search'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'accept: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ='</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">  "query": {</span>
+<span class="s1">    "match": {</span>
+<span class="s1">      "name": "Snow"</span>
 <span class="s1">    }</span>
 <span class="s1">  }</span>
-<span class="s1">}&#39;</span>
+<span class="s1">}'</span>
 </code></pre></div>
 <p>The response lists up to 10 records matching the query results:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;took&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;timed_out&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">&quot;hits&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="nt">"took"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"timed_out"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">"hits"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;max_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;hits&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">"max_score"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"hits"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;index_1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_doc&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2evTtrGhVf2&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;_source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Neal Stephenson&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Snow Crash&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;page_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">470</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;release_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1992-06-01&quot;</span>
+<span class="w">        </span><span class="nt">"_index"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index_1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"_doc"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2evTtrGhVf2"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"_score"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"_source"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Neal Stephenson"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Snow Crash"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"page_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">470</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"release_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1992-06-01"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
@@ -1450,28 +1450,28 @@ bmV3dXNlcm5hbWU6Q29tcGxleHBhc3MjMTIz
 </code></pre></div>
 <h3 id="delete-document">Delete document<a class="headerlink" href="#delete-document" title="Permanent link">&para;</a></h3>
 <p>You can delete a document by <strong>DELETE</strong> <code>/api/&lt;your index name&gt;/_doc/&lt;your document id&gt;</code>, e.g.:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;DELETE&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s1">&#39;http://&lt;your IP&gt;:4080/es/index_1/_doc/2evSk96OVLa&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">'DELETE'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'http://&lt;your IP&gt;:4080/es/index_1/_doc/2evSk96OVLa'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'accept: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ='</span>
 </code></pre></div>
 <p>and a reponse with <strong><em>deleted</em></strong> message will recive if the document deletes successfully:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;message&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;deleted&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="s2">&quot;index&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;index_1&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2evSk96OVLa&quot;</span>
+<span class="w">  </span><span class="s2">"message"</span><span class="o">:</span><span class="w"> </span><span class="s2">"deleted"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"index"</span><span class="o">:</span><span class="w"> </span><span class="s2">"index_1"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"id"</span><span class="o">:</span><span class="w"> </span><span class="s2">"2evSk96OVLa"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="delete-index">Delete index<a class="headerlink" href="#delete-index" title="Permanent link">&para;</a></h3>
 <p>You can delete an index by sending a <strong>DELETE</strong> request to <code>/api/index/&lt;your index name&gt;</code>, e.g.:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">&#39;DELETE&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s1">&#39;http://&lt;your IP&gt;:4080/api/index/index_1&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;accept: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ=&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">'DELETE'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'http://&lt;your IP&gt;:4080/api/index/index_1'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'accept: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'authorization: Basic cnVfdXNlcm5hbWU6cnVfcGFzc3dvcmQ='</span>
 </code></pre></div>
 <p>and you will recive the following message after the index has been deleted:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deleted&quot;</span>
+<span class="w">  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deleted"</span>
 <span class="p">}</span>
 </code></pre></div>
 <div class="admonition danger">
@@ -1596,7 +1596,7 @@ bmV3dXNlcm5hbWU6Q29tcGxleHBhc3MjMTIz
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tracking", "navigation.sections", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "search.share", "math", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
