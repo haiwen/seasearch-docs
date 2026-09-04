@@ -81,12 +81,12 @@ nav:
     - Overview: usage/overview.md
     - Deployment:
       - Single node: usage/deploy_single_node.md
-      - Cluster (X86 CPU only): usage/deploy_cluster.md
+      - Cluster: usage/deploy_cluster.md
     - Usage and management:
       - Use and access SeaSearch APIs: usage/use_and_access_seasearch_apis.md
       - Backup and Restore: usage/backup_and_restore.md
   - Configuration: config/README.md
-  - SeaSearch API: 
+  - SeaSearch API:
     - Overview: api/overview.md
     - API Authentication: api/authentication.md
     - Index management: api/index_management.md
