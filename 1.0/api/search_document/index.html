@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#search-documents" class="md-skip">
+        <a href="#search-document" class="md-skip">
           Skip to content
         </a>
       
@@ -554,7 +554,7 @@
   <span class="md-ellipsis">
     
   
-    Cluster (X86 CPU only)
+    Cluster
   
 
     
@@ -908,6 +908,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -950,6 +952,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -958,18 +962,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#search-documents" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Search Documents
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Search Documents">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#basic-search" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -979,19 +971,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#delete-by-query" class="md-nav__link">
-    <span class="md-ellipsis">
       
-        Delete by Query
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
+        <li class="md-nav__item">
   <a href="#multi-search" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1001,8 +982,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#unified-search" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1012,9 +993,15 @@
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#delete-by-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delete by Query
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1079,6 +1066,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1087,18 +1076,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#search-documents" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Search Documents
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Search Documents">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#basic-search" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1108,19 +1085,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#delete-by-query" class="md-nav__link">
-    <span class="md-ellipsis">
       
-        Delete by Query
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
+        <li class="md-nav__item">
   <a href="#multi-search" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1130,8 +1096,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#unified-search" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1141,9 +1107,15 @@
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#delete-by-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delete by Query
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1167,25 +1139,20 @@
   
 
 
-  <h1>Search document</h1>
-
-<h2 id="search-documents">Search Documents<a class="headerlink" href="#search-documents" title="Permanent link">&para;</a></h2>
-<h3 id="basic-search">Basic Search<a class="headerlink" href="#basic-search" title="Permanent link">&para;</a></h3>
+<h1 id="search-document">Search Document<a class="headerlink" href="#search-document" title="Permanent link">&para;</a></h1>
+<h2 id="basic-search">Basic Search<a class="headerlink" href="#basic-search" title="Permanent link">&para;</a></h2>
 <p>You have to use DSL to perform search. For usage, refer to:</p>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html">Query DSL Documentation</a></p>
 <p>We do not support all query parameter options provided by ES. Unsupported parameters include: indices_boost, knn, min_score, retriever, pit, runtime_mappings, seq_no_primary_term, stats, terminate_after, version.</p>
 <p>Search API: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-search.html">Search API</a></p>
-<h3 id="delete-by-query">Delete by Query<a class="headerlink" href="#delete-by-query" title="Permanent link">&para;</a></h3>
-<p>To delete documents based on a query, use the delete-by-query operation. Like search, we do not support some ES parameters.</p>
-<p>ElasticSearch API: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html">Delete by Query</a></p>
-<h3 id="multi-search">Multi-Search<a class="headerlink" href="#multi-search" title="Permanent link">&para;</a></h3>
+<h2 id="multi-search">Multi-Search<a class="headerlink" href="#multi-search" title="Permanent link">&para;</a></h2>
 <p>Multi-search supports searching multiple indexes and running different queries on each index.</p>
 <p>ElasticSearch API: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html">Multi-Search API Documentation</a></p>
 <div class="highlight"><pre><span></span><code>[POST] /es/_msearch
 {"index": "t1"}
 {"query": {"bool": {"should": [{"match": {"filename": {"query": "数据库", "minimum_should_match": "-25%"}}}, {"match": {"filename.ngram": {"query": "数据库", "minimum_should_match": "80
 </code></pre></div>
-<h3 id="unified-search">Unified Search<a class="headerlink" href="#unified-search" title="Permanent link">&para;</a></h3>
+<h2 id="unified-search">Unified Search<a class="headerlink" href="#unified-search" title="Permanent link">&para;</a></h2>
 <p>When you search multiple indexes with the same query, the "/es/_search" and "/es/_msearch" APIs will calculate scores for each indexes separately. This means you cannot simply sort the results from multiple indexes by relevance. This is inconvenient in some use cases. For example, in Seafile, we create an index for each library. When we search a query for all accessible libraries, it's necesary to sort all results from all libraries based on unified scores.</p>
 <p>To support such scenarios, we provide a unified search API. Please note that the query for each index should be the same except for <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html#filter-context">filters</a>.</p>
 <div class="highlight"><pre><span></span><code>[POST] /api/unified_search
@@ -1202,6 +1169,9 @@
       ]
 }
 </code></pre></div>
+<h2 id="delete-by-query">Delete by Query<a class="headerlink" href="#delete-by-query" title="Permanent link">&para;</a></h2>
+<p>To delete documents based on a query, use the delete-by-query operation. Like search, we do not support some ES parameters.</p>
+<p>ElasticSearch API: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html">Delete by Query</a></p>
 
 
 
