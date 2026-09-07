@@ -421,10 +421,49 @@
   <a href="#seasearch-vs-elasticsearch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SeaSearch vs. ElasticSearch:
+        SeaSearch vs. Elasticsearch
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-distribution-and-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Distribution and Failover
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1039,10 +1078,49 @@
   <a href="#seasearch-vs-elasticsearch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SeaSearch vs. ElasticSearch:
+        SeaSearch vs. Elasticsearch
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-distribution-and-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Distribution and Failover
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1067,16 +1145,44 @@
 
 
 <h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
-<p><strong>SeaSearch</strong> is a multi-tenant search engine built on open source search engine (<a href="https://zincsearch-docs.zinc.dev/">ZincSearch</a>), implemented in Go language. Our goal is to implement a lightweight search engine that can support unlimited number of indexes. In a multi-tenant setting (such as SaaS), this allows indexing each tenant's data independently. With existing search engines, such as ElasticSearch, you have to manually shard your index when it gets very large if all the tenants' data are added into a single index.</p>
-<h2 id="seasearch-vs-elasticsearch">SeaSearch vs. ElasticSearch:<a class="headerlink" href="#seasearch-vs-elasticsearch" title="Permanent link">&para;</a></h2>
+<p><strong>SeaSearch</strong> is a multi-tenant search engine built on top of the open-source search engine <a href="https://zincsearch-docs.zinc.dev/">ZincSearch</a> and implemented in Go. Our goal is to provide a lightweight search engine that can support an unlimited number of indexes.</p>
+<p>In a multi-tenant environment, such as a SaaS application, this allows each tenant's data to be indexed independently. With traditional search engines such as Elasticsearch, when all tenants' data is stored in a single index, the index may eventually become too large and require manual sharding. With SeaSearch, each tenant can have its own index, making it easier to manage and scale large numbers of tenants.</p>
+<h2 id="seasearch-vs-elasticsearch">SeaSearch vs. Elasticsearch<a class="headerlink" href="#seasearch-vs-elasticsearch" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Lightweight</strong>: SeaSearch is implemented in Go language. So it's more lightweight than ElasticSearch, which is implemented in Java.</li>
-<li><strong>No Limit on the Number of Indexes</strong>: SeaSearch can support large number of indexes in the system. With this feature, we can create one index for each tenant or project (or other small unit for your application). This limits the amount of data that needs to be searched for queries. With ElasticSearch, we have to save data from all tenants or projects into one index, which is not good for performance when you have large amount of data.</li>
-<li><strong>Good Compatibility</strong>: API compatible with ElasticSearch</li>
-<li><strong>Support S3 Storage</strong>: SeaSearch can use S3 as storage</li>
-<li><strong>Shared Storage Architecture for Cluster</strong>: ElasticSearch's cluster architecture is based on replication of data among nodes. It's complex to maintain and not easy to scale. SeaSearch uses a shared-storage architecture. Cluster nodes share the same storage (usually S3 compatible object storage). With this architecture, it's easier to provide HA guarantees and easier to maintain. It's also possible to scale query performance by using more query nodes.</li>
-<li><strong>Vector Search</strong>: SeaSearch provides more lightweight vector search implementation compared to ElasticSearch. You can choose Flat, HNSW and IVFPQ vector indexes.</li>
+<li><strong>Lightweight</strong>: SeaSearch is implemented in Go and has a smaller runtime footprint than Elasticsearch, which is built on the JVM.</li>
+<li><strong>No Practical Limit on the Number of Indexes</strong>: SeaSearch is designed to support a large number of indexes. This makes it possible to create a separate index for each tenant, project, or other logical unit in an application. Queries can then be restricted to the relevant index, reducing the amount of data that needs to be searched. With Elasticsearch, applications often store data from many tenants or projects in the same index, which can become less efficient as the data volume grows.</li>
+<li><strong>Elasticsearch API Compatibility</strong>: SeaSearch provides an API compatible with Elasticsearch, making it easier to integrate with existing applications.</li>
+<li><strong>S3-Compatible Storage</strong>: SeaSearch can use S3-compatible object storage as its storage backend.</li>
+<li><strong>Shared-Storage Cluster Architecture</strong>: Elasticsearch clusters replicate data across nodes, which can make cluster management and scaling relatively complex. SeaSearch uses a shared-storage architecture in which cluster nodes share the same storage backend, typically S3-compatible object storage. This simplifies cluster management and makes it easier to provide high availability. Query performance can also be scaled horizontally by adding more query nodes.</li>
+<li><strong>Vector Search</strong>: SeaSearch provides a lightweight vector search implementation with support for Flat, HNSW, and IVFPQ vector indexes.</li>
 </ul>
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<p>SeaSearch uses a shared-storage architecture.</p>
+<p><img width="2160" height="818" alt="image" src="https://github.com/user-attachments/assets/cafead47-ec61-4c29-86f3-5617ee1f57b0" /></p>
+<p>A SeaSearch cluster consists of the following types of nodes:</p>
+<ul>
+<li><strong>SeaSearch compute node</strong>: Handles index read and write requests. All compute nodes share the same S3-compatible storage backend, where the index data is stored.</li>
+<li><strong>SeaSearch proxy (or gateway)</strong>: Distributes client requests among SeaSearch compute nodes.</li>
+<li><strong>Etcd</strong>: Stores cluster metadata, including index metadata and the data distribution map.</li>
+<li><strong>SeaSearch cluster manager</strong>: Monitors the health of SeaSearch compute nodes and redistributes index ownership among the nodes when necessary.</li>
+</ul>
+<p>In a single-node deployment, SeaSearch uses a local KV database (bbolt) to store index metadata and the local file system to store index data.</p>
+<h3 id="data-distribution-and-failover">Data Distribution and Failover<a class="headerlink" href="#data-distribution-and-failover" title="Permanent link">&para;</a></h3>
+<p>Because all compute nodes share the same storage backend, SeaSearch only needs to distribute <strong>index ownership</strong> among nodes rather than moving or replicating the actual index data.</p>
+<ul>
+<li>All indexes are grouped into a fixed number of partitions based on a hash of their names.</li>
+<li>The cluster manager maintains a map that determines which node currently owns each index partition. This map is stored in Etcd.</li>
+<li>The SeaSearch proxy routes requests for an index to the compute node that owns the corresponding partition.</li>
+<li>Whenever a compute node fails or a new node is added, the cluster manager recomputes the ownership map and transfers partition ownership between nodes as needed.</li>
+</ul>
+<p>Because updating the cluster configuration does not require transferring large amounts of data, SeaSearch can efficiently manage a large number of indexes.</p>
+<h3 id="local-cache">Local Cache<a class="headerlink" href="#local-cache" title="Permanent link">&para;</a></h3>
+<p>When handling requests, compute nodes may need to retrieve index data from S3 storage, which can introduce additional latency. To reduce this latency, SeaSearch compute nodes cache index data on their local disks.</p>
+<p>This caching strategy is feasible because index data is organized into immutable segments. Once created, an index segment can only be read or deleted; its contents are never modified.</p>
+<p>To support queries against indexes that are larger than the available local disk space, compute nodes use a rotating cache. When a new segment needs to be cached and the cache has reached its size limit, older segments are evicted to make room.</p>
+<p>With this design, clients typically experience higher latency only for the first request after an index segment has been evicted or when a node starts up. Once the cache is warmed up, subsequent requests can be served at speeds comparable to those of local storage.</p>
+<p>In our experience, the warm-up latency can be further reduced by taking advantage of the high network bandwidth available in modern data centers. During the warm-up stage, multiple index segments can be retrieved from S3 in parallel, significantly accelerating index loading.</p>
+<p><strong>Distributed Query Execution</strong>: To further improve the ability to serve queries against very large indexes, SeaSearch can automatically distribute a search query across multiple compute nodes. Each node loads and searches a portion of the index data in parallel, and the results are then aggregated. This approach not only accelerates query execution but also reduces cache pressure on individual nodes, allowing SeaSearch to efficiently serve indexes that are significantly larger than the local disk capacity of a single node.</p>
 
 
 
