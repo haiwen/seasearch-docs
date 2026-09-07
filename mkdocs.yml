@@ -4,10 +4,10 @@ docs_dir: ./manual
 site_url: https://haiwen.github.io/seasearch-docs/
 
 repo_name: haiwen/seasearch-docs
-repo_url: https://github.com/haiwen/seasearch-docs/
+repo_url: https://github.com/seacloud-lab/seasearch-docs/
 edit_uri: blob/master/manual
 
-copyright: Copyright &copy; 2023 Seafile Ltd.
+copyright: Copyright &copy; 2026 Seacloud labs.
 
 theme:
   name: material
