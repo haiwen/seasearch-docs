@@ -1067,15 +1067,15 @@
 
 
 <h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
-<p><strong>SeaSearch</strong> is a lightweight search engine built on open source search engine (<a href="https://zincsearch-docs.zinc.dev/">ZincSearch</a>), implemented in Go language. Our goal is to use SeaSearch to replace ElasticSearch as the default search engine for Seafile.</p>
+<p><strong>SeaSearch</strong> is a multi-tenant search engine built on open source search engine (<a href="https://zincsearch-docs.zinc.dev/">ZincSearch</a>), implemented in Go language. Our goal is to implement a lightweight search engine that can support unlimited number of indexes. In a multi-tenant setting (such as SaaS), this allows indexing each tenant's data independently. With existing search engines, such as ElasticSearch, you have to manually shard your index when it gets very large if all the tenants' data are added into a single index.</p>
 <h2 id="seasearch-vs-elasticsearch">SeaSearch vs. ElasticSearch:<a class="headerlink" href="#seasearch-vs-elasticsearch" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Lightweight</strong>: SeaSearch is implemented in Go language. So it's more lightweight than ElasticSearch, which is implemented in Java.</li>
-<li><strong>One Index per Library</strong>: SeaSearch can support large number of indexes in the system. With this feature, we can create one index for each library in Seafile. This limits the amount of data that needs to be searched for queries. With ElasticSearch, we have to save data from all libraries into one index, which is not good for performance when you have large amount of data.</li>
+<li><strong>No Limit on the Number of Indexes</strong>: SeaSearch can support large number of indexes in the system. With this feature, we can create one index for each tenant or project (or other small unit for your application). This limits the amount of data that needs to be searched for queries. With ElasticSearch, we have to save data from all tenants or projects into one index, which is not good for performance when you have large amount of data.</li>
 <li><strong>Good Compatibility</strong>: API compatible with ElasticSearch</li>
 <li><strong>Support S3 Storage</strong>: SeaSearch can use S3 as storage</li>
 <li><strong>Shared Storage Architecture for Cluster</strong>: ElasticSearch's cluster architecture is based on replication of data among nodes. It's complex to maintain and not easy to scale. SeaSearch uses a shared-storage architecture. Cluster nodes share the same storage (usually S3 compatible object storage). With this architecture, it's easier to provide HA guarantees and easier to maintain. It's also possible to scale query performance by using more query nodes.</li>
-<li><strong>Vector Search</strong>: SeaSearch provides more lightweight vector search implementation compared to ElasticSearch. You can choose Flat or IVFPQ vector indexes.</li>
+<li><strong>Vector Search</strong>: SeaSearch provides more lightweight vector search implementation compared to ElasticSearch. You can choose Flat, HNSW and IVFPQ vector indexes.</li>
 </ul>
 
 
