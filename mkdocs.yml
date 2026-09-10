@@ -85,7 +85,9 @@ nav:
     - Usage and management:
       - Use and access SeaSearch APIs: usage/use_and_access_seasearch_apis.md
       - Backup and Restore: usage/backup_and_restore.md
-  - Configuration: config/README.md
+  - Configuration:
+    - Overview: config/README.md
+    - Example: config/example.md
   - SeaSearch API:
     - Overview: api/overview.md
     - API Authentication: api/authentication.md
