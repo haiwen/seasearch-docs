@@ -85,11 +85,14 @@ nav:
     - Usage and management:
       - Use and access SeaSearch APIs: usage/use_and_access_seasearch_apis.md
       - Backup and Restore: usage/backup_and_restore.md
-  - Configuration: config/README.md
+  - Configuration:
+    - Overview: config/README.md
+    - Example: config/example.md
   - SeaSearch API:
     - Overview: api/overview.md
     - API Authentication: api/authentication.md
     - Index management: api/index_management.md
     - Document operation: api/document_operation.md
     - Search document: api/search_document.md
-    - Vector search: api/vector_search.md
+    - Vector search API: api/vector_search_api.md
+    - Vector search example: api/vector_search_example.md
