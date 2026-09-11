@@ -48,9 +48,4 @@ Start the service use the following command:
 docker-compose up -d
 ```
 
-Now, you can access SeaSearch at `http://<your IP>:4080/` and login by the `INIT_SS_ADMIN_USER` and `INIT_SS_ADMIN_PASSWORD` defined in the `.env` file. You will see the SeaSearch plane like below:
-
-![grafik](../media/seasearch_console.png)
-
-
-You can remove the initial admin account informations in `.env` (e.g., `INIT_SS_ADMIN_USER`, `INIT_SS_ADMIN_PASSWORD`), which are only used in the SeaSearch initialization progress. (Make sure **you have recorded it somewhere else in case you forget the password**.)
+Then you can access SeaSearch server with related [APIs](../api/overview.md). Finally, you can remove the initial admin account informations in `.env` (e.g., `INIT_SS_ADMIN_USER`, `INIT_SS_ADMIN_PASSWORD`), which are only used in the SeaSearch initialization progress. (Make sure **you have recorded it somewhere else in case you forget the password**.)
